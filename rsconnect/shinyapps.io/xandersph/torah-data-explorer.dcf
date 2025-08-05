@@ -1,0 +1,10 @@
+name: torah-data-explorer
+title: Torah Data Explorer
+username: xandersph
+account: xandersph
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15164396
+bundleId: 10730471
+url: https://xandersph.shinyapps.io/torah-data-explorer/
+version: 1
