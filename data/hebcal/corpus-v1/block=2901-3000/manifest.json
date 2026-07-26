@@ -1,0 +1,80 @@
+{
+  "attribution": "Hebcal.com; generated content licensed CC BY 4.0",
+  "block": "2901-3000",
+  "corpus_version": "v1",
+  "duckdb_version": "1.5.5",
+  "end_year": 3000,
+  "files": {
+    "core_day.parquet": {
+      "bytes": 299614,
+      "sha256": "dd953c076933ae1b5c623ff114d18388144d7e0b79d2024439f192fe79fac58c"
+    },
+    "core_day_schedule.parquet": {
+      "bytes": 42471,
+      "sha256": "688d06d381f50ec5e675a5db32865209f33708ca950416ca8dd55d02209310a2"
+    },
+    "core_event_occurrence.parquet": {
+      "bytes": 1030337,
+      "sha256": "653b98160178bdfd8d197c29da25233431af362d823fd50688fee9fa7d82a7e6"
+    },
+    "core_leyning_occurrence.parquet": {
+      "bytes": 731197,
+      "sha256": "73a09c60d17acb55cfcab6a35ddfd7e58c415f258c9676a9a81f897e3301fb2e"
+    },
+    "core_month.parquet": {
+      "bytes": 9463,
+      "sha256": "fe26a9af1bccc2de03cb066b97f122ad41c4d12a97b637ad1aeafddbac57e3e6"
+    },
+    "core_parasha_occurrence.parquet": {
+      "bytes": 294286,
+      "sha256": "d2834afe30c0da9927d6bfa847e036e9961b9cca8bc7aedef445c96c3f12b53a"
+    },
+    "core_year.parquet": {
+      "bytes": 2592,
+      "sha256": "cf4617d9b7b29ab8b280ad73600c326bcb45aa0a0451ed32523cfc6bd1cadd38"
+    }
+  },
+  "immutability": "core partition; never overwrite",
+  "source_hashes": {
+    "build_corpus.py": "87aeaa305b82aa12bd90c76d7df1ef2502a3b446d8f4bf01981ab2ac985d1089",
+    "corpus-v1.json": "d155d1fd2f33bf200f4b78835a458244cf8a73808d50b9a4e15acf700057dc35",
+    "generate_corpus.mjs": "3c467f8a1bdcd7b6cdf5a3c939b8fdb899aadd00da2a3da7da6314249f003976",
+    "package-lock.json": "d35c3014085de8dafc27385d35703682d2776a973291ebc9a39b4958f185a261",
+    "package.json": "66d964eb1f01c9b640ef4ef93dddb208e28c7d59483ac35f338f25922dc30ab8",
+    "proleptic_hebcal.mjs": "4b8f6280343aaed8c852be324f0e339ae3fa61f46f683c43f413a10401483ce1",
+    "requirements.txt": "735f000c8ad8bccf22de8772e5eeb43079f59a1d0570f190906380538cbdb638"
+  },
+  "source_packages": {
+    "@hebcal/core": "6.8.2",
+    "@hebcal/leyning": "9.5.6"
+  },
+  "start_year": 2901,
+  "validation": {
+    "core_day": {
+      "first_absolute_day": -314224,
+      "last_absolute_day": -277694,
+      "native_powerbi_dates": 0,
+      "rows": 36531
+    },
+    "core_day_schedule": {
+      "rows": 73062
+    },
+    "core_event_occurrence": {
+      "rows": 33888
+    },
+    "core_leyning_occurrence": {
+      "rows": 39002
+    },
+    "core_month": {
+      "rows": 1237
+    },
+    "core_parasha_occurrence": {
+      "rows": 9801
+    },
+    "core_year": {
+      "first_year": 2901,
+      "last_year": 3000,
+      "rows": 100
+    }
+  }
+}

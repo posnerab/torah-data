@@ -1,0 +1,6 @@
+{
+  "content_manifest_sha256": "021fb23d9f30f614141a102691e9453c83717ae7963dff18a83aba0d78a46450",
+  "corpus_id": "sha256:021fb23d9f30f614141a102691e9453c83717ae7963dff18a83aba0d78a46450",
+  "finalized_utc": "2026-07-26T20:20:04.363680+00:00",
+  "validation_tool": "DuckDB 1.5.5"
+}

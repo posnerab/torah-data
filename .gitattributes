@@ -1,1 +1,5 @@
 *.parquet binary
+data/hebcal/corpus-v1/manifest.json text eol=lf
+data/hebcal/corpus-v1/provenance.json text eol=lf
+data/hebcal/corpus-v1/**/manifest.json text eol=lf
+data/hebcal/corpus-v1/**/provenance.json text eol=lf

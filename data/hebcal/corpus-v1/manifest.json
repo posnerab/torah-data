@@ -1,0 +1,2101 @@
+{
+  "attribution": "Hebcal.com; generated content licensed CC BY 4.0",
+  "contract_sha256": "d155d1fd2f33bf200f4b78835a458244cf8a73808d50b9a4e15acf700057dc35",
+  "corpus_version": "v1",
+  "finalizer_sha256": "30e94bd1ec1ff1ccf5f5250fbba62297144df54f38913af16d6fdb38f2862680",
+  "immutability": {
+    "coreRowsMayBeRewritten": false,
+    "correctionsRequireNewCorpusVersion": true,
+    "derivedTransformationsMayChange": true,
+    "overwriteExistingPartitions": false,
+    "semanticRelationshipsMayChange": true
+  },
+  "partition_count": 60,
+  "partitions": [
+    {
+      "block": "0001-0100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296581,
+          "sha256": "257e432bb1dcfaab022f72a66bf1c1014e3567edbb341e4263c251c3e30da2ee"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42911,
+          "sha256": "a70a2868f694feea60e3e952ba890e2155fb13c0ea2729ec6157fa8e2dd5be56"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031688,
+          "sha256": "965716f798c0addabe927a1826f065932f9d23cf1635716a4f625f60c749307e"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732748,
+          "sha256": "d109df3c6b445f031939d000e3fb5f2cb4944a8b3853c4e610c0d2a7c6c8cf2a"
+        },
+        "core_month.parquet": {
+          "bytes": 9354,
+          "sha256": "e128389ed271798791d6af8b6fc1c7268516effc325a5521999806a8790994e8"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 301251,
+          "sha256": "82b60317c496abfeb475f5e062140f5f1a937293b8de41d6031bce038e4ffb1c"
+        },
+        "core_year.parquet": {
+          "bytes": 2563,
+          "sha256": "7f25104a094ad7156b2dc5c6daa8f81da2c526222b233930fdd5cfe6361409d6"
+        }
+      },
+      "manifest_sha256": "11a724f57240e9680b54ed3434562f585cd982ef797bd8addd961405d536fda6"
+    },
+    {
+      "block": "0101-0200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 300050,
+          "sha256": "ac26a7a4b02daf3429573b161f7714900f0374ac39184435f7f62cc05c341b7e"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42506,
+          "sha256": "c3cf6bf0330d639aba63fdc55fefe38930c5bee293b4580cc9c292131bba8b73"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1032168,
+          "sha256": "ee69040696bfa73ef7290ea744f617c288fd798b83b5d92f89d91eb405b128ec"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733096,
+          "sha256": "a5bff1b5c1efb381a3cd4cd6f960a81678f281b995b97471cf15dba79b860047"
+        },
+        "core_month.parquet": {
+          "bytes": 9652,
+          "sha256": "9646be034b5c85600cd39131f0ad0112470c8a89a6fc7cec8ca40c2951d065f0"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297483,
+          "sha256": "52ae1d628f8eadd9773638150c51c1e7aa20c3acde171871e842f22d55556eeb"
+        },
+        "core_year.parquet": {
+          "bytes": 2590,
+          "sha256": "998e46d4e00f8faaf0e64996681fd313c9ccef9dfaf2d04c01a521f971eb6f09"
+        }
+      },
+      "manifest_sha256": "8776230368f7aec50a59208b7c9739dfc9934dfd827afd007e03c1163b18ba3c"
+    },
+    {
+      "block": "0201-0300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297489,
+          "sha256": "b2dc4ddf9a419a69693bc75689b00dc9bf2208b1839a6f91ed48a50c484d98c7"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42426,
+          "sha256": "22ddb6c41305cfb11af244cd12eb01313c35f04c77ff039b63c9a750b88e27cd"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030647,
+          "sha256": "00e309372c288e2dbc3ed5a01abfa12e79aed9381b45d797e5c06d091640dc66"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730961,
+          "sha256": "5066bd65f2e397c08fe8d086329f23e4f5382c175c6435758c80d26b54bdd4d2"
+        },
+        "core_month.parquet": {
+          "bytes": 9413,
+          "sha256": "b1fe779f9c338bb0c5eeee79a329b68b22261cf948d2de04d74ae3a5db9eb2ec"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 296701,
+          "sha256": "4fa66999b40f3a10bfe6eb46f6366b89a7b958d8bba7e3b05e215364ad261a69"
+        },
+        "core_year.parquet": {
+          "bytes": 2581,
+          "sha256": "fb4d95ba215787a7270cd0926374a2b3e55b6e1202ae632f7babd9bc2e7591d6"
+        }
+      },
+      "manifest_sha256": "22fe8112aa0a0848e2ea55f6a5e8215085e768ffdadd4be12f18101ae085c411"
+    },
+    {
+      "block": "0301-0400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298428,
+          "sha256": "1fc73f599d1d425c8fe98e3f02cf760f27d3e4ea64bb8c94c1b85c01263ca70c"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42571,
+          "sha256": "24607a35661f91d8c7c5be291997e1750c6f19110314288603f113cc18dd15f0"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030756,
+          "sha256": "88f1174cb7a66377890086f50d1f3db825a9c5367aeb74091535aeb43cc8df3f"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731222,
+          "sha256": "aeec5b08e0382335f164735a28131bdf347ae0a8c4336c8f4e8ab436541b6890"
+        },
+        "core_month.parquet": {
+          "bytes": 9714,
+          "sha256": "3bd72e8f65cdb44557e4657ed7200f5af50937755fdbfc6d7c7c173d4d084eff"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293902,
+          "sha256": "8ea1fec192f0f83f43553d1b2c55d99591319b4efff619dc19c487b96a2b843a"
+        },
+        "core_year.parquet": {
+          "bytes": 2610,
+          "sha256": "845477e8c5938c7a372172b83bd3983923cb31a1ca9148ed3d1bbbaa0ec2dc41"
+        }
+      },
+      "manifest_sha256": "183457bfd5fb41a88b9acb2f0167ed9421bce9b0b94221f3bfd3b21f0e20f3ac"
+    },
+    {
+      "block": "0401-0500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 291496,
+          "sha256": "c9184749edee993b9c285c6f0081817aaed73665571eb470ff47224cc57ca39b"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42421,
+          "sha256": "7a2e4a1d3dfa165d50ed31fef298e76a5f6d0165b553b7263eedb8e8ce206537"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031833,
+          "sha256": "5c00e9ba80617cc8998cf3f3c540a4bff5db8fd7cb90e736bd16a3adf324782f"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730642,
+          "sha256": "deea0e7842f08cc13d23e0fe8a746ba11c71190aa034ecc8e81cc84c9b2bb8d6"
+        },
+        "core_month.parquet": {
+          "bytes": 9454,
+          "sha256": "47c5397ec212d6a1e82989e4231f16321596dbd777e0df4536272e96978bd95e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297871,
+          "sha256": "6621e20569896407f2ea856349f4f5c2dadfcc20e2a198d4ef46f1881c224c04"
+        },
+        "core_year.parquet": {
+          "bytes": 2602,
+          "sha256": "dec879bddb4201839463889b32c59305409bc8414a1219d54d1e6e28fd3a21c2"
+        }
+      },
+      "manifest_sha256": "259a2b1c371fa099d1cab9415118b214e26ed6f3d334cae757c35fd29360eada"
+    },
+    {
+      "block": "0501-0600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296399,
+          "sha256": "8bc8cf48261b7ce4c0a27260d7cd818f77a3d462d89f38295733d7931efac6ce"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42918,
+          "sha256": "349d87d14d4df980a8662a987ad20ecdbed31d05b403aaf0a9fd9daa2be5ae1b"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031618,
+          "sha256": "8f53d7270d7b0204778fe7e2ce87b1fb90d0a17c6d7a9292051d117c8674ee44"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730246,
+          "sha256": "131f28ad7396bd2f7a741a5773ebcb6c2b48e2ac230d7a8d7f4dace27b8187cd"
+        },
+        "core_month.parquet": {
+          "bytes": 9724,
+          "sha256": "b792b8648fc7ad390c4425acfce8d2e11615f69ef3d363877086cfb087d0b0ec"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 296432,
+          "sha256": "44f327ff1e24358d682f4bdb8cdbd701fcccc70c1d611feb452382740436127e"
+        },
+        "core_year.parquet": {
+          "bytes": 2632,
+          "sha256": "a9090b48fd1076dbedfb9054342882268a1170eae659a133175a87778b410f28"
+        }
+      },
+      "manifest_sha256": "5d10ed8b546f3cd66e66d126019f060e152a3cbbc6ad6bb22a79ee11e605bd28"
+    },
+    {
+      "block": "0601-0700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296651,
+          "sha256": "2e2bb8433b8026aa6e6ab9611cd9673536511329f73ecc62c4005b0fcbca6095"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42322,
+          "sha256": "6236ec7130fb07dc57982b460981ad3cb0a4d99e24ab949034f36992c401bc13"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030517,
+          "sha256": "beeea05faa01e03efdd61bc6f9122fcdf71b9ae3ea652d5ab6d46a779c8cd637"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 729737,
+          "sha256": "685956d837a151676d5107f9dc5a46df6bfcd9ea5772829a174468c79ec0743d"
+        },
+        "core_month.parquet": {
+          "bytes": 9411,
+          "sha256": "df52352726fbf2aefa6c660f74c50300ce9c458c6979112c381edf0adfec1b2c"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294905,
+          "sha256": "2e00facc4549d1c6a68587e7d0a57fd98ba7ada423fd324a43dfa98076e9111c"
+        },
+        "core_year.parquet": {
+          "bytes": 2590,
+          "sha256": "2e913d7450463e98c8e7157c4af7cf8ff14c926bdf02b9ca26c1537b8acd8e16"
+        }
+      },
+      "manifest_sha256": "f2566cef96b629b0603393453048ed02cba4c679261e5ff76947cf2a9c9ca147"
+    },
+    {
+      "block": "0701-0800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295531,
+          "sha256": "579b2cc00a4bbc9db7891894958d02ac34e3431ed1af070503823b678c78681b"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42447,
+          "sha256": "4b60389f7c1a75df095f95c0229bafea66d1a46519b0f4a19cd36365886bc778"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031311,
+          "sha256": "a2544b2531fbee1393c03dbd510c92df5eb05113c0298fd11ba994419af5cedf"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732191,
+          "sha256": "43aa8537a2411593ba258ff55514ebb920b98d80d16185181ec0daeabdd9b29f"
+        },
+        "core_month.parquet": {
+          "bytes": 9583,
+          "sha256": "bf2bacbf617d4b7e3ab49507f544f1304d1024aa11c699f95a1ad02cf17fef6d"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297289,
+          "sha256": "f4b2d23360f600cfd79781383582a138d395816b24949ccd951f985319cfd6dd"
+        },
+        "core_year.parquet": {
+          "bytes": 2625,
+          "sha256": "f35c95434ddf10e4af305e4be3ae664e9f722a38ab6d68ef2473de910acaf0ec"
+        }
+      },
+      "manifest_sha256": "1c67890d77c676669d62cf77cfa18c0250b253fa6c51a334c94fdd9c0181b910"
+    },
+    {
+      "block": "0801-0900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 290605,
+          "sha256": "fbfcf5226788b90933b728d819849ce5b60a450118a42e05bade71b5397868f2"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42691,
+          "sha256": "4433303edf1cc407b3d037f077ea1f00e2910c0cba5bb1136c0c6d502add5c7a"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031543,
+          "sha256": "f2e59e26c59805bf7e115d3d7c0d4bb926a8594d3f85acf727a69c7316043e85"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732962,
+          "sha256": "a4b27ba5fa76cfacc029d945db79f0ded3c88c050b0b6e36c64f5d9af1939f6a"
+        },
+        "core_month.parquet": {
+          "bytes": 9560,
+          "sha256": "84d8e72004d24df5f767c36009d28f4278597f26e32cb8a8ff28890a699feef8"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297610,
+          "sha256": "aa17c21e40b5574fd369de219412800d5dca3f1239b09ba8063a85475e8ecda7"
+        },
+        "core_year.parquet": {
+          "bytes": 2610,
+          "sha256": "9fedcb847d78651ced7d56720832a10f029f0c1af3c484a83b10bdf5557a1b31"
+        }
+      },
+      "manifest_sha256": "30e22bfdf8e42f4e833b2d2a2fac0ea47c46db9384a4c7a6c07be8b21a164bc5"
+    },
+    {
+      "block": "0901-1000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 293377,
+          "sha256": "f33a853a81836e27d51b502ef7e1702d6761d9ed8337273edc6521e093923b78"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42456,
+          "sha256": "76e118f86597b7fc44f6714a32175e1b3cf418ef1a1781f58954719ac978b961"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1032835,
+          "sha256": "9e22493cf2dfc035a885f80f74ffeb56bf891655c4e938959a117c22a363bd2c"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732274,
+          "sha256": "484606dd753561b4f94f37d29994dda835935b4c65c344daa0bb20d452759da2"
+        },
+        "core_month.parquet": {
+          "bytes": 9463,
+          "sha256": "68bc08127a0163645e54440ae881debc57744e5b48290bb64fee0bddfe8a08e1"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297126,
+          "sha256": "2e3f7bdc3baa14f83b00de625904aef1ba56f0f2b791a25b7b828db46b3a1ba5"
+        },
+        "core_year.parquet": {
+          "bytes": 2599,
+          "sha256": "1a9680a9b61e22d51db8c7b9450da045472f489d49daa6fdfc6226dbcc11442c"
+        }
+      },
+      "manifest_sha256": "6783e4aa55e58f2cd4372dac764bb2a39b13b1221f617da954bc74ec3e721e72"
+    },
+    {
+      "block": "1001-1100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298667,
+          "sha256": "3145ad11676051ba7603e4a0506e0470b4c8a0e387a34ae3b92e12d8d6ee18ed"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43092,
+          "sha256": "e869ad7a1a0be4efa9526a36ee41a9244af08e34071d097245a196d18d13a8f3"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1032117,
+          "sha256": "0e29eddd5d064b56a054b7db18ba1d4e5bc2a4f979d52d60725d4ef581c06703"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732580,
+          "sha256": "26e6f0167684f65f487a78c4c5d8cf25525a2c4312cfcee18ed573bd5d107375"
+        },
+        "core_month.parquet": {
+          "bytes": 9739,
+          "sha256": "74111d1af1cc370711510327dc43170c1021109b4a65ecacb96911f700bad9cc"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297373,
+          "sha256": "8b88704a83266c8ec3382f3fe779b08fd768b09a8e18ad7cf69315dd8b460e89"
+        },
+        "core_year.parquet": {
+          "bytes": 2629,
+          "sha256": "5c4516a357cad982751fff88979f3a5ddcafb18cd4d61f966702dea70056b5ea"
+        }
+      },
+      "manifest_sha256": "41e10ebda27d4148eee089d90e62810fb274b470ddfa8a5b48700bfd4e68b24e"
+    },
+    {
+      "block": "1101-1200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297175,
+          "sha256": "1e78a3d437bce86bce1909557b9c800195664dc5521af381ed5884ba33b0287f"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42704,
+          "sha256": "2f4b104b030ed10616aa2c341311f23f8ae03090f5c488a7ce48f4f6686d47a6"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030528,
+          "sha256": "ef09db8f52ad354b3cadf017991d607d20e485b2e506219568c0b2364ea32386"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733294,
+          "sha256": "ed4b263bd7edc62e06a63848763c93f084d1c1a63f576145eaf87a200a02c2fb"
+        },
+        "core_month.parquet": {
+          "bytes": 9447,
+          "sha256": "869d67f2b97ecb413ef1731c85710814076604d2e7a9e1eebe1efb5b7607f60a"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293118,
+          "sha256": "4a4f6bb63d822ea11576b5bb24c5cd7594f91026cfe0502e47a1a2153b36b187"
+        },
+        "core_year.parquet": {
+          "bytes": 2598,
+          "sha256": "6c5cff0dc48ed1f2217127df0647f9e8112dde851eaac6542ecf5245b44b4382"
+        }
+      },
+      "manifest_sha256": "4b0e77092e4ce36ae790b857cb661c2d3d764957b987862ee254bea94add15b6"
+    },
+    {
+      "block": "1201-1300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 301952,
+          "sha256": "45087fd8bfc1698282dfb9b5569fe8f3c28ec9705f3210246796fdf26c1680d8"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42385,
+          "sha256": "fef0251f0686ea00382936b8572cb4940679fbfb945dbf3afb1451710fc5c4da"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031806,
+          "sha256": "3f1d7429e14ddc81951fba8d1769ba4b5faa378cc087c9d3ed99fdde9465a0eb"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731130,
+          "sha256": "6cc19cbe64df67cf1e082364647e8dd4678d11c1824a55ff031d8a5cced2613f"
+        },
+        "core_month.parquet": {
+          "bytes": 9705,
+          "sha256": "3c1e70923919e3c3d5beb55f124b5d50f0f1c55c804c514242d7432692524180"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294216,
+          "sha256": "cf70463125e3b30dd0ff9838ad6d40d67060ec53ee19f2eaeefd08c4b4b69d4e"
+        },
+        "core_year.parquet": {
+          "bytes": 2629,
+          "sha256": "b4551acd3fd9c815072b723dea07498e2f7d2bd1fb95f5c44c2cf03ecc707a5d"
+        }
+      },
+      "manifest_sha256": "c5b318e0ce4675dde00a78573718a79b6954ae24529b2d40bc0b129e59be809c"
+    },
+    {
+      "block": "1301-1400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 290038,
+          "sha256": "b025be90584029a80516a65a016f78ffa55eaf44eacc832dc9f444ab2f88ad74"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42545,
+          "sha256": "ffbacf2adc0bf09a535dfd0c19ebfa1d899a88eafd5b0cb92904d30adc7013ce"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1029981,
+          "sha256": "ded65d425158a1fdf35f3de13aca1ec51353fa52e927dd9631dcdc385c9ebcb0"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731712,
+          "sha256": "3682b0f2a4d72c424b0b6e258213080a40f7ee919b15c69fb5aabfdb5ed29b19"
+        },
+        "core_month.parquet": {
+          "bytes": 9422,
+          "sha256": "518c04d24974b78da7322523ff228ba6c56ca91a7a28c9650c712b6886665aec"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293393,
+          "sha256": "54916868e5f9a99abac6768efac1f1bfa466371762b5e567139adaf22a593ed8"
+        },
+        "core_year.parquet": {
+          "bytes": 2594,
+          "sha256": "06974cac9532a2da8304293cc2a019e5279959ac326dd420b09350711b691415"
+        }
+      },
+      "manifest_sha256": "71b8daa57b8f98c411bd3133d3ae07fea362b24084438d4be0351aaa9f837fb1"
+    },
+    {
+      "block": "1401-1500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298083,
+          "sha256": "63f1e3aac49c2202c22abef95e56baad35c1cd357fe8ebf655adf0458b4d9d34"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42599,
+          "sha256": "bba23ac78d0500f227fed48acacf0821e5095c667e6b1316826b7f642dc57240"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031454,
+          "sha256": "823a96d240a21e8b38b1328d1f250fa554f03ff3e9c60bd7344a89d351ac10b7"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732746,
+          "sha256": "7a63ed8f7fa256e0b8c1ff02beb0d2b5e3dd58e9995d1985ac780253b3be4b23"
+        },
+        "core_month.parquet": {
+          "bytes": 9714,
+          "sha256": "138ec6582b4a3f37717aa891869825ad821f364cc10f31883bc90c750b2f52d6"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295144,
+          "sha256": "997ff2fa5a1d28f507042ad95d9f6dc617fd23bf47d1385be93da9ca6e5cdd87"
+        },
+        "core_year.parquet": {
+          "bytes": 2620,
+          "sha256": "1f47fd5e7464be6eecf0c27bd0e433f042a23ec55029e3c3dfcc391a5eefb3d5"
+        }
+      },
+      "manifest_sha256": "3fab692b350a7a243b24baf697865bdf2a0ee04285dea013f4f893bb2a2c8d1d"
+    },
+    {
+      "block": "1501-1600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297465,
+          "sha256": "3afe9c850461fde5da2d9f29110806c3ca23bd85f4e0bd778c782b2f66144f0c"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42835,
+          "sha256": "defb96eb16801f476df9975c5ae4d43b6fc9a52213b932b85ee7ece535ea323e"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030283,
+          "sha256": "d0e0dddd125390a986dc495b79a03a1a4b1547691c3c189a110e64942726037b"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731217,
+          "sha256": "59c964186587b7369af4d437a9c1d8ae62f1399c69f68ee624b95e2d6142dedb"
+        },
+        "core_month.parquet": {
+          "bytes": 9427,
+          "sha256": "6033d9ee8cd926f1d1b87d76c48cd02341628e43131af1e4a0d2a0c4b8920273"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295512,
+          "sha256": "89f6bc76984fce79169b4a698543f2401ec609debb798c22e18ca756587237f4"
+        },
+        "core_year.parquet": {
+          "bytes": 2616,
+          "sha256": "31821aed7b80656c774d76a9797ba213c7879abc5817b346408ad03c080345f7"
+        }
+      },
+      "manifest_sha256": "c2e88fc43ea8793e29989a565d62578f9906354be0330b74dfc5df210ade123b"
+    },
+    {
+      "block": "1601-1700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298329,
+          "sha256": "b9491a9371a2abe07463278ab9fc9f3f4854143ecd039aac0e742d7c59d3a0c5"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42270,
+          "sha256": "a961ba9b21c7e16b9c1c0fb62d399d6875587574cecb88aae8c7ccff1c6acb9d"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031000,
+          "sha256": "4af675a4905a870ac6632d9a50660613f5156db2a2a4c1cdcaec99d39f86b287"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731698,
+          "sha256": "635924e682d022ecd865a5a9ff4a2ac6eafd9ef7221df017eb3ca69121529fa8"
+        },
+        "core_month.parquet": {
+          "bytes": 9538,
+          "sha256": "6c48118056f49a8780d21197924d3ca8331c7df6f3356f2e3c7cdb84a3204646"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294149,
+          "sha256": "a42678daebc47940cf4474a4a365cdcf48ed5075791573299ad849bc8f799ce5"
+        },
+        "core_year.parquet": {
+          "bytes": 2602,
+          "sha256": "08f6788bb31f342be5b4033c55551e27e5a77b0e8102ca16056294bda894dbd7"
+        }
+      },
+      "manifest_sha256": "764963c67efee270406e74687b2807f622a2bb036fd7d2c908757277f1eb6235"
+    },
+    {
+      "block": "1701-1800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 289005,
+          "sha256": "336737dae655fe1e3ea71c844791f937976c223ae8dbb93a72352382ddfdf691"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42591,
+          "sha256": "ed0adc1f026e98cc4456604e8f132e8844f10eb3e34e016102251fd0c0660774"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031111,
+          "sha256": "2fb4d197630225b60a520b0bdaa466017803c5f58004423e8cbfaab7e8f52351"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733453,
+          "sha256": "5e3d9d08daf26f1969c2ca2dbeab69ac0933f391217eeecc635e24034db90f97"
+        },
+        "core_month.parquet": {
+          "bytes": 9598,
+          "sha256": "d9db69c8d79f0054514cd94b7aea49fa5f07c3ccdf2398a66da4bd1312a96f60"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 296348,
+          "sha256": "27f60bd41c555f6614421e00824a0eea44cc466c308e2f20fbe487a7a67f742f"
+        },
+        "core_year.parquet": {
+          "bytes": 2617,
+          "sha256": "173fc00bcb898e304679e603b13dea0b466dc01f62598980347d9bf1eaea7e5e"
+        }
+      },
+      "manifest_sha256": "c623383f969ed7be749f7c917b28968c5103e50abbb00af2550ad43e91582f64"
+    },
+    {
+      "block": "1801-1900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297320,
+          "sha256": "9928921f91f082fe71f53bd231df2b2e7c6467794ae003b6ea3f19a09a5d5380"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42913,
+          "sha256": "7e278b0d316584ff52df6fc4e14e61af7fc5e2a4f7f227558442ffba514ade49"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1029066,
+          "sha256": "e989a617c78e62c0f5f6a7e307647a3d1ba6ee902532c8b39cf29fcd4f8c2365"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733409,
+          "sha256": "61d711e9637bd796a3ab798e072883bff84afc60d26bbe2816cf4d642573515a"
+        },
+        "core_month.parquet": {
+          "bytes": 9442,
+          "sha256": "7d7d8c02f9511f9f0066b1b95acb72540e439285a85bce2550d91e6d5c5c4b1f"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293788,
+          "sha256": "b80d27c2c7ca9ed1780537daf26d4ae67f60eb8c8c125887fe79d2383c08d1ea"
+        },
+        "core_year.parquet": {
+          "bytes": 2600,
+          "sha256": "c44590fd1f3bd232cd2d50d86c1988777df3690a7fcd5be3914e99f4afd1d3cd"
+        }
+      },
+      "manifest_sha256": "065c38bf6e46bdb637180f8bbcb3b016af560fd5c97d13698acb9585ab69f17b"
+    },
+    {
+      "block": "1901-2000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297653,
+          "sha256": "34d575955bb1bf0121ec981626f08fb30352c7047688c62941d2166e530941d7"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42190,
+          "sha256": "59b8c552e8d6cc60bde1c39071cc0f7e1d63ee7f2591fde7e0f711bdced4aaf3"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030703,
+          "sha256": "c7df7d7065ff75a02627bae1ce125522578c1b54a9acd611ecdd9edff7e2505e"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730157,
+          "sha256": "ed11f83be0695ff712f1e8fd73312423378250fe792b728a35af97495e6cd8b0"
+        },
+        "core_month.parquet": {
+          "bytes": 9668,
+          "sha256": "68ad402911a114588b2b6df97ef08855646b2af8daa050424cb20bb5aca8ec72"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 292278,
+          "sha256": "4994560773634e4bfc8972259fa6dc389b029da439f86cd10c3967f8241f0ef5"
+        },
+        "core_year.parquet": {
+          "bytes": 2620,
+          "sha256": "00e1d1d71e24e3f6e6e56e9e95ea952c713743619f6e6f22be94c8a178446f72"
+        }
+      },
+      "manifest_sha256": "80c392a7ccfdf67aae59eca12eaa514aacd1d1fc2e4084c01430154bfbcb1aad"
+    },
+    {
+      "block": "2001-2100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 294347,
+          "sha256": "efb10a4d7584686e9bc92ff4fae8cd0cf5269f2de9bf16aed127c9da86e75a82"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42754,
+          "sha256": "e4644ed2bb5c975929d28a55123fd3852557ea4885203b40dcb7f2692ba88a64"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031775,
+          "sha256": "9352d916836a450726a73dcc0a313f02f63c4e0564e5e1f6ecf1db7fa628fde0"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732328,
+          "sha256": "4f97b3bf82c2bf66464261c127e1bbde3160cc4e867bd184043a65f501484d7a"
+        },
+        "core_month.parquet": {
+          "bytes": 9463,
+          "sha256": "252a6530ce185714746fb0d5a734bb1474fd39212cace46f21fc0a21662289d9"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 296622,
+          "sha256": "f0f2e6946a907425e17969a1a48da4f44b8523b81edd1c72e435f70c36b8f54b"
+        },
+        "core_year.parquet": {
+          "bytes": 2611,
+          "sha256": "d58cb24358e66df757532a5f778d9b09c217ba745e9b781e02aad1ad55911b7a"
+        }
+      },
+      "manifest_sha256": "0ad4758610ba2da8ae761da11b2bb7b106dff91e58ffd0e0a4d4a5c998632474"
+    },
+    {
+      "block": "2101-2200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295276,
+          "sha256": "27cfc002b70b028b8b65b437bd945544a8a2bf1d314324068842fab9d6b01850"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42615,
+          "sha256": "fcf6b6f76c30c8bddc82e39864b9ab60d3c3a26ebc3c52de04412ab3ee5f24d9"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030594,
+          "sha256": "47742c2a1c2e1658b2144eb7491d7aace6a019de93f6ac9781388801a9027c49"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732423,
+          "sha256": "d45a1a8a42d0f0f70826a6f08377caceaa687556124d1ac6e97e57f6f72aee16"
+        },
+        "core_month.parquet": {
+          "bytes": 9689,
+          "sha256": "fc999bff4bfd628eced20fb15ed3aed5aa1b7e0666d56963d9597c2ac1578bf8"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 292646,
+          "sha256": "ed2c24d317fee476489d9252e0120738e12805c1aff5822c48f9e3f55de8f97f"
+        },
+        "core_year.parquet": {
+          "bytes": 2620,
+          "sha256": "f5d6fff4a877046fc86285e7e573d80ad2ef6bf707cdf545758d16a9ffd0ec09"
+        }
+      },
+      "manifest_sha256": "9411d335c489857f027a92cb0d9c3d93c724f3d1ebbf060f7beec0ad21cc07ee"
+    },
+    {
+      "block": "2201-2300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 289074,
+          "sha256": "5cfcad62ad0a84174a7d00400d5636868502ae9005f60f1f335f1039673ca984"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42720,
+          "sha256": "746c12282e3784a6f21719b7b68ac1de8a08852085dff576b3e1d4e235baca8e"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030356,
+          "sha256": "632c83dceed9997357d7581149cbd52a2ec79dc2d62a37bc67b82c8f052d22ed"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731862,
+          "sha256": "278b523614dac51ceaf067af00a3b26c7dd11d087aae37b66b9fed404d821562"
+        },
+        "core_month.parquet": {
+          "bytes": 9472,
+          "sha256": "12c31cae7d5226b9f381a1d6ed3d80be059d38dd16a143000a129aa312bd7c6c"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293935,
+          "sha256": "cbdfb34d68674ce3c7b23e0f738cc2e2b39025935b61c5e694e0a87223fdc218"
+        },
+        "core_year.parquet": {
+          "bytes": 2599,
+          "sha256": "c3279a137c1d9ce022ff7a62c54909da4a0e157fed5c3cbdb215ae970e13b00f"
+        }
+      },
+      "manifest_sha256": "14090ba81d95e0b8acbc585a72a9fdbd200b63ed80f7923586a4a681caa964bd"
+    },
+    {
+      "block": "2301-2400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 293075,
+          "sha256": "a137c403d73c33cb29a3be79f09e463bb3cd06bad33210525ac5e8daa29e61ab"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42880,
+          "sha256": "920b6fe4504f5f6b08c6f88496cb569772165bca332c2839eb70db5cb32a90f8"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1029798,
+          "sha256": "097ebf29d41333775859cd36289bd8579591b352b2e69023871f0df6af5fb404"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732532,
+          "sha256": "c24497c119c24a292f3401f928ef0920840107c325d35a046dc473f57dd13d42"
+        },
+        "core_month.parquet": {
+          "bytes": 9659,
+          "sha256": "61c8a76dd07b9f429ae2502b9ca7367310aaacd38119ca3496eebed98a3ef288"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293816,
+          "sha256": "a5469bd8accde327f23a4d6ca3671f03f3a8899ea8e332c662ee80669ea17978"
+        },
+        "core_year.parquet": {
+          "bytes": 2621,
+          "sha256": "3c720e3696e5c913bf945006780aeebbe72be55f7cfa90d6f4a95f36394840b1"
+        }
+      },
+      "manifest_sha256": "d65a8730faff97e3646b57ac33b2d008e8c043eb863e377a2461d3da02634a94"
+    },
+    {
+      "block": "2401-2500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 294170,
+          "sha256": "dc15866ff52e2793909a8ba676355d49a2bc4e3bf78f5709bf850156ca24ae27"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42377,
+          "sha256": "0331d40c1d5a3a2b791f4e73fa7c3cd3bca7c0c8fb74d81e2044e9761d700691"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031964,
+          "sha256": "1411050316a7670757244fba90c5243105c3471972583440d3878339432dfb1a"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730677,
+          "sha256": "d7fcaab0728bac23629a8fa67df608fb60fac9a15c52032e94e2fc91423f8848"
+        },
+        "core_month.parquet": {
+          "bytes": 9442,
+          "sha256": "1cf1ab15d8a49053f5dab4739b714f62d079adbc9494e77e123f5e9364783e99"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295023,
+          "sha256": "16f10db15937975ef9d74d7b9679b063b34282c92cdf3ff6494901aa37ff2df7"
+        },
+        "core_year.parquet": {
+          "bytes": 2593,
+          "sha256": "1363d15afe1f9bac3257c614204afe72767701a4251f0049969030b9ab92c16c"
+        }
+      },
+      "manifest_sha256": "c6c233c42890f76d7f6c8ff171768f4030b12649c33a63788e1a12c352625fa8"
+    },
+    {
+      "block": "2501-2600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298646,
+          "sha256": "6dd3ee0f035014a8cc87ec6867938bff643cb25791b6032f3dc28a9111eab3f4"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42501,
+          "sha256": "4500f44316abb362e7f819e4ccf1a490351650720a4eb5cac985a25bd62d1829"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030752,
+          "sha256": "230bd61aed82fee8b95740932efe33d9826664a83cef455bfa32ae3c1f81f14e"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732335,
+          "sha256": "4232f42baed7689d218789c215ac4fbab97704279ae885d9309cdbdb17ce91ce"
+        },
+        "core_month.parquet": {
+          "bytes": 9510,
+          "sha256": "1014b37aa4f4a849b61269aa07ece61de2ed347691a81109588c7abf5ce5c6d2"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 292241,
+          "sha256": "f05ad9a6bb20bd0e26cc4d935b24bd182172b179f3e0af7407e0e509524c155e"
+        },
+        "core_year.parquet": {
+          "bytes": 2618,
+          "sha256": "cfbd0fd48839b7c58459268282cec768c7f8a95448aea5fbb9349c31857dfc86"
+        }
+      },
+      "manifest_sha256": "f4916baea5d8a3427b93a73df1e4b13736d5f6a4429acc3f0c9f905994231910"
+    },
+    {
+      "block": "2601-2700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 294411,
+          "sha256": "d1a83be1970a1ddbb04679571e779a1f6c0d92e4097883caebedbdd5cee6a158"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42944,
+          "sha256": "db523592a0417677044d6f8357ae4a0c82b560462180309b33d9f0ce45e47b1e"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030975,
+          "sha256": "fba1eb7698a03b98d315fd3ca762e8d07cc9ff147806f7901a442922bd347c55"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733720,
+          "sha256": "48ad89020b7a57216fa1558f7608a17499fa946d3874de87ceb9c78f538bc3ed"
+        },
+        "core_month.parquet": {
+          "bytes": 9602,
+          "sha256": "46436e803d6ff6e9b2cad9da2de1525285d6757bcb227dd48f684db77dcfd9b9"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 297075,
+          "sha256": "e3d91783d7da533f3523c0140ed6e7cf59286ac7e81276833141820e7c1b8ecf"
+        },
+        "core_year.parquet": {
+          "bytes": 2605,
+          "sha256": "f0375d3a85e2e96c1f88a9491b89b5fef95d9797f6a50fb8f56e67f108939cb3"
+        }
+      },
+      "manifest_sha256": "4cf9b069dea72436f5dcdd71b289a522f32d8d7d05ac74e4a8aed889c1e62158"
+    },
+    {
+      "block": "2701-2800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295193,
+          "sha256": "842fbf8498bce36c9900958333d91e3e016363fbe0d92d229eb26b3bb22f96ba"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42792,
+          "sha256": "0b39f4e5183615a049a7e2a449c7d6ab8a7444d17b16de8171fa561430f35566"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031959,
+          "sha256": "b5e880475499dc1d437ffa69c12da0c74eeb7c1cc945e429e8059490f04ce4fe"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730963,
+          "sha256": "9258bae6d662b05d72ebc27912f769d188c30ba3aba0f5bbb09aed69c6778974"
+        },
+        "core_month.parquet": {
+          "bytes": 9470,
+          "sha256": "25192c1a90c5bb0204fb03166710e61b2144cda730d51473e1af6c52614d27ee"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294302,
+          "sha256": "f95045248238555eef94d3271412150c02bdb9b9915e374922e72ad5e0d18164"
+        },
+        "core_year.parquet": {
+          "bytes": 2607,
+          "sha256": "85e68d287e2150200c0e1ef02535ff271aac916fd32252a92b3fad056570c70c"
+        }
+      },
+      "manifest_sha256": "753c47a9ef97295f345e5c1e006d8105b5bf1bc80889cf752c2b64b318142363"
+    },
+    {
+      "block": "2801-2900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295023,
+          "sha256": "a67c15fd430144cdd2f8ecd0e74fda1ea0911b33d4a8c60f7e17a394df17a237"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42854,
+          "sha256": "8049ccabe15320593850eff09690380479bba3f4f7a9ad43c4d303b67d11d3b6"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031323,
+          "sha256": "de3269e84258d2a2fb17f294c90f74c87ad0f5fc7a4b5f7cbf4aadbf02de461b"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730118,
+          "sha256": "4d2a345bac871a5da9c907a5bada33ffc9a8917abce96535234c5a527846ca69"
+        },
+        "core_month.parquet": {
+          "bytes": 9734,
+          "sha256": "042fdf6ecb562e180083b4c72ec3074c77141e44d912f9b18fab5a984422ca4c"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295118,
+          "sha256": "9bd4b50592c677601aa17f229c7713f216b96ec44ebe8a08b57376711a68a3ce"
+        },
+        "core_year.parquet": {
+          "bytes": 2623,
+          "sha256": "52d01f5a9bbe8af5f22bb3927ab3dcc29ca692e8e4ef540c5ac1153724464daa"
+        }
+      },
+      "manifest_sha256": "039739d11763e7d8d742b4b61133956b13004ed96facbc0ce6c4230713d244c5"
+    },
+    {
+      "block": "2901-3000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 299614,
+          "sha256": "dd953c076933ae1b5c623ff114d18388144d7e0b79d2024439f192fe79fac58c"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42471,
+          "sha256": "688d06d381f50ec5e675a5db32865209f33708ca950416ca8dd55d02209310a2"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030337,
+          "sha256": "653b98160178bdfd8d197c29da25233431af362d823fd50688fee9fa7d82a7e6"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731197,
+          "sha256": "73a09c60d17acb55cfcab6a35ddfd7e58c415f258c9676a9a81f897e3301fb2e"
+        },
+        "core_month.parquet": {
+          "bytes": 9463,
+          "sha256": "fe26a9af1bccc2de03cb066b97f122ad41c4d12a97b637ad1aeafddbac57e3e6"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294286,
+          "sha256": "d2834afe30c0da9927d6bfa847e036e9961b9cca8bc7aedef445c96c3f12b53a"
+        },
+        "core_year.parquet": {
+          "bytes": 2592,
+          "sha256": "cf4617d9b7b29ab8b280ad73600c326bcb45aa0a0451ed32523cfc6bd1cadd38"
+        }
+      },
+      "manifest_sha256": "011a247af76b3c3c01aa89601e0f00b0a6cd461648198038f64eb94356320a93"
+    },
+    {
+      "block": "3001-3100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297244,
+          "sha256": "c06cf59f9e01f5edb662ab85e2788a8d21731efd1590c239ca5ce937122ec76d"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43242,
+          "sha256": "6a34d279207fc68f719413f3e33660b5682cacf7981cbe316e550c31466fd0e6"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031924,
+          "sha256": "c4e21fd36b49b189cf1b1c37b2c98467dbdcedc3d86e37a486ad2d2da238cb0d"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731057,
+          "sha256": "00f373170c796138c3782ec79d604113524c10b741fc215f57a2bccb21b40bd7"
+        },
+        "core_month.parquet": {
+          "bytes": 9726,
+          "sha256": "f448aaa85e63136f307ac3d8106031bc54d5bfcfd1869b434cdbdf8ca26d8617"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 293983,
+          "sha256": "eff462eb6fb515c488cf6dcc95db3307995c08e74134750b5b060453e6e9113a"
+        },
+        "core_year.parquet": {
+          "bytes": 2636,
+          "sha256": "43c277c2b2a76cc93ebfb27edc61e9f72138a986d1d37430a0b44fb311c078a3"
+        }
+      },
+      "manifest_sha256": "bdfe44c7081b58bb21819ac8de9bdfe98be8dec4eb6496e0a9845e73b2b53e2e"
+    },
+    {
+      "block": "3101-3200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296019,
+          "sha256": "64ac04e38ffdf2e0a3b3b79f8b660d6c6e63004db8caa173809c8e9b48832cfc"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42525,
+          "sha256": "83bc4fea0be139b39ce7b595a4849d0fb5acd481ed0f678c9c470dc78265917f"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1031767,
+          "sha256": "25427d8f7bc4045f760619baf72ba569ff84132c2d68ab7c9f4cb4bc421c72b6"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732025,
+          "sha256": "aaf88b087154c5d452130dfd61f0161bbb81372610e899016f96a5c8bfd05cb9"
+        },
+        "core_month.parquet": {
+          "bytes": 9418,
+          "sha256": "8bc56a1f7c522a3d934b861abd5a76e3784e9a6dc04e51878d1f2cfc33fadef4"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 292917,
+          "sha256": "c1406f7971d377b1612f0c140ddb61678b9dc5aa757a84b2e503aef9bfdc2ca8"
+        },
+        "core_year.parquet": {
+          "bytes": 2602,
+          "sha256": "be74a057fe88dd7abf1aeddc52b54e890040fc6a8426fa794786df44eaef4472"
+        }
+      },
+      "manifest_sha256": "7dddcfdbecea5ffb18f7a5e496b682da48e75576198ed2a841400c138ef8acdc"
+    },
+    {
+      "block": "3201-3300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295390,
+          "sha256": "944f59050ebb3f5921baeb5f711241f2fa70ef40b7d69c89e74299aced939953"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42563,
+          "sha256": "79c173f3b3ae6fc843df4bc39bfae08987db93d64f2a443b7b1bf419c2c59bc0"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1029084,
+          "sha256": "f56a761e274cf94281d6881fb1edb140eb8d5b08d6acb39c365af120814b2878"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730358,
+          "sha256": "8416d21a60f1bd4a530983f201e4678039ecc7463938c8891a44af234ef253f5"
+        },
+        "core_month.parquet": {
+          "bytes": 9628,
+          "sha256": "eb454feed033cb57846b2794af5a06034ba1cb2eff18b04dae5361bd4651ec99"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295710,
+          "sha256": "bef41e5eb03d105bbf6e9f041c88de05f36f92c55cb56923169ee7b729c6edbf"
+        },
+        "core_year.parquet": {
+          "bytes": 2616,
+          "sha256": "b4e5bc6d7175084ea39641fbd9dd561d4974033f2d7155c5c56befc935f0bf2b"
+        }
+      },
+      "manifest_sha256": "83ab9433198c51b0ea23010d21d396b3179ff21e4deaa7459095a7fd69e48fc1"
+    },
+    {
+      "block": "3301-3400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 294512,
+          "sha256": "e9bb853d324397a30a5545b3d2a9507bfa2f2ee3e9caf8fed32714b42006db32"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42240,
+          "sha256": "b7ff6bdabd7be35c47046b8508847958225d5943e181692c60080c3587d8b42b"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1033960,
+          "sha256": "0d90c9040339abf46f9c0a72d039bf106a6b56aef1c850d99d3655d74117003e"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 735048,
+          "sha256": "168dc5b9592bfeb37cade75003f3075554d7a0d6eb6c744d583d1cc5e7c8ba00"
+        },
+        "core_month.parquet": {
+          "bytes": 9480,
+          "sha256": "3570da4916e22da9a53fcc0c6d9126ba6763b7d93873bc187aa3f1642402451e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294305,
+          "sha256": "0cc5d87847b1e4a861c47f6008bff64412c2aeac6e933a51402ddab3e4edf339"
+        },
+        "core_year.parquet": {
+          "bytes": 2608,
+          "sha256": "584dc047cd607c3fb91093928846387c07620d82ea281e2b0099e8df5d5355e1"
+        }
+      },
+      "manifest_sha256": "11232fb799bfd5bb4a1f68418619e6b2ec749ea2975fd7003fd0e6bfe9eb2b97"
+    },
+    {
+      "block": "3401-3500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 292156,
+          "sha256": "167701bb109ca2f51a88bb52704342f2eb40c18b103b61e275b551d1b5f2828f"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42592,
+          "sha256": "f30583fff7c1f93058d8c40fdc36c021c9a6ea71493df364d94ec7b1b5e51b6e"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1032228,
+          "sha256": "d7eefb3bc84c499ada9e3d1682c35ab581266a9d5f593fd82f5e5a802568f975"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 728603,
+          "sha256": "07025327e8bde59575d86565e9085b66ff90b06e264f35ac5cca4dfe973905f3"
+        },
+        "core_month.parquet": {
+          "bytes": 9414,
+          "sha256": "8ea7ad7408d767dfa997c99b611a89738c9485bc4220351f80e632069cb122bd"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295763,
+          "sha256": "84ea9442097a8141abb81e88f6bafe78c59b4ffab28f7c34cb8dfc3d9585b5e3"
+        },
+        "core_year.parquet": {
+          "bytes": 2600,
+          "sha256": "b303187f9e4d4df9a68c8d2a11981428946dc0dfc5695aba7fdccc862d935c85"
+        }
+      },
+      "manifest_sha256": "f388234029ec8bb1863b6991bdad083172e25422bb8677141be37552bd67cc1d"
+    },
+    {
+      "block": "3501-3600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 290193,
+          "sha256": "1299bdf6cb31e8c64b20ef12ce8c2ffecadb1702825ed19c3ad50d88fafcc0b6"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42653,
+          "sha256": "99e7c2b9d03cbf7ee84958eab1204edc93fc4ef93fe6f958b5a86f72517bd840"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030105,
+          "sha256": "4e90bff0a0b12c2a12585d08e2e552e3b851561c6164bc63a48c71e943286ef6"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730976,
+          "sha256": "d47ba6c21397c2bddb8a316952c97807a573fa85fe7b8947c7a6d6e23e807f32"
+        },
+        "core_month.parquet": {
+          "bytes": 9440,
+          "sha256": "8a118c97947ba6282a68713df1c6d64692197648723087dd2b3e38570f499949"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 294818,
+          "sha256": "818c84a0d1da7766b653f9a8194a65dd25c0a5dd9a76d37856cc00b2fe4d365e"
+        },
+        "core_year.parquet": {
+          "bytes": 2599,
+          "sha256": "582515f1e809dc0ace08384b3fe23724beb08912cfa4d393caee34829fbf654f"
+        }
+      },
+      "manifest_sha256": "ab9860da5cd1cd4cf82225695bf228cbcf1e2d153801239603214952c447606d"
+    },
+    {
+      "block": "3601-3700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 283151,
+          "sha256": "4e96f55a31eb84d4c5b1e77add8056610c1e0c55923b79d29aa1b866f98a179a"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42609,
+          "sha256": "70f6eb7f7f2034a61a1cd4cf7d941e35d59db50e7d75210333d538ab97d4c153"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1030407,
+          "sha256": "31c8f05ef80519cb0986a32a0539dcefd7fdbd4d3a04c4a75bf38b94ac6c31b4"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733847,
+          "sha256": "154a06634b73173be33f352282cf39d86e7f801577611d99dd4508c180c05234"
+        },
+        "core_month.parquet": {
+          "bytes": 8813,
+          "sha256": "51fcbd520efa0af17c3cc9b54aacef167d6d8d57e5677c03ce8e2d5613a98bd1"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 295697,
+          "sha256": "0c7cfa628fbe7f7086f51ca8edab9f949904949421f8b98c9023b02f2681946f"
+        },
+        "core_year.parquet": {
+          "bytes": 2539,
+          "sha256": "9750834a366f45fb060333690e80c3dfb0bf242cfb76f3357086080203fdbf5c"
+        }
+      },
+      "manifest_sha256": "ea2ce4e5aad650aa6cdb0647912b542b8e3ccd1e267248427ebf28e00f2ffcbd"
+    },
+    {
+      "block": "3701-3800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 302065,
+          "sha256": "1b2e1fad9c48f499b45f29b3f2a0f1c977fac4f141383dcffe1608665bd9e50b"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42642,
+          "sha256": "1da5eacd1a53882aee452a4529b965a891ed18b15191b9ef6e7e8d601e07eab6"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1032485,
+          "sha256": "87e55593ce100002f0bd146868b3d2dc05f329ff7061e57b397e12949f7a9af5"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732950,
+          "sha256": "cbbeedae3a94d1f31c7b7d873cd579f1ca119a4a564ce1b492242e980e204174"
+        },
+        "core_month.parquet": {
+          "bytes": 9438,
+          "sha256": "24a984c53eb4de9c569ecf2c0c91110a53a0e99dab4be19902cf03f282d693f9"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 304322,
+          "sha256": "5a7bbad86446dbc6d1a628fe36a94874bfe184c41b944a86e951ee86889316fa"
+        },
+        "core_year.parquet": {
+          "bytes": 2588,
+          "sha256": "7b48a5008ca7cbf664aeaecbb77c76d5d0e2b89a93f9b2a96b9dede98734e001"
+        }
+      },
+      "manifest_sha256": "088903c66e5c265530e7fd25131f5f1387e08c49b57575992c88778fae9bc4ca"
+    },
+    {
+      "block": "3801-3900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 289242,
+          "sha256": "8e320943b65aab9d40d4108e6cef8fc06b671fdf6e0e2b5eef6428dcf1b48ec2"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42558,
+          "sha256": "8ee9aa358a3de1e3653c0e25c7794b2dfd3566542f6317fa5c68b8360888e48d"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1047849,
+          "sha256": "dcad5d78b7ba08c0345d80f3960f49a840a33b78ffe1cdc2faf82b2f78c04d54"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732222,
+          "sha256": "22d892057cc0a828150693c625ec8823d1e54b383c73cdaf4e2450e5bb2bd35c"
+        },
+        "core_month.parquet": {
+          "bytes": 8813,
+          "sha256": "c45bdb148cbc9fe3bf505e477f113b5d324997e51c7cb7c3642ecd4c98aa145e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 313130,
+          "sha256": "6322d9d28d244c43cfd618df5cc38582ed5ed5817c9bec953fa6b5e31ab84edf"
+        },
+        "core_year.parquet": {
+          "bytes": 2556,
+          "sha256": "53032c0b636ecfeacfe8c6031166c9aa7176642dad88987cec3aa17a65789b91"
+        }
+      },
+      "manifest_sha256": "c291fa0b69132ac030ccbdb28ef9c028af6a2b96e6de0380187e97784faa27a6"
+    },
+    {
+      "block": "3901-4000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298613,
+          "sha256": "d0e33e9ba8e25c337315fa941cf51a52e3cc8d4eb150efa3866c69c6c1cb01c7"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42729,
+          "sha256": "89580db9c2d695fc920cfd91ca135683c848eddc0a245fe1950a326d19ecb257"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1079059,
+          "sha256": "8f91e212c83171668644d736e037e5c8261dc6fccf38ed5b0c05cd0e48fc7ece"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730845,
+          "sha256": "4e45bc54c632c95fd0e9143bbf8a1df86c08d94f7a9757e59348aa38d5eca88e"
+        },
+        "core_month.parquet": {
+          "bytes": 9370,
+          "sha256": "ee25e64166c250d7c3e882a137e14b4d4c71aa4468e88c78ac04afa4c0e721c1"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330279,
+          "sha256": "9a17c7194cb0b7fd415f0d6181706d79b321dbf8c889c5f305261d8308438045"
+        },
+        "core_year.parquet": {
+          "bytes": 2571,
+          "sha256": "be6fae880f1e9af2a6b03e6465f99395a04489b927094381cd1b9ea4bf415382"
+        }
+      },
+      "manifest_sha256": "1b7f700d822617648ef792136be744178f2988a2ca1ad06433045257e078caae"
+    },
+    {
+      "block": "4001-4100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 295208,
+          "sha256": "244239de7124c8cd4cd475c01aa7f6589c94e42a9a63596a60acb13bdc8aeae6"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42569,
+          "sha256": "84df6da1622f5f7dfb41965adfe66673a3df58b11abf9c225ca3433e3c89cf58"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1077219,
+          "sha256": "8ea106e05d90c15c3e290dd56ebf4147cfa67647f435fce400533c02196cc9fa"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732814,
+          "sha256": "eb9fc5661e390655fa3e0b2d10cf66f88b632492fc763a2739608d4d5f4e8ce6"
+        },
+        "core_month.parquet": {
+          "bytes": 9438,
+          "sha256": "55fb8d96b7d8a25d0bb045211f3b9d5a2cc27245ba036e9d1a3317f54b2636a8"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330538,
+          "sha256": "c89ee960edf5d78e562dc7e2feb86b4f027df9ba5b2da000a1553a1f61eb9afe"
+        },
+        "core_year.parquet": {
+          "bytes": 2595,
+          "sha256": "1a2a303067d6e9c0704b1dcfa7d3bcf52c84bfb0f404fbb596f1670bf737c382"
+        }
+      },
+      "manifest_sha256": "4f5172004de84d656bcba634c05d709d5efef950c88fe017495106d32b0b20f4"
+    },
+    {
+      "block": "4101-4200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 299497,
+          "sha256": "fedd98907e68309c3d7cdcfcf98d8a456e6ba1495e85ed9a4c03232efd87bd7c"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42721,
+          "sha256": "255b8e6f78039005412f318c6166e0c92b520f47d7b640d6bac8c0ba25991127"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1078396,
+          "sha256": "c7223bfdf8b3a2b93314761905fab40da0aa8301469c428079693de27d11df12"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732520,
+          "sha256": "7254ddc262c14c8a6a92d86d84bcc0365009a1dc27b34cba0e68afc5adeadac2"
+        },
+        "core_month.parquet": {
+          "bytes": 9619,
+          "sha256": "ca098510c70008f49bc48d0f486f19a555843042636b0d37d2337e4aeedc760e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330125,
+          "sha256": "562f0075aab360419841e62f7f25a27fd1aef9eb7fab98725968acd370f5ece8"
+        },
+        "core_year.parquet": {
+          "bytes": 2597,
+          "sha256": "a8aec659c5843c66273ce163d41e7a5f6d93b2194d2c2ffd4978f1e90a5cf596"
+        }
+      },
+      "manifest_sha256": "45865696533208786753d75d90a424f017e36db50e3ef44570bc775ba586aa77"
+    },
+    {
+      "block": "4201-4300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 301853,
+          "sha256": "d745a6c19d12b0b1cff100d92b5113e82ce7178ab47ee3a4bda449f277f52765"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42225,
+          "sha256": "b4c75e6ccb10f1845a87d475432bbbf625eca34c33903d6ae95270bc68837fd9"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1078624,
+          "sha256": "744d6cbbbb35da648d136e1aeee59dbfe7c15ea9c5f04248233b55b7ed93f0de"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731621,
+          "sha256": "6f863392aba0c45ce20633c717d05e4a4b8511ab745764f88929b1475d2733d8"
+        },
+        "core_month.parquet": {
+          "bytes": 9458,
+          "sha256": "a33c3d255d2e9a89336f8c88082d3232bb44288dcae6644dff12cfad94a1f0b4"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 328258,
+          "sha256": "7803b41934108ab235ff312ac53c4b8a51465e5f50a7a3dba4b9fef391bbecda"
+        },
+        "core_year.parquet": {
+          "bytes": 2591,
+          "sha256": "ed1a2dff60b46737fb31e0823d74b7f1f40ff982b99087c80cce4d6dc2e79244"
+        }
+      },
+      "manifest_sha256": "3f9a6374b3ac9852365c5e55f8307a9abb988eeae78748e22d2acd872eb77f6c"
+    },
+    {
+      "block": "4301-4400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298173,
+          "sha256": "2e79ded4d9f35cda14d543403301dae474efec7245a1402028d8890787f3bbe3"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42369,
+          "sha256": "7ea3293aba1800eeb5d2cf4c7cdff882d59f6855a39ea8b8f6b23ab7572fc20f"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1078304,
+          "sha256": "0f700772515ce22b438e99ebc694b2694334365f1bd2696595f622fd9ce5d525"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731932,
+          "sha256": "9d4610547ecabfa6132596a4ad6464834fd433cf983a9f3c2239f57acc50cb86"
+        },
+        "core_month.parquet": {
+          "bytes": 9461,
+          "sha256": "3803835e8e781f81e02b94df588ac4a3d73da163109cb95a63d4ea2af5b2a711"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 327472,
+          "sha256": "668ad454a899d5580dc82e097b9bfa92778405d4f558ed237edddbbe21a23718"
+        },
+        "core_year.parquet": {
+          "bytes": 2605,
+          "sha256": "c676598881417bebd8caf52d0faa79d862476e0895114593fa82cde09948e6a6"
+        }
+      },
+      "manifest_sha256": "eec1afdac6d99420ca10299637f1d73e61716c055d62f28d11bbe8cd7fbfea74"
+    },
+    {
+      "block": "4401-4500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 300551,
+          "sha256": "dc13f4d4c650d2fdc335ba144df6f90ea99a0c8c8fec6f7ced86c07512cca829"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42581,
+          "sha256": "f7243c91916e227b973f45589fb0a90c6f5ed171ad81386a766fd567d966069a"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1077140,
+          "sha256": "4e6d9c5982ce229ba886e04fd4444b52b94d86d807b76342fb471db874a4281a"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732761,
+          "sha256": "8fbe3a68e8c7c2d7d827e995c9af3d4339bc80a2aa242e85ccc05ccb0fb1a30b"
+        },
+        "core_month.parquet": {
+          "bytes": 9615,
+          "sha256": "679b84586a9304bfeb3b5fedf375452ad64ae2adc7f972f3bea76d3b599850b9"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 326996,
+          "sha256": "d644453a8d7ad856d95f08020c6102b837a207a624c56fbfd4341ccabe68ccfa"
+        },
+        "core_year.parquet": {
+          "bytes": 2607,
+          "sha256": "cd77ab67a921979272e635dd60bed7348a478b1644f32bbbfaad9e859af0770a"
+        }
+      },
+      "manifest_sha256": "b3e15017915595cf98b49555ee5a49b2d72fc91da84785e80d562479b22cba64"
+    },
+    {
+      "block": "4501-4600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297743,
+          "sha256": "fd5e15c7bd00bb11f83e68eae089f5e51b2599c8d633eb91dbe6b3114c9e02dc"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42540,
+          "sha256": "de80d8e3b265471bc604dbdb580a697d496d27d226ae1649462a874d19781f5b"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1077304,
+          "sha256": "a4ff6c019772f6afd8f98d9c029c8a72e529efee882b4cdcb3a15a09ffccd2e6"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730212,
+          "sha256": "b998c0f48019f3233ca88adbf63fadf3c9f27098279f6f97eef2d43b33195cb7"
+        },
+        "core_month.parquet": {
+          "bytes": 9440,
+          "sha256": "54cee841e7ddc12d0345c669ca1310703e322e1143cfe1f7d2495e4c23171d1d"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 332846,
+          "sha256": "5f75a2ba318a1e0ba47b479e3dd86bd8d2b2d4b109ef1021f54e7f4393630a2b"
+        },
+        "core_year.parquet": {
+          "bytes": 2590,
+          "sha256": "a66a9df16148f80b28a7b1b6a344cab36fa9b11b89b37164e4993d5c138d3540"
+        }
+      },
+      "manifest_sha256": "336bf91ac4e08fa751f4264269a103ea39dd140949687e23e5bb711cb6750e2b"
+    },
+    {
+      "block": "4601-4700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 301861,
+          "sha256": "84284fa06340ae1cbcddbe41eeb72f5a2c02e9c749504205eeb5fa570f997374"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43063,
+          "sha256": "ccd456592ac97ddd13662966cf0b39f27f1cd3345a3e453efa917795b7a61aec"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1078456,
+          "sha256": "c307b129badad8891d851a9a4f588440dc6d61d9cba2e767ef9d004915dbc9b8"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733439,
+          "sha256": "f80f25c0772fc4082905c6d5d69157538bd7297aeffd36069085b6073a79d2e0"
+        },
+        "core_month.parquet": {
+          "bytes": 9727,
+          "sha256": "134c9ef730a7f530030f30cfa95538991978185aba619f2d315cc810373790d8"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 327238,
+          "sha256": "a5fc544b8c43d7a4b7db5930290bc239c0496afca62649005bb5b8f71bad7df9"
+        },
+        "core_year.parquet": {
+          "bytes": 2625,
+          "sha256": "10e0168213e53d186884b3bf17c4195580e66ac470f1b9e1105ca29642cdb35a"
+        }
+      },
+      "manifest_sha256": "db07ef59f1afe53426b6eff4dca10592018888a69ac68c5c3b71dab8abe45330"
+    },
+    {
+      "block": "4701-4800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296742,
+          "sha256": "bd92f8331e4ecc4115df4cc0cab9951993dd0f0c40d35ce685c35c82a5cb3e84"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42491,
+          "sha256": "bf37978540b81708f254daa0719e7b66e2ef85ee58d8758d3ae106f970e41387"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1076954,
+          "sha256": "fe1fce312bfe846bf5df233981252f84f66fa34ddc7ca301968db10647d6f818"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733710,
+          "sha256": "4035c683e9e580802e4ea523f2705eb10996951db55cafda100d74e7f4574e35"
+        },
+        "core_month.parquet": {
+          "bytes": 9458,
+          "sha256": "a87fe9a89196938c05574555476a20fbb537cc7d83a87817895a0f9172813b9e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 329319,
+          "sha256": "5357290c4a0b8bac9856073aa3b287843ced0cf7f02ce99c405b701b778f4183"
+        },
+        "core_year.parquet": {
+          "bytes": 2587,
+          "sha256": "bf5c4f539809cb8c3c8289e6beabec0ce4486aea8dde8f43c227c97c9cedfeab"
+        }
+      },
+      "manifest_sha256": "dfa43ece8f1bade32a8e4048c80a50f79884fe983559000465c3cf40ea61060d"
+    },
+    {
+      "block": "4801-4900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 303403,
+          "sha256": "14f78d9199cd7a8d7db53de49f0efd0f53ec7e102b9a2fb1926d256cc126d41e"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42668,
+          "sha256": "a356f63ca43a44c1a3b5e3ba898d03fc28eb06e6230eef106113535923d05fbe"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1077814,
+          "sha256": "6f2691255f2bf03566287d98af20c69b2dee40b9df70b6c3694f52cd01a8975d"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730864,
+          "sha256": "37daeb441da1f1602569e07b315a735948931333334c92d5f8836aff165c59da"
+        },
+        "core_month.parquet": {
+          "bytes": 9751,
+          "sha256": "02dd4d410fb15a08adde9d33dbe9a1e852fcac99c6837cb39789b98c12768b8f"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 329212,
+          "sha256": "a33413182f3c912ece595931a3034aa6e5064f979842020093c8ebe4bc8c63d0"
+        },
+        "core_year.parquet": {
+          "bytes": 2631,
+          "sha256": "abf81af578b7615d344a4a0aa2bb68636661ee606c30006e95bf8485153bd428"
+        }
+      },
+      "manifest_sha256": "9a8d6f829c9c722fc3209ac9b52b345c5bfc83201a1c778b06158123659f8806"
+    },
+    {
+      "block": "4901-5000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 301677,
+          "sha256": "482d0b01c5592c6339b0ffedd8ff9951f66a78b42d663758d778f8740bbb260f"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42697,
+          "sha256": "aebf7a9f7446f4c7c76c81b1602cd2dec19876e173ce2984270629033a757ccd"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1079059,
+          "sha256": "ff7f706cb2c5912b96eb35cc1efa21de98d8620ab3791dbc240ee92021e434d2"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730142,
+          "sha256": "192c04d016ef5b4cd6036de6f9df7a3e99a68fe6beb8e5fd48ce873e8b870b6f"
+        },
+        "core_month.parquet": {
+          "bytes": 9429,
+          "sha256": "1b41a6b4f6cf75bcb9b32569befd89a82d7aa791b5bbd0adfe63e7672c641a2e"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 328622,
+          "sha256": "d07b239c8b86666cd958b78560c118ada714d546ca80d0d13e6a40960c8bd74f"
+        },
+        "core_year.parquet": {
+          "bytes": 2593,
+          "sha256": "f0d6198d135cdae98a9274c9cc455b1975090c2bc876f2f69b758ee8dc9aad1d"
+        }
+      },
+      "manifest_sha256": "cf350758a9b4a71fd30e334eb5a61b766027f908a530a4aeb1880f80460bf1e1"
+    },
+    {
+      "block": "5001-5100",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298690,
+          "sha256": "b46d52075d8e703bcc638fd2048d2b3d8bff855fed5b275e28b7edac8710a568"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42561,
+          "sha256": "ede4c0b756443186e535f52dc3dedd2c34fbaf3bf7a077951c4f1a3df60e6e52"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1087939,
+          "sha256": "f099e55693b6ce346c59cab6cff76015d9bd0c9944ef4478232087a3ed4c190f"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731520,
+          "sha256": "46669a1a715c192967ce214b23a31f6c49d35027d2226d69f9ffeb18a996ecb2"
+        },
+        "core_month.parquet": {
+          "bytes": 9594,
+          "sha256": "ea82bd9277aa375ba6ffc0dc5305554b4e4916430f19873b95021460ae3353d7"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 327614,
+          "sha256": "4024e2fe4187707780c50440b6f6a6cc8ec18e8d1a5b9e1d81ef4e4112723f90"
+        },
+        "core_year.parquet": {
+          "bytes": 2614,
+          "sha256": "4f68bfdf916bb0f00fb09ce61089fc33a7f6b8f569f1c46be87116a1289ca18b"
+        }
+      },
+      "manifest_sha256": "3ec1237e1f4582a069057de1bbef62e6c5fc2bdb9c83607eac0e2963fa3f4b24"
+    },
+    {
+      "block": "5101-5200",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296745,
+          "sha256": "7d50c448db61ab91f92f8b9edc13a06864c9ab86a02842c76ce5b26c1fb3a991"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42743,
+          "sha256": "58cd5a398c3305dfcffb7f0bfdf67b4798b2dbdfc60a8a4be36a3f7aa6a81cd3"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1086352,
+          "sha256": "65ab2b1566ced9c6075e7337d09de99d9256d3f2007136bbd6d37112c38d715d"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731828,
+          "sha256": "d730a07431b6860c2ef07110f909d339cd552f2b6a74e7224f7b9e28442dfcee"
+        },
+        "core_month.parquet": {
+          "bytes": 9491,
+          "sha256": "3d1fca69030e744cb38d2e9284a8dfca29ac7d9f0976ce57aaf0ab4682f5fb74"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 327965,
+          "sha256": "8baf1784b78366f039a64e6e0e04b369cdc82c2f05174cdf1d52e18e0d9b7726"
+        },
+        "core_year.parquet": {
+          "bytes": 2610,
+          "sha256": "2b26257d34504dd27812243605b7a94570f303601364616a8a604c12d4807759"
+        }
+      },
+      "manifest_sha256": "fad3bff542662c3d5efbb635d41a06a02c798d738da4799bb02ac90f886a6d9a"
+    },
+    {
+      "block": "5201-5300",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 302273,
+          "sha256": "255dcd8256e13ec31761de599b5357ae7deb9070b9d1f6e27431a6a07eb260f3"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42723,
+          "sha256": "27694ebeb500e5296e22330620d3f35e21530852d97337f7876434c261d4764a"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1088647,
+          "sha256": "0e84f3ecb840afeb002d5f5660033046077eef0fc0e97fe0030a3cff04b19320"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732518,
+          "sha256": "35f1a344fc1134dc3825cf828a8d7a35f58d0b17e7b7db4152bfae5933ab7a7d"
+        },
+        "core_month.parquet": {
+          "bytes": 9452,
+          "sha256": "e0f40a10ac1531dfac790985cc3dd3248e97372681b531638a13d3c91b55a331"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330185,
+          "sha256": "375a098e336d949840894f22ea1534fa42a8acedba2cfb5b6665a9d55b8332d5"
+        },
+        "core_year.parquet": {
+          "bytes": 2594,
+          "sha256": "2788490b1056d29f3529fc06235b760b6cd9e97aca21fe1040efa846d4330b22"
+        }
+      },
+      "manifest_sha256": "e68d5b937c7d8346d66329f76d3a2e8ebe213e09c89651927e269fbec2b99b3a"
+    },
+    {
+      "block": "5301-5400",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 296886,
+          "sha256": "12a37490223fd3d90dab45e7f45adc627d02695bbce3aeb83226a4ff90a6f3ee"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42819,
+          "sha256": "f8fc5e0d9faf330ef515a94005cb1a4babe4b6a6ca180e847ab26b1e0efcf55e"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1086471,
+          "sha256": "ba2cd9b3b6851d0886b04c390aac9b5fbb275a601078fd6219f2d1c86bf260e5"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733664,
+          "sha256": "18a684e2708075117ef358b079a64d5edba6e930a4d7aeb6e47d2c0409260a30"
+        },
+        "core_month.parquet": {
+          "bytes": 9651,
+          "sha256": "f497bdac00eaff7a5760e89aae65c80a1d5085e47e33289aa148ed7ba191dd97"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 331650,
+          "sha256": "e4a21a160eaadd3c494e18f02ed6221d452ef26ab59ff3a1d543634480528d53"
+        },
+        "core_year.parquet": {
+          "bytes": 2627,
+          "sha256": "53f61aef40de735493f2031ed55fb1158e2004033aea40a453d231aac6bf2443"
+        }
+      },
+      "manifest_sha256": "ac9d96196e76483418e2afade6db390d7a0a526cb4f8f3d19981efa03ed7029f"
+    },
+    {
+      "block": "5401-5500",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 298181,
+          "sha256": "3a181584d1add7a630ba6542aae3c9639702a8f2f6299bc53ad68d75b4f01d7e"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42649,
+          "sha256": "adebe839773edfda24630371efc66ca2b9b556c6d7a68503f3ae46d316aebbc5"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1087478,
+          "sha256": "07aff99354225b411e1ab81ad17ee5680805030dc4a01755ef92b936c34626ea"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 733614,
+          "sha256": "78e1b9b10ef60e2ab5bf4ccab9394f0521ca2011a7a2328b3be9de1263bf028f"
+        },
+        "core_month.parquet": {
+          "bytes": 9446,
+          "sha256": "1f8a4342eecb1985aebb83486e3932619c4eb20741859671dd16e2dd1856d25b"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 328143,
+          "sha256": "967600c6ddec86dcd8773116c6f57e741c2d60b778cdbf1f8d529779a9492a1c"
+        },
+        "core_year.parquet": {
+          "bytes": 2589,
+          "sha256": "62d5517c8525c4eed9f6a73ab9fa375308cbf4ec1ffdc375be6e2db754aa2217"
+        }
+      },
+      "manifest_sha256": "6f1922e71dff6c37bddf493ca66115e99365fad69fda21b69248379f21270346"
+    },
+    {
+      "block": "5501-5600",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 297767,
+          "sha256": "2419511608d9a2ea9361b98267c3bdf35b05356aec699728b200928042f7fc33"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42452,
+          "sha256": "eeb02190a9900fc418787b2f03d247a183e1c1c3fa04787630dc823eb79437ce"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1086353,
+          "sha256": "f6be27c9eb8c48c6417172cc5f27c2a0a5d770fff96897de5796b68cd6770709"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 732894,
+          "sha256": "2476c071ba012ac0095128cba548cdb4334c5772e9013961df291a0fae2b3072"
+        },
+        "core_month.parquet": {
+          "bytes": 9717,
+          "sha256": "d24b2d761ee8bec809753cac7bc0c5eddd6f53666dac0bd841c0ed4cd9623d92"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 328282,
+          "sha256": "1dc478d7f0c5edded23b86c2bf3ece37c7176d50c770d858ce9c50d969368689"
+        },
+        "core_year.parquet": {
+          "bytes": 2614,
+          "sha256": "e516325efca6b3550f34a666b0c1f6df688259c1b75890c2b01eb02fac951ab4"
+        }
+      },
+      "manifest_sha256": "1193824cbcc2ec9c653dbb0cb42b9225cdbae3fc8d4df5e196a46c3e38d619ab"
+    },
+    {
+      "block": "5601-5700",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 336785,
+          "sha256": "64bef372388cda9adcbc11df4e1a06a075aef1ad1395040550848426cd2af0b4"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 42761,
+          "sha256": "158e067f15e3ade58d849c2f084826edefbfb64fe70fb4cb6031bad3e0e7db26"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1085940,
+          "sha256": "f20df2f5ec51b2eabef722d24c13008c567273937ccfbd5c537d527a9e916647"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 730829,
+          "sha256": "55531311d47679e66e6fcb543908a8b969e80ec5a76ebdcad1c8e9086f7dabf1"
+        },
+        "core_month.parquet": {
+          "bytes": 9482,
+          "sha256": "e1d155228bb445bea7232e471461f41decec4ba3056d819f60f64cf16b1e7dab"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 328884,
+          "sha256": "8fdd71851b19b07e4d3aa51dd1862b71c4e21370e2bb8dd19a6c15c6bc36f738"
+        },
+        "core_year.parquet": {
+          "bytes": 2608,
+          "sha256": "c79d4d321df11bcff900143c0615d5d073a202ad89121a3525d21bfa9bde124d"
+        }
+      },
+      "manifest_sha256": "9b0121e2f01d4337ddd81052a1d4ccd02706628633ad8a0fa7529c372e634fc2"
+    },
+    {
+      "block": "5701-5800",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 399146,
+          "sha256": "ac21c870316230223e5798cdff72e42ad1c0400626e8248584616b135d4321bb"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43296,
+          "sha256": "be09770c8205daf812ccc19de71130b35174941fe161a6c4042e874fd8e1129f"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1132847,
+          "sha256": "c88160a0f2692c32a2952b109a2a33abc30dd315fcd1fbf6bbb8b18b398bc893"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731320,
+          "sha256": "0dc0e81d98c64bb6b99dce4fc7426babd2bd9af87f07d8c64b405c7539c41f49"
+        },
+        "core_month.parquet": {
+          "bytes": 9675,
+          "sha256": "9cfda4808a12e5a1ae6733c965b00c6fa0d64735c2e99c355cbac003f228d59d"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330336,
+          "sha256": "2d6a20b35f4e0ca7d30813dee868b65e608461351202c47a776e9325473973e6"
+        },
+        "core_year.parquet": {
+          "bytes": 2617,
+          "sha256": "9b38e8b1c48315b589f1f3e9634be64782d523bac747df58cb2923098a4fe479"
+        }
+      },
+      "manifest_sha256": "462037df8e7b6d94ca21281f30cbde929c10dbfcc9c9935a17b27bbbe163130c"
+    },
+    {
+      "block": "5801-5900",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 383128,
+          "sha256": "95b8348b63909bf27774c14afd55365afbb88fd11483f1e50a8e83e68dc579d2"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43181,
+          "sha256": "90263abb235775ed4a61587aa8ec1064e0cd81424df23215bc3b2414735c3204"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1146056,
+          "sha256": "eab9657c419c5b5dca9c26cc0f49e4181a6a129ea042b9c94ef917fbdb79da97"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731089,
+          "sha256": "5ef79c7dd1816195e0e7238f98c12c9ae104b2dbf5c8928b1c52a4169e128bbb"
+        },
+        "core_month.parquet": {
+          "bytes": 9457,
+          "sha256": "6a8029119e7d5fb7c373888588661c1bcefe3866e2eacdaa5408f513fbc6c3f6"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 327667,
+          "sha256": "a53df77d52209e91b4c08a84f88f8d3bc91de262f1432bcd1269297fd3cce1a5"
+        },
+        "core_year.parquet": {
+          "bytes": 2602,
+          "sha256": "1e760a33ee00bbbd1f6f14da4918dd26fce9eb5ba045bf60fbbac23b2107367d"
+        }
+      },
+      "manifest_sha256": "1edb7fa2397babbaa818dfd782a9695e4ab38f837402698d9cb4a4b637a82ded"
+    },
+    {
+      "block": "5901-6000",
+      "files": {
+        "core_day.parquet": {
+          "bytes": 396998,
+          "sha256": "7876dd9753035c93b7e5f4a923bdf58fc7e63fad1782032cf4aed2d93e66bb19"
+        },
+        "core_day_schedule.parquet": {
+          "bytes": 43142,
+          "sha256": "65a32e32e48de685392aa71536bdafd579f93842f035bbbe8da2a1fed495cfa6"
+        },
+        "core_event_occurrence.parquet": {
+          "bytes": 1146591,
+          "sha256": "862c8eb5f8b861e55d066279ce0cbe0eb2e05680c2873354bb558f9ed68b135a"
+        },
+        "core_leyning_occurrence.parquet": {
+          "bytes": 731473,
+          "sha256": "f2b34b7b53f4b62954780a47f422a0557088d03521af20890c5f82b94201594c"
+        },
+        "core_month.parquet": {
+          "bytes": 9553,
+          "sha256": "35b9f53abbe646424eb3504177bc0d83b26c3c0a5abdf13695d86b02e71b6b58"
+        },
+        "core_parasha_occurrence.parquet": {
+          "bytes": 330771,
+          "sha256": "32b578a4aec867a920556a7a68823c4cca9938bb3d23b4c46cf0cd16abac6186"
+        },
+        "core_year.parquet": {
+          "bytes": 2603,
+          "sha256": "8500413b7ee909707da4de11dcf3851eba5690724166b878806e64b0c976fbb4"
+        }
+      },
+      "manifest_sha256": "86700b72cc7cd5341cc142de7efe73f8ad51f2bbd17759052123e5e66e48e2fa"
+    }
+  ],
+  "source_hashes": {
+    "build_corpus.py": "87aeaa305b82aa12bd90c76d7df1ef2502a3b446d8f4bf01981ab2ac985d1089",
+    "corpus-v1.json": "d155d1fd2f33bf200f4b78835a458244cf8a73808d50b9a4e15acf700057dc35",
+    "generate_corpus.mjs": "3c467f8a1bdcd7b6cdf5a3c939b8fdb899aadd00da2a3da7da6314249f003976",
+    "package-lock.json": "d35c3014085de8dafc27385d35703682d2776a973291ebc9a39b4958f185a261",
+    "package.json": "66d964eb1f01c9b640ef4ef93dddb208e28c7d59483ac35f338f25922dc30ab8",
+    "proleptic_hebcal.mjs": "4b8f6280343aaed8c852be324f0e339ae3fa61f46f683c43f413a10401483ce1",
+    "requirements.txt": "735f000c8ad8bccf22de8772e5eeb43079f59a1d0570f190906380538cbdb638"
+  },
+  "source_packages": {
+    "@hebcal/core": "6.8.2",
+    "@hebcal/leyning": "9.5.6"
+  },
+  "status": "complete-immutable",
+  "validation": {
+    "core_day": {
+      "first_absolute_day": -1373427,
+      "last_absolute_day": 818037,
+      "native_powerbi_dates": 124383,
+      "rows": 2191465
+    },
+    "core_day_schedule": {
+      "rows": 4382930
+    },
+    "core_event_occurrence": {
+      "rows": 2037895,
+      "unique_occurrence_ids": 2037895
+    },
+    "core_leyning_occurrence": {
+      "rows": 2339622,
+      "unique_occurrence_ids": 2339622
+    },
+    "core_month": {
+      "rows": 74210
+    },
+    "core_parasha_occurrence": {
+      "rows": 588052,
+      "unique_occurrence_ids": 588052
+    },
+    "core_year": {
+      "first_year": 1,
+      "last_year": 6000,
+      "rows": 6000
+    }
+  }
+}
