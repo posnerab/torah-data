@@ -41,6 +41,10 @@ ref table LocalDateTable_09b2995e-f648-492d-beec-15f6dbdc7558
 ref table LocalDateTable_d1b3aa27-1419-439c-b2a9-b147bbeeef8c
 ref table 'Hebrew Year'
 ref table 'Hebrew Date'
+ref table 'Hebcal Schedule'
+ref table 'Hebcal Day Schedule'
+ref table 'Hebcal Event Occurrence'
+ref table 'Hebcal Event Definition'
 
 ref cultureInfo en-US
 

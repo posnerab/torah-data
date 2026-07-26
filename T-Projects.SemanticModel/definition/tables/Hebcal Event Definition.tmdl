@@ -1,0 +1,76 @@
+/// Distinct reusable Hebcal event definitions from powerbi-v1. Text and localized titles are stored once here instead of repeated across 2 million event occurrences.
+table 'Hebcal Event Definition'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: df641582-fb23-4c6a-b4bb-a5ee1049a271
+
+	/// Stable dense key within the immutable powerbi-v1 projection.
+	column 'Event Definition Key'
+		dataType: int64
+		isHidden
+		isUnique
+		isNullable: false
+		lineageTag: 2e9e4b67-5d77-4dda-af96-fbf7eb555e01
+		summarizeBy: none
+		sourceColumn: Event Definition Key
+
+	/// Hebcal event implementation class.
+	column 'Event Class'
+		dataType: string
+		isNullable: false
+		lineageTag: af6cf9f4-1cfe-4c52-9390-3874ca286066
+		sourceColumn: Event Class
+
+	/// Stable source description for the event definition.
+	column 'Event Description'
+		dataType: string
+		isNullable: false
+		lineageTag: 36fbd536-b225-43f1-a1a9-56b3e7c65d8c
+		sourceColumn: Event Description
+
+	/// Hebcal basename used to group localized variants.
+	column 'Event Basename'
+		dataType: string
+		isNullable: false
+		lineageTag: fa8334a1-1003-4798-adbb-8a34aadcbe57
+		sourceColumn: Event Basename
+
+	/// Hebcal event bitmask flags.
+	column 'Event Flags'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: 5da85bcd-ed7e-468c-a398-6c2618d2618e
+		summarizeBy: none
+		sourceColumn: Event Flags
+
+	/// English localized event title.
+	column 'Title English'
+		dataType: string
+		isNullable: false
+		lineageTag: 1597e9d8-ddcb-4250-a0f3-5be800f7889c
+		sourceColumn: Title English
+
+	/// Hebrew localized event title.
+	column 'Title Hebrew'
+		dataType: string
+		isNullable: false
+		lineageTag: 8ac0fc72-38bc-45f3-9a60-1cd6c9255b79
+		sourceColumn: Title Hebrew
+
+	/// Ashkenazi-transliterated event title.
+	column 'Title Ashkenazi'
+		dataType: string
+		isNullable: false
+		lineageTag: 92aa539a-23d0-4782-9db6-f8f853251d92
+		sourceColumn: Title Ashkenazi
+
+	partition 'Hebcal Event Definition' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Power BI Path" & "\hebcal_event_definition.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"event_definition_key", "Event Definition Key"}, {"event_class", "Event Class"}, {"event_description", "Event Description"}, {"event_basename", "Event Basename"}, {"event_flags", "Event Flags"}, {"title_en", "Title English"}, {"title_he", "Title Hebrew"}, {"title_ashkenazi", "Title Ashkenazi"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Event Definition Key", Int64.Type}, {"Event Class", type text}, {"Event Description", type text}, {"Event Basename", type text}, {"Event Flags", Int64.Type}, {"Title English", type text}, {"Title Hebrew", type text}, {"Title Ashkenazi", type text}})
+				in
+				    Typed

@@ -1,0 +1,42 @@
+/// Narrow model-ready fact from powerbi-v1: one row per schedule-specific Hebcal event, keyed to Hebrew Date, Hebcal Schedule, and Hebcal Event Definition. Lossless source fields remain in corpus-v1.
+table 'Hebcal Event Occurrence'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 39c91831-29aa-43e8-9a0c-9ee6c2ec2c05
+
+	/// Foreign key to Hebcal Schedule.
+	column 'Schedule Key'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: 8c90cc5d-518c-4012-a644-f329fa35bd9f
+		summarizeBy: none
+		sourceColumn: Schedule Key
+
+	/// Rata Die date key to Hebrew Date.
+	column 'Absolute Day'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: 389a78e4-9c9d-4958-b20f-f5a03da9c99f
+		summarizeBy: none
+		sourceColumn: Absolute Day
+
+	/// Foreign key to Hebcal Event Definition.
+	column 'Event Definition Key'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: cb26246a-455b-41a0-a9fd-1254b83fe6b4
+		summarizeBy: none
+		sourceColumn: Event Definition Key
+
+	partition 'Hebcal Event Occurrence' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Power BI Path" & "\hebcal_event_occurrence.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"absolute_day", "Absolute Day"}, {"schedule_key", "Schedule Key"}, {"event_definition_key", "Event Definition Key"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Event Definition Key", Int64.Type}})
+				in
+				    Typed

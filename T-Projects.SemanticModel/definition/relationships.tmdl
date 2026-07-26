@@ -64,3 +64,23 @@ relationship 'Hebrew Date to Hebrew Year'
 	fromColumn: 'Hebrew Date'.'Hebrew Year'
 	toColumn: 'Hebrew Year'.'Hebrew Year'
 
+relationship 'Hebcal Day Schedule to Hebrew Date'
+	fromColumn: 'Hebcal Day Schedule'.'Absolute Day'
+	toColumn: 'Hebrew Date'.'Absolute Day'
+
+relationship 'Hebcal Day Schedule to Hebcal Schedule'
+	fromColumn: 'Hebcal Day Schedule'.'Schedule Key'
+	toColumn: 'Hebcal Schedule'.'Schedule Key'
+
+relationship 'Hebcal Event Occurrence to Hebrew Date'
+	fromColumn: 'Hebcal Event Occurrence'.'Absolute Day'
+	toColumn: 'Hebrew Date'.'Absolute Day'
+
+relationship 'Hebcal Event Occurrence to Hebcal Schedule'
+	fromColumn: 'Hebcal Event Occurrence'.'Schedule Key'
+	toColumn: 'Hebcal Schedule'.'Schedule Key'
+
+relationship 'Hebcal Event Occurrence to Hebcal Event Definition'
+	fromColumn: 'Hebcal Event Occurrence'.'Event Definition Key'
+	toColumn: 'Hebcal Event Definition'.'Event Definition Key'
+

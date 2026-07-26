@@ -1,0 +1,73 @@
+/// One model-ready row per Hebrew date and schedule from powerbi-v1, preserving Hallel, parsed Tachanun, and Eruv Tavshilin results. Hidden during the side-by-side migration.
+table 'Hebcal Day Schedule'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 273624fd-e5ec-47ae-a69e-483875e4b4a3
+
+	/// Rata Die date key to Hebrew Date.
+	column 'Absolute Day'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: 85097186-db4f-4395-bb4b-bf27579e4a8c
+		summarizeBy: none
+		sourceColumn: Absolute Day
+
+	/// Foreign key to Hebcal Schedule.
+	column 'Schedule Key'
+		dataType: int64
+		isHidden
+		isNullable: false
+		lineageTag: ddf6fe86-e555-46ca-8f91-bfdd40d468ba
+		summarizeBy: none
+		sourceColumn: Schedule Key
+
+	/// Hebcal Hallel level: 0 none, 1 half Hallel, 2 full Hallel.
+	column 'Hallel Level'
+		dataType: int64
+		isNullable: false
+		lineageTag: 2a1ce09d-b8f7-4848-8cf9-c445629b8be6
+		summarizeBy: none
+		sourceColumn: Hallel Level
+
+	/// Whether upstream Tachanun evaluation was supported for this row.
+	column 'Tachanun Supported'
+		dataType: boolean
+		isNullable: false
+		lineageTag: 49e357af-966d-45b4-9089-59ce126b80c6
+		sourceColumn: Tachanun Supported
+
+	/// Whether Eruv Tavshilin applies on this date and schedule.
+	column 'Eruv Tavshilin'
+		dataType: boolean
+		isNullable: false
+		lineageTag: 9b8018b7-1368-4a5e-8f8d-002ed8d7986c
+		sourceColumn: Eruv Tavshilin
+
+	/// Whether Tachanun is recited at Shacharit; blank for unsupported Hebrew year 1 rows.
+	column 'Tachanun Shacharit'
+		dataType: boolean
+		lineageTag: 1cf4d586-36ba-489a-b7c0-0b2c35010341
+		sourceColumn: Tachanun Shacharit
+
+	/// Whether Tachanun is recited at Mincha; blank for unsupported Hebrew year 1 rows.
+	column 'Tachanun Mincha'
+		dataType: boolean
+		lineageTag: 7dc5d6c8-879b-4d22-9f4b-64f7efb52047
+		sourceColumn: Tachanun Mincha
+
+	/// Whether the Tachanun result applies across all congregations; blank for unsupported Hebrew year 1 rows.
+	column 'Tachanun All Congregations'
+		dataType: boolean
+		lineageTag: 4a0cf769-a4b4-417d-afc8-477c9c2d849a
+		sourceColumn: Tachanun All Congregations
+
+	partition 'Hebcal Day Schedule' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Power BI Path" & "\hebrew_day_schedule.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"absolute_day", "Absolute Day"}, {"schedule_key", "Schedule Key"}, {"hallel_level", "Hallel Level"}, {"tachanun_shacharit", "Tachanun Shacharit"}, {"tachanun_mincha", "Tachanun Mincha"}, {"tachanun_all_congregations", "Tachanun All Congregations"}, {"tachanun_supported", "Tachanun Supported"}, {"eruv_tavshilin", "Eruv Tavshilin"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Hallel Level", Int64.Type}, {"Tachanun Shacharit", type logical}, {"Tachanun Mincha", type logical}, {"Tachanun All Congregations", type logical}, {"Tachanun Supported", type logical}, {"Eruv Tavshilin", type logical}})
+				in
+				    Typed

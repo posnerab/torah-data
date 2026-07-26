@@ -1,0 +1,40 @@
+/// Two-row schedule dimension for the immutable Hebcal corpus: Diaspora and Israel. Hidden until normalized tables replace the legacy Hebcal compatibility table.
+table 'Hebcal Schedule'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 87a6d19c-3fe8-411a-a0f4-3802474c62ee
+
+	/// Integer schedule key: 0 for Diaspora and 1 for Israel.
+	column 'Schedule Key'
+		dataType: int64
+		isHidden
+		isUnique
+		isNullable: false
+		lineageTag: d2d420b4-fc6b-4214-90e0-c9a60ddd8fb3
+		summarizeBy: none
+		sourceColumn: Schedule Key
+
+	/// Hebcal calendar schedule name.
+	column Schedule
+		dataType: string
+		isNullable: false
+		lineageTag: b92f3fa2-a4bf-4aba-8ae5-713b9964ef9e
+		sourceColumn: Schedule
+
+	/// True for the Israel holiday and parasha schedule.
+	column 'Is Israel'
+		dataType: boolean
+		isNullable: false
+		lineageTag: e254d96e-56f8-47c0-8ba4-8956be82fe2f
+		sourceColumn: Is Israel
+
+	partition 'Hebcal Schedule' = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        type table [#"Schedule Key" = Int64.Type, Schedule = text, #"Is Israel" = logical],
+				        {{0, "Diaspora", false}, {1, "Israel", true}}
+				    )
+				in
+				    Source
