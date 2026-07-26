@@ -1,0 +1,149 @@
+/// Definition-level normalized Torah, Maftir, Haftarah, Sephardic, Chabad, Megillah, alternate, weekday, and summary passage ranges with localized references.
+table 'Hebcal Reading Passage'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: e7d12aec-0e59-4078-a5bc-f4ef98ae0f9e
+
+	/// Foreign key to Hebcal Reading Definition.
+	column 'Reading Definition Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 54e293eb-bfaa-4a5d-9345-13dd749cc472
+		summarizeBy: none
+		sourceColumn: Reading Definition Key
+
+	/// Source passage structure such as fullkriyah, haft, weekday, or summaryParts.
+	column 'Passage Kind'
+		dataType: string
+		lineageTag: 9ac78757-d908-4389-98f3-06f213da76d2
+		sourceColumn: Passage Kind
+
+	/// Source aliyah label or one-based passage-part label.
+	column 'Passage Label'
+		dataType: string
+		lineageTag: 8c80524b-220c-4821-8e96-4f516e3294dc
+		sourceColumn: Passage Label
+
+	/// Dense one-based order within the reading definition and passage kind.
+	column 'Passage Index'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 282dbb65-43da-4003-ba31-5cf65b22bd0d
+		summarizeBy: none
+		sourceColumn: Passage Index
+
+	/// English book name for the passage range.
+	column 'Book English'
+		dataType: string
+		lineageTag: 3ec30e7f-6d68-44b5-91d6-f92b1b69e578
+		sourceColumn: Book English
+
+	/// Hebrew book name for the passage range.
+	column 'Book Hebrew'
+		dataType: string
+		lineageTag: 338bee00-61c8-430e-84a6-60d5e242d543
+		sourceColumn: Book Hebrew
+
+	/// Ashkenazi-formatted book name for the passage range.
+	column 'Book Ashkenazi'
+		dataType: string
+		lineageTag: 2c14cd0d-c049-4890-a651-03f0419747eb
+		sourceColumn: Book Ashkenazi
+
+	/// English beginning chapter-and-verse reference.
+	column 'Begin Reference English'
+		dataType: string
+		lineageTag: f48b33e0-9a9c-4b42-869e-557ced590c93
+		sourceColumn: Begin Reference English
+
+	/// Hebrew beginning chapter-and-verse reference.
+	column 'Begin Reference Hebrew'
+		dataType: string
+		lineageTag: ddeb4259-b9fb-44b0-a055-35a86443a80e
+		sourceColumn: Begin Reference Hebrew
+
+	/// Ashkenazi-formatted beginning chapter-and-verse reference.
+	column 'Begin Reference Ashkenazi'
+		dataType: string
+		lineageTag: 2060d2fa-abe7-4ee2-bf4b-b25fb4e1f0b9
+		sourceColumn: Begin Reference Ashkenazi
+
+	/// English ending chapter-and-verse reference.
+	column 'End Reference English'
+		dataType: string
+		lineageTag: ab42d14d-4481-4515-bd36-378c0a2208b7
+		sourceColumn: End Reference English
+
+	/// Hebrew ending chapter-and-verse reference.
+	column 'End Reference Hebrew'
+		dataType: string
+		lineageTag: e40ccbab-4c82-4752-b1a2-774b17846421
+		sourceColumn: End Reference Hebrew
+
+	/// Ashkenazi-formatted ending chapter-and-verse reference.
+	column 'End Reference Ashkenazi'
+		dataType: string
+		lineageTag: f0f7bbf9-4e8b-4891-bd5e-61923505abe5
+		sourceColumn: End Reference Ashkenazi
+
+	/// Verse count when supplied by Hebcal; summary ranges intentionally leave it blank.
+	column 'Verse Count'
+		dataType: int64
+		lineageTag: fc4932e4-f533-4e5d-8e9a-f9d0b119f441
+		summarizeBy: none
+		sourceColumn: Verse Count
+
+	/// Canonical Torah-portion number when supplied on the passage.
+	column 'Parasha Number'
+		dataType: int64
+		lineageTag: 6260719b-247a-41f3-b011-6ce2924100fd
+		summarizeBy: none
+		sourceColumn: Parasha Number
+
+	/// English reason annotation supplied on this passage, when present.
+	column 'Reason English'
+		dataType: string
+		lineageTag: 5ca69ea8-5676-456f-b208-1507f50b0f90
+		sourceColumn: Reason English
+
+	/// Hebrew reason annotation supplied on this passage, when present.
+	column 'Reason Hebrew'
+		dataType: string
+		lineageTag: 75865103-2da1-4dc3-ae1b-141bac4848d0
+		sourceColumn: Reason Hebrew
+
+	/// Ashkenazi-formatted reason annotation supplied on this passage, when present.
+	column 'Reason Ashkenazi'
+		dataType: string
+		lineageTag: 691bd4a1-9f48-4cfb-ab0f-c843fb8e3670
+		sourceColumn: Reason Ashkenazi
+
+	/// English passage note supplied by Hebcal, when present.
+	column 'Note English'
+		dataType: string
+		lineageTag: 4095a0b0-5fc5-4359-95d1-c306f7b5d35b
+		sourceColumn: Note English
+
+	/// Hebrew passage note supplied by Hebcal, when present.
+	column 'Note Hebrew'
+		dataType: string
+		lineageTag: 2b3dbfea-57c4-4f35-b604-23dc3dda6e00
+		sourceColumn: Note Hebrew
+
+	/// Ashkenazi-formatted passage note supplied by Hebcal, when present.
+	column 'Note Ashkenazi'
+		dataType: string
+		lineageTag: 7b70a66f-e93b-405d-8a61-2b8a51e32016
+		sourceColumn: Note Ashkenazi
+
+	partition 'Hebcal Reading Passage' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\leyning_segment_definition.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"reading_definition_key", "Reading Definition Key"}, {"segment_kind", "Passage Kind"}, {"segment_label", "Passage Label"}, {"segment_index", "Passage Index"}, {"book_en", "Book English"}, {"book_he", "Book Hebrew"}, {"book_ashkenazi", "Book Ashkenazi"}, {"begin_ref_en", "Begin Reference English"}, {"begin_ref_he", "Begin Reference Hebrew"}, {"begin_ref_ashkenazi", "Begin Reference Ashkenazi"}, {"end_ref_en", "End Reference English"}, {"end_ref_he", "End Reference Hebrew"}, {"end_ref_ashkenazi", "End Reference Ashkenazi"}, {"verse_count", "Verse Count"}, {"parasha_number", "Parasha Number"}, {"reason_en", "Reason English"}, {"reason_he", "Reason Hebrew"}, {"reason_ashkenazi", "Reason Ashkenazi"}, {"note_en", "Note English"}, {"note_he", "Note Hebrew"}, {"note_ashkenazi", "Note Ashkenazi"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Passage Kind", type text}, {"Passage Label", type text}, {"Passage Index", Int64.Type}, {"Book English", type text}, {"Book Hebrew", type text}, {"Book Ashkenazi", type text}, {"Begin Reference English", type text}, {"Begin Reference Hebrew", type text}, {"Begin Reference Ashkenazi", type text}, {"End Reference English", type text}, {"End Reference Hebrew", type text}, {"End Reference Ashkenazi", type text}, {"Verse Count", Int64.Type}, {"Parasha Number", Int64.Type}, {"Reason English", type text}, {"Reason Hebrew", type text}, {"Reason Ashkenazi", type text}, {"Note English", type text}, {"Note Hebrew", type text}, {"Note Ashkenazi", type text}})
+				in
+				    Typed

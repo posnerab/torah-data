@@ -1,0 +1,46 @@
+/// Ordered Parasha names and canonical numbers associated with each reusable leyning reading definition.
+table 'Hebcal Reading Parasha'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 3a593816-fa9f-428d-9b5e-1c286eba1f2d
+
+	/// Foreign key to Hebcal Reading Definition.
+	column 'Reading Definition Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: d262bfdf-d500-4637-8a6c-0d8dc9f85b8d
+		summarizeBy: none
+		sourceColumn: Reading Definition Key
+
+	/// One-based Parasha component order within the reading definition.
+	column 'Parasha Index'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 9b206cd0-2009-428f-9ace-f19850466dc7
+		summarizeBy: none
+		sourceColumn: Parasha Index
+
+	/// Canonical English Parasha name associated with the reading.
+	column 'Parasha Name'
+		dataType: string
+		lineageTag: 5971e5fb-f6ed-4642-a307-49fd37d260b5
+		sourceColumn: Parasha Name
+
+	/// Canonical Torah-portion number from 1 through 54.
+	column 'Parasha Number'
+		dataType: int64
+		lineageTag: bd155b03-5098-4ebb-bfac-79547c754adb
+		summarizeBy: none
+		sourceColumn: Parasha Number
+
+	partition 'Hebcal Reading Parasha' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\leyning_definition_parasha.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"reading_definition_key", "Reading Definition Key"}, {"member_index", "Parasha Index"}, {"parasha_name", "Parasha Name"}, {"parasha_number", "Parasha Number"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Parasha Index", Int64.Type}, {"Parasha Name", type text}, {"Parasha Number", Int64.Type}})
+				in
+				    Typed

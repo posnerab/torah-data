@@ -1,0 +1,39 @@
+/// Ordered component portions for each Parasha definition. Combined definitions have two rows; the primary occurrence fact remains one row per date and schedule.
+table 'Hebcal Parasha Portion'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 33d0b63d-00ab-47f3-a386-249a041fb5f0
+
+	/// Foreign key to Hebcal Parasha Definition.
+	column 'Parasha Definition Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 7f6daa35-67e3-4bf4-b444-880e45554097
+		summarizeBy: none
+		sourceColumn: Parasha Definition Key
+
+	/// One-based component order within the Parasha definition.
+	column 'Portion Index'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 47f225b6-a7fa-42fa-9088-631e2b5734b1
+		summarizeBy: none
+		sourceColumn: Portion Index
+
+	/// Canonical English name of the component Torah portion.
+	column 'Portion Name'
+		dataType: string
+		lineageTag: 6e3b7b5a-152f-4618-83b9-b18e4fe602cf
+		sourceColumn: Portion Name
+
+	partition 'Hebcal Parasha Portion' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\parasha_definition_member.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"parasha_definition_key", "Parasha Definition Key"}, {"member_index", "Portion Index"}, {"parasha_name", "Portion Name"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Parasha Definition Key", Int64.Type}, {"Portion Index", Int64.Type}, {"Portion Name", type text}})
+				in
+				    Typed

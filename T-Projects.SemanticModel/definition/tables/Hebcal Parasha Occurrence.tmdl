@@ -1,0 +1,42 @@
+/// Narrow fact with one regular-Shabbat Parasha row per Hebrew date and schedule from powerbi-readings-v1. Lossless source identifiers, URLs, and JSON remain in corpus-v1.
+table 'Hebcal Parasha Occurrence'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 48c85f55-77cb-482f-813b-0f40c2ce249c
+
+	/// Rata Die date key to Hebrew Date.
+	column 'Absolute Day'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 3ebd0370-660c-47ea-a8f3-43f198fbfeb5
+		summarizeBy: none
+		sourceColumn: Absolute Day
+
+	/// Foreign key to Hebcal Schedule: 0 Diaspora and 1 Israel.
+	column 'Schedule Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 12dbd334-050a-480e-9974-c50516d08525
+		summarizeBy: none
+		sourceColumn: Schedule Key
+
+	/// Foreign key to Hebcal Parasha Definition.
+	column 'Parasha Definition Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 6bc43d7a-88d0-44c8-8b92-255f4a129cbe
+		summarizeBy: none
+		sourceColumn: Parasha Definition Key
+
+	partition 'Hebcal Parasha Occurrence' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\parasha_occurrence.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"absolute_day", "Absolute Day"}, {"schedule_key", "Schedule Key"}, {"parasha_definition_key", "Parasha Definition Key"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Parasha Definition Key", Int64.Type}})
+				in
+				    Typed

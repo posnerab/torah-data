@@ -685,3 +685,8 @@ expression 'Hebcal Power BI Path' = "G:\Projects\torah-data\data\hebcal\powerbi-
 	lineageTag: 1e52f9a7-1035-4969-91af-8636c91b1d6e
 	queryGroup: Hebcal
 
+/// Local path to the finalized immutable powerbi-readings-v1 projection derived from corpus-v1. Change only when relocating the repository; static reading data is loaded once.
+expression 'Hebcal Readings Path' = "G:\Projects\torah-data\data\hebcal\powerbi-readings-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e5e778c0-a169-4127-b555-702daa9ccea5
+	queryGroup: Hebcal
+

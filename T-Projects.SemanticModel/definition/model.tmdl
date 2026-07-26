@@ -45,6 +45,13 @@ ref table 'Hebcal Schedule'
 ref table 'Hebcal Day Schedule'
 ref table 'Hebcal Event Occurrence'
 ref table 'Hebcal Event Definition'
+ref table 'Hebcal Parasha Definition'
+ref table 'Hebcal Parasha Portion'
+ref table 'Hebcal Parasha Occurrence'
+ref table 'Hebcal Reading Definition'
+ref table 'Hebcal Reading Parasha'
+ref table 'Hebcal Reading Passage'
+ref table 'Hebcal Reading Occurrence'
 
 ref cultureInfo en-US
 

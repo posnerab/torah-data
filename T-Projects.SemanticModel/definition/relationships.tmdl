@@ -84,3 +84,39 @@ relationship 'Hebcal Event Occurrence to Hebcal Event Definition'
 	fromColumn: 'Hebcal Event Occurrence'.'Event Definition Key'
 	toColumn: 'Hebcal Event Definition'.'Event Definition Key'
 
+relationship 'Hebcal Parasha Occurrence to Hebrew Date'
+	fromColumn: 'Hebcal Parasha Occurrence'.'Absolute Day'
+	toColumn: 'Hebrew Date'.'Absolute Day'
+
+relationship 'Hebcal Parasha Occurrence to Hebcal Schedule'
+	fromColumn: 'Hebcal Parasha Occurrence'.'Schedule Key'
+	toColumn: 'Hebcal Schedule'.'Schedule Key'
+
+relationship 'Hebcal Parasha Occurrence to Hebcal Parasha Definition'
+	fromColumn: 'Hebcal Parasha Occurrence'.'Parasha Definition Key'
+	toColumn: 'Hebcal Parasha Definition'.'Parasha Definition Key'
+
+relationship 'Hebcal Parasha Portion to Hebcal Parasha Definition'
+	fromColumn: 'Hebcal Parasha Portion'.'Parasha Definition Key'
+	toColumn: 'Hebcal Parasha Definition'.'Parasha Definition Key'
+
+relationship 'Hebcal Reading Occurrence to Hebrew Date'
+	fromColumn: 'Hebcal Reading Occurrence'.'Absolute Day'
+	toColumn: 'Hebrew Date'.'Absolute Day'
+
+relationship 'Hebcal Reading Occurrence to Hebcal Schedule'
+	fromColumn: 'Hebcal Reading Occurrence'.'Schedule Key'
+	toColumn: 'Hebcal Schedule'.'Schedule Key'
+
+relationship 'Hebcal Reading Occurrence to Hebcal Reading Definition'
+	fromColumn: 'Hebcal Reading Occurrence'.'Reading Definition Key'
+	toColumn: 'Hebcal Reading Definition'.'Reading Definition Key'
+
+relationship 'Hebcal Reading Parasha to Hebcal Reading Definition'
+	fromColumn: 'Hebcal Reading Parasha'.'Reading Definition Key'
+	toColumn: 'Hebcal Reading Definition'.'Reading Definition Key'
+
+relationship 'Hebcal Reading Passage to Hebcal Reading Definition'
+	fromColumn: 'Hebcal Reading Passage'.'Reading Definition Key'
+	toColumn: 'Hebcal Reading Definition'.'Reading Definition Key'
+

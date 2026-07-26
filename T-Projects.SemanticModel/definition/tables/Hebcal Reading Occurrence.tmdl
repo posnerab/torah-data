@@ -1,0 +1,51 @@
+/// Narrow leyning fact with one row per Hebrew date, schedule, and reading index from powerbi-readings-v1. Repeated payload text and raw JSON remain outside VertiPaq.
+table 'Hebcal Reading Occurrence'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: da613576-1aa7-4178-85ae-0d2d8866a98a
+
+	/// Rata Die date key to Hebrew Date.
+	column 'Absolute Day'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: 97f668e5-a4c5-4f3c-9bba-d9adf8ed40d2
+		summarizeBy: none
+		sourceColumn: Absolute Day
+
+	/// Foreign key to Hebcal Schedule: 0 Diaspora and 1 Israel.
+	column 'Schedule Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: bd676f72-572c-42bc-8d64-efa05c21e1c8
+		summarizeBy: none
+		sourceColumn: Schedule Key
+
+	/// Zero-based occurrence order within a Hebrew date and schedule.
+	column 'Reading Index'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: cda943a4-0d7c-4eb9-9041-426cd78ffb7e
+		summarizeBy: none
+		sourceColumn: Reading Index
+
+	/// Foreign key to Hebcal Reading Definition.
+	column 'Reading Definition Key'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: a9c7faa2-b27f-4436-bc93-2c7b986b3ba9
+		summarizeBy: none
+		sourceColumn: Reading Definition Key
+
+	partition 'Hebcal Reading Occurrence' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\leyning_occurrence.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"absolute_day", "Absolute Day"}, {"schedule_key", "Schedule Key"}, {"reading_index", "Reading Index"}, {"reading_definition_key", "Reading Definition Key"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Reading Index", Int64.Type}, {"Reading Definition Key", Int64.Type}})
+				in
+				    Typed

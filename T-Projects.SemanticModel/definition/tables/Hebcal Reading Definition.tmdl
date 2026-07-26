@@ -1,0 +1,69 @@
+/// Reusable leyning payload definitions from powerbi-readings-v1. Each row represents one complete canonical reading structure shared across occurrence dates and schedules.
+table 'Hebcal Reading Definition'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: e4d7b6d6-90fd-4854-bafa-cfe0d0fb5714
+
+	/// Dense one-based key within powerbi-readings-v1.
+	column 'Reading Definition Key'
+		dataType: int64
+		isHidden
+		isUnique
+		isAvailableInMdx: false
+		lineageTag: 95c3307b-a501-4bb6-9889-bb29c85ae297
+		summarizeBy: none
+		sourceColumn: Reading Definition Key
+
+	/// Canonical English reading-payload hash retained once for lineage.
+	column 'Source Payload SHA-256'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		lineageTag: b19159de-1697-4104-baba-84701d08aa6d
+		sourceColumn: Source Payload SHA-256
+
+	/// Hebcal reading class: holiday, shabbat, or weekday.
+	column 'Reading Type'
+		dataType: string
+		lineageTag: bb3aaf22-29e3-4a2e-a5ef-9e052ef72c53
+		sourceColumn: Reading Type
+
+	/// English name of the canonical reading.
+	column 'Name English'
+		dataType: string
+		lineageTag: 09bc68d6-6031-466c-a445-3c3ff0783c37
+		sourceColumn: Name English
+
+	/// Hebrew name of the canonical reading.
+	column 'Name Hebrew'
+		dataType: string
+		lineageTag: 6e8b71c8-16c4-4c71-a33c-ba1ad742efcb
+		sourceColumn: Name Hebrew
+
+	/// English Torah-reading summary; blank where the source reading definition supplies no summary.
+	column 'Summary English'
+		dataType: string
+		lineageTag: 0d0ec9a5-6d1d-4c96-8a3a-9d960b102be4
+		sourceColumn: Summary English
+
+	/// Hebrew Torah-reading summary; blank where the source reading definition supplies no summary.
+	column 'Summary Hebrew'
+		dataType: string
+		lineageTag: 149f6f4a-45a8-4699-be0b-e928efd528f2
+		sourceColumn: Summary Hebrew
+
+	/// Ashkenazi Torah-reading summary; blank where the source reading definition supplies no summary.
+	column 'Summary Ashkenazi'
+		dataType: string
+		lineageTag: e17fc9a9-89c0-4c98-bb36-205e801c2530
+		sourceColumn: Summary Ashkenazi
+
+	partition 'Hebcal Reading Definition' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\leyning_reading_definition.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"reading_definition_key", "Reading Definition Key"}, {"source_payload_sha256", "Source Payload SHA-256"}, {"reading_type", "Reading Type"}, {"name_en", "Name English"}, {"name_he", "Name Hebrew"}, {"summary", "Summary English"}, {"summary_he", "Summary Hebrew"}, {"summary_ashkenazi", "Summary Ashkenazi"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Source Payload SHA-256", type text}, {"Reading Type", type text}, {"Name English", type text}, {"Name Hebrew", type text}, {"Summary English", type text}, {"Summary Hebrew", type text}, {"Summary Ashkenazi", type text}})
+				in
+				    Typed

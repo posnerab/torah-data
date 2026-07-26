@@ -1,0 +1,55 @@
+/// Reusable regular-Shabbat Parasha definitions from the immutable powerbi-readings-v1 projection. Combined-portion metadata and localized titles are stored once here.
+table 'Hebcal Parasha Definition'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 79d6e681-f21a-426b-94c9-f3239d953121
+
+	/// Dense one-based key within powerbi-readings-v1.
+	column 'Parasha Definition Key'
+		dataType: int64
+		isHidden
+		isUnique
+		isAvailableInMdx: false
+		lineageTag: 85db4e2a-ed16-400b-b57a-4975b78c0852
+		summarizeBy: none
+		sourceColumn: Parasha Definition Key
+
+	/// Whether the definition combines two weekly Torah portions.
+	column 'Is Combined'
+		dataType: boolean
+		lineageTag: ffaf4536-b67f-4379-833d-40948e422584
+		sourceColumn: Is Combined
+
+	/// English Parasha title from Hebcal.
+	column 'Title English'
+		dataType: string
+		lineageTag: 7e66c567-8b12-48f2-8a7c-074ed60b41b3
+		sourceColumn: Title English
+
+	/// Hebrew Parasha title from Hebcal.
+	column 'Title Hebrew'
+		dataType: string
+		lineageTag: 17ec9e73-62a3-4cfd-bfdb-d3a00d24b5c0
+		sourceColumn: Title Hebrew
+
+	/// Ashkenazi-transliterated Parasha title from Hebcal.
+	column 'Title Ashkenazi'
+		dataType: string
+		lineageTag: e6dde9d2-6e4c-4fae-a1d9-4c97f334b1bb
+		sourceColumn: Title Ashkenazi
+
+	/// Canonical Hebcal basename for the single or combined Parasha definition.
+	column 'Parasha Basename'
+		dataType: string
+		lineageTag: 73f3bc08-4506-4358-b04c-7a63111d9bfe
+		sourceColumn: Parasha Basename
+
+	partition 'Hebcal Parasha Definition' = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(#"Hebcal Readings Path" & "\parasha_definition.parquet")),
+				    RenamedColumns = Table.RenameColumns(Source, {{"parasha_definition_key", "Parasha Definition Key"}, {"is_combined", "Is Combined"}, {"title_en", "Title English"}, {"title_he", "Title Hebrew"}, {"title_ashkenazi", "Title Ashkenazi"}, {"basename", "Parasha Basename"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Parasha Definition Key", Int64.Type}, {"Is Combined", type logical}, {"Title English", type text}, {"Title Hebrew", type text}, {"Title Ashkenazi", type text}, {"Parasha Basename", type text}})
+				in
+				    Typed
