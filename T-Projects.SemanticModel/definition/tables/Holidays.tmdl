@@ -163,15 +163,87 @@ table Holidays
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Loads static holiday inputs and derives calendar/workday fields in semantic-model Power Query.
 	partition Holidays = m
 		mode: import
 		source =
 				let
 				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Holidays.xlsx"), null, true),
-				    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
-				    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"Holiday", type text}, {"Holiday Detail", type text}, {"Date", type date}, {"Day of Week", type text}, {"Shabbat", type text}, {"Yom Tov", type text}, {"Work Permitted", type text}, {"Begins sunset", type text}, {"Work Prohibition Begins Sunset", type text}, {"Work Prohibition Ends Nightfall", type text}, {"Ends Nightfall", type text}, {"Work Days", Int64.Type}, {"Vacation Days", Int64.Type}, {"Link", type text}, {"Start Date", type date}})
+				    HolidayTable = Source{[Item="Table1",Kind="Table"]}[Data],
+				    BaseColumns = Table.RemoveColumns(
+				        HolidayTable,
+				        {"Day of Week", "Shabbat", "Work Permitted", "Work Days", "Vacation Days"},
+				        MissingField.Ignore
+				    ),
+				    TypedBase = Table.TransformColumnTypes(
+				        BaseColumns,
+				        {
+				            {"Holiday", type text}, {"Holiday Detail", type text}, {"Date", type date},
+				            {"Yom Tov", type text}, {"Begins sunset", type text},
+				            {"Work Prohibition Begins Sunset", type text},
+				            {"Work Prohibition Ends Nightfall", type text}, {"Ends Nightfall", type text},
+				            {"Link", type text}, {"Start Date", type date}
+				        }
+				    ),
+				    WithDayOfWeek = Table.AddColumn(TypedBase, "Day of Week", each Date.DayOfWeekName([Date], "en-US"), type text),
+				    WithShabbat = Table.AddColumn(WithDayOfWeek, "Shabbat", each if [Day of Week] = "Saturday" then "Yes" else "No", type text),
+				    WithWorkPermitted = Table.AddColumn(
+				        WithShabbat,
+				        "Work Permitted",
+				        each if [Shabbat] = "Yes" or [Yom Tov] = "Yes" then "No" else "Yes",
+				        type text
+				    ),
+				    WithWorkDays = Table.AddColumn(
+				        WithWorkPermitted,
+				        "Work Days",
+				        each
+				            let
+				                CurrentDate = [Date],
+				                MonthNumber = Date.Month(CurrentDate),
+				                DayNumber = Date.Day(CurrentDate),
+				                YearNumber = Date.Year(CurrentDate),
+				                WeekdayMondayZero = Date.DayOfWeek(CurrentDate, Day.Monday),
+				                May31 = #date(YearNumber, 5, 31),
+				                September1 = #date(YearNumber, 9, 1),
+				                IsWeekend = WeekdayMondayZero > 4,
+				                IsFixedHoliday =
+				                    (MonthNumber = 1 and DayNumber = 1)
+				                    or (MonthNumber = 7 and DayNumber = 4)
+				                    or (MonthNumber = 12 and DayNumber = 25),
+				                IsMemorialDay =
+				                    MonthNumber = 5
+				                    and Date.DayOfWeek(May31, Day.Monday) = 0
+				                    and DayNumber > (31 - (Date.DayOfWeek(May31, Day.Monday) + 1)),
+				                IsLaborDay =
+				                    MonthNumber = 9
+				                    and Date.DayOfWeek(September1, Day.Monday) = 0
+				                    and DayNumber <= 7,
+				                IsThanksgiving =
+				                    MonthNumber = 11
+				                    and WeekdayMondayZero = 3
+				                    and DayNumber >= 22
+				                    and DayNumber <= 28
+				            in
+				                if IsWeekend or IsFixedHoliday or IsMemorialDay or IsLaborDay or IsThanksgiving then 0 else 1,
+				        Int64.Type
+				    ),
+				    WithVacationDays = Table.AddColumn(
+				        WithWorkDays,
+				        "Vacation Days",
+				        each if [Work Permitted] = "No" and [Work Days] <> 0 then 1 else 0,
+				        Int64.Type
+				    ),
+				    Reordered = Table.ReorderColumns(
+				        WithVacationDays,
+				        {
+				            "Holiday", "Holiday Detail", "Date", "Day of Week", "Shabbat", "Yom Tov",
+				            "Work Permitted", "Begins sunset", "Work Prohibition Begins Sunset",
+				            "Work Prohibition Ends Nightfall", "Ends Nightfall", "Work Days",
+				            "Vacation Days", "Link", "Start Date"
+				        }
+				    )
 				in
-				    #"Changed Type"
+				    Reordered
 
 	annotation PBI_ResultType = Table
 

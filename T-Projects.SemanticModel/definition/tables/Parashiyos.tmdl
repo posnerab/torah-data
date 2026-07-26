@@ -117,28 +117,45 @@ table Parashiyos
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Loads static parasha boundaries and derives chapter/verse coordinates plus semantic indexes in Power Query.
 	partition Parashiyos = m
 		mode: import
 		queryGroup: Chumash
 		source =
 				let
 				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
-				    Sheet = Source{[Item="Parashiyos",Kind="Sheet"]}[Data],
-				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Sefer", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}, {"Verses", Int64.Type}}),
-				
-				    // Group by Book and add an index column within each group
-				    #"Grouped and Added Index" = Table.AddColumn(
-				        Table.Group(#"Changed Type", {"Sefer"}, {{"GroupedData", each Table.AddIndexColumn(_, "Index_BookParasha", 1, 1, Int64.Type)}}),
-				        "Expanded", each [GroupedData]
+				    ParashiyosTable = Source{[Item="Parashiyos",Kind="Table"]}[Data],
+				    BaseColumns = Table.RemoveColumns(
+				        ParashiyosTable,
+				        {"StartChapter", "StartVerse", "EndChapter", "EndVerse"},
+				        MissingField.Ignore
 				    ),
-				    #"Removed Columns" = Table.RemoveColumns(#"Grouped and Added Index",{"GroupedData"}),
-				    #"Expanded Expanded" = Table.ExpandTableColumn(#"Removed Columns", "Expanded", {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}, {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Expanded",{{"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}, {"Verses", Int64.Type}, {"Index_BookParasha", Int64.Type}, {"Book", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"Doubled", type logical}}),
-				    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Index_Parasha"}})
+				    TypedBase = Table.TransformColumnTypes(
+				        BaseColumns,
+				        {{"Sefer", type text}, {"Book", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"Verses", Int64.Type}, {"Doubled", type logical}}
+				    ),
+				    WithStartChapter = Table.AddColumn(TypedBase, "StartChapter", each Int64.From(Number.FromText(Text.BeforeDelimiter([Start], ":"))), Int64.Type),
+				    WithStartVerse = Table.AddColumn(WithStartChapter, "StartVerse", each Int64.From(Number.FromText(Text.AfterDelimiter([Start], ":"))), Int64.Type),
+				    WithEndChapter = Table.AddColumn(WithStartVerse, "EndChapter", each Int64.From(Number.FromText(Text.BeforeDelimiter([End], ":"))), Int64.Type),
+				    WithEndVerse = Table.AddColumn(WithEndChapter, "EndVerse", each Int64.From(Number.FromText(Text.AfterDelimiter([End], ":"))), Int64.Type),
+				    Grouped = Table.Group(
+				        WithEndVerse,
+				        {"Sefer"},
+				        {{"Rows", each Table.AddIndexColumn(_, "Index_BookParasha", 1, 1, Int64.Type), type table}}
+				    ),
+				    Expanded = Table.ExpandTableColumn(
+				        Grouped,
+				        "Rows",
+				        {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"},
+				        {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}
+				    ),
+				    WithParashaIndex = Table.AddIndexColumn(Expanded, "Index_Parasha", 1, 1, Int64.Type),
+				    Reordered = Table.ReorderColumns(
+				        WithParashaIndex,
+				        {"Sefer", "Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Index_BookParasha", "Index_Parasha", "Doubled"}
+				    )
 				in
-				    #"Renamed Columns"
+				    Reordered
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -205,14 +205,237 @@ expression Dates =
 
 	annotation PBI_ResultType = Table
 
+/// Fetches the rolling previous, current, and next calendar years of Milwaukee zmanim directly from Hebcal; no workbook refresh dependency.
 expression 'Zmanim Last Year/Current Year' =
 		let
-		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
-		    Current_Year_Table = Source{[Item="Last_Current_Next",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Current_Year_Table,{{"date", type date}, {"title", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number}, {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}, {"city", type text}, {"cc", type text}, {"country", type text}, {"admin1", type text}, {"geo", type text}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] <> null and [date] <> "")
+		    // --------------------------
+		    // Date window (last year through next year)
+		    // --------------------------
+		    Today = DateTime.Date(DateTime.FixedLocalNow()),
+		    Year = Date.Year(Today),
+		    OverallStartDate = #date(Year-1, 1, 1),
+		    OverallEndDate   = #date(Year+1, 12, 31),
+
+		    // --------------------------
+		    // Chunk into ~181-day ranges
+		    // --------------------------
+		    NumDays   = Duration.Days(OverallEndDate - OverallStartDate) + 1,
+		    NumChunks = Number.RoundUp(NumDays / 181),
+		    StartDates = List.Dates(OverallStartDate, NumChunks, #duration(181, 0, 0, 0)),
+		    EndDates = List.Transform(
+		        StartDates,
+		        (s) => if Date.AddDays(s, 180) > OverallEndDate then OverallEndDate else Date.AddDays(s, 180)
+		    ),
+		    DateRanges = List.Zip({StartDates, EndDates}),
+
+		    // --------------------------
+		    // Fetch one range from Hebcal
+		    // --------------------------
+		    GetData = (Range as list) as table =>
+		        let
+		            Start = Range{0},
+		            End   = Range{1},
+		            Source =
+		                Json.Document(
+		                    Web.Contents(
+		                        "https://www.hebcal.com/zmanim?cfg=json&zip=53216&sec=1&start="
+		                        & Date.ToText(Start, "yyyy-MM-dd")
+		                        & "&end="
+		                        & Date.ToText(End, "yyyy-MM-dd")
+		                    )
+		                ),
+		            AsTable = Table.FromRecords({Source})
+		        in
+		            AsTable,
+
+		    DataList = List.Transform(DateRanges, each GetData(_)),
+		    CombinedData = Table.Combine(DataList),
+
+		    // --------------------------
+		    // Expand [times] into named record-columns (each is a record keyed by YYYY-MM-DD)
+		    // --------------------------
+		    ExpandedTimes =
+		        Table.ExpandRecordColumn(
+		            CombinedData,
+		            "times",
+		            {
+		                "chatzotNight","alotHaShachar","misheyakir","misheyakirMachmir","dawn","sunrise",
+		                "sofZmanShmaMGA16Point1","sofZmanShmaMGA","sofZmanShma",
+		                "sofZmanTfillaMGA16Point1","sofZmanTfillaMGA","sofZmanTfilla",
+		                "chatzot","minchaGedola","minchaKetana","plagHaMincha","sunset",
+		                "beinHaShmashos","dusk","tzeit7083deg","tzeit85deg","tzeit42min","tzeit50min","tzeit72min"
+		            },
+		            {
+		                "chatzotNight","alotHaShachar","misheyakir","misheyakirMachmir","dawn","sunrise",
+		                "sofZmanShmaMGA16Point1","sofZmanShmaMGA","sofZmanShma",
+		                "sofZmanTfillaMGA16Point1","sofZmanTfillaMGA","sofZmanTfilla",
+		                "chatzot","minchaGedola","minchaKetana","plagHaMincha","sunset",
+		                "beinHaShmashos","dusk","tzeit7083deg","tzeit85deg","tzeit42min","tzeit50min","tzeit72min"
+		            }
+		        ),
+
+		    // keep location; drop top-level date/version (we'll rebuild date)
+		    #"Removed Columns" = Table.RemoveColumns(ExpandedTimes, {"date", "version"}),
+
+		    // --------------------------
+		    // Expand every record column EXCEPT [location]
+		    //   - union fieldnames across all rows in the column
+		    //   - prefix expanded columns with original column name
+		    // Result columns look like: chatzotNight.2025-01-01, sunrise.2025-01-01, ...
+		    // --------------------------
+		    Custom1 =
+		        let
+		            t = #"Removed Columns",
+
+		            recordCols =
+		                List.Select(
+		                    Table.ColumnNames(t),
+		                    (c) =>
+		                        c <> "location" and
+		                        (try
+		                            List.AnyTrue(
+		                                List.Transform(
+		                                    List.RemoveNulls(Table.Column(t, c)),
+		                                    each Value.Is(_, type record)
+		                                )
+		                            )
+		                         otherwise false)
+		                ),
+
+		            expandOne =
+		                (state as table, col as text) as table =>
+		                    let
+		                        recs =
+		                            List.Select(
+		                                List.RemoveNulls(Table.Column(state, col)),
+		                                each Value.Is(_, type record)
+		                            ),
+		                        fields =
+		                            if List.Count(recs) = 0
+		                            then {}
+		                            else List.Distinct(List.Combine(List.Transform(recs, each Record.FieldNames(_)))),
+		                        newNames = List.Transform(fields, each col & "." & _)
+		                    in
+		                        if List.Count(fields) > 0
+		                        then Table.ExpandRecordColumn(state, col, fields, newNames)
+		                        else state,
+
+		            expanded = List.Accumulate(recordCols, t, expandOne)
+		        in
+		            expanded,
+
+		    // --------------------------
+		    // Unpivot everything except location to get:
+		    //   location | Attribute (e.g. "sunrise.2025-01-01") | Value (datetime text)
+		    // --------------------------
+		    Unpivoted = Table.UnpivotOtherColumns(Custom1, {"location"}, "Attribute", "Value"),
+
+		    // Extract date text from attribute (after last ".")
+		    AddDateText =
+		        Table.AddColumn(
+		            Unpivoted,
+		            "DateText",
+		            each Text.AfterDelimiter([Attribute], ".", {0, RelativePosition.FromEnd}),
+		            type text
+		        ),
+
+		    // Extract zman name from attribute (before first ".")
+		    AddZman =
+		        Table.AddColumn(
+		            AddDateText,
+		            "Zman",
+		            each Text.BeforeDelimiter([Attribute], "."),
+		            type text
+		        ),
+
+		    // Parse Date
+		    AddDate =
+		        Table.TransformColumns(
+		            AddZman,
+		            {{"DateText", each Date.FromText(_), type date}}
+		        ),
+
+		    // --------------------------
+		    // Expand location into columns NOW (still row-per-(date,zman))
+		    // --------------------------
+		    ExpandedLocation =
+		        Table.ExpandRecordColumn(
+		            AddDate,
+		            "location",
+		            {"title","city","tzid","latitude","longitude","cc","country","admin1","geo","zip","state","stateName"},
+		            {"title","city","tzid","latitude","longitude","cc","country","admin1","geo","zip","state","stateName"}
+		        ),
+
+		    // --------------------------
+		    // Create a one-row-per-date location table (stable join target)
+		    // --------------------------
+		    LocationByDate =
+		        Table.Distinct(
+		            Table.SelectColumns(
+		                ExpandedLocation,
+		                {"DateText","title","city","tzid","latitude","longitude","cc","country","admin1","geo","zip","state","stateName"}
+		            )
+		        ),
+
+		    // --------------------------
+		    // Pivot zman values to wide table by date ONLY
+		    // (keep location OUT of the pivot to avoid non-unique group collisions)
+		    // --------------------------
+		    PivotSource = Table.SelectColumns(ExpandedLocation, {"DateText","Zman","Value"}),
+
+		    Pivoted =
+		        Table.Pivot(
+		            PivotSource,
+		            List.Distinct(PivotSource[Zman]),
+		            "Zman",
+		            "Value",
+		            List.First
+		        ),
+
+		    // --------------------------
+		    // Merge location back on date
+		    // --------------------------
+		    MergedLocation =
+		        Table.NestedJoin(Pivoted, {"DateText"}, LocationByDate, {"DateText"}, "loc", JoinKind.LeftOuter),
+
+		    FinalWithLocation =
+		        Table.ExpandTableColumn(
+		            MergedLocation,
+		            "loc",
+		            {"title","city","tzid","latitude","longitude","cc","country","admin1","geo","zip","state","stateName"},
+		            {"title","city","tzid","latitude","longitude","cc","country","admin1","geo","zip","state","stateName"}
+		        ),
+
+		    // --------------------------
+		    // Types (date + location + zman columns)
+		    // --------------------------
+		    #"Changed Type" =
+		        Table.TransformColumnTypes(
+		            FinalWithLocation,
+		            {
+		                {"DateText", type date},
+
+		                {"latitude", type number}, {"longitude", type number},
+		                {"title", type text}, {"tzid", type text}, {"city", type text},
+		                {"cc", type text}, {"country", type text}, {"admin1", type text},
+		                {"geo", type text}, {"zip", Int64.Type}, {"state", type text}, {"stateName", type text},
+
+		                {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone},
+		                {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone},
+		                {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone},
+		                {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone},
+		                {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone},
+		                {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone},
+		                {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone},
+		                {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}
+		            }
+		        ),
+
+		    // Match your preferred final date column name
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type", {{"DateText", "date"}})
+
 		in
-		    #"Filtered Rows"
+		    #"Renamed Columns1"
 	lineageTag: 90eefa21-923f-431e-ae22-1c2bdb41b394
 	queryGroup: Zmanim
 
@@ -287,7 +510,7 @@ expression 'Hebcal Power Query' =
 		    #"Replaced Value4" = Table.ReplaceValue(#"Renamed Columns1","; "," · ",Replacer.ReplaceText,{"Haftarah"}),
 		    // COLLAPSING STEP BEGINS HERE
 		    ColumnNames = List.RemoveItems(Table.ColumnNames(#"Replaced Value4"), {"Date"}),
-		
+
 		    Grouped = Table.Group(
 		        #"Replaced Value4",
 		        {"Date"},
@@ -372,7 +595,7 @@ expression 'Hebcal Power Query' =
 		                {"Vayakhel-Pekudei", "Vayakhel-Pekudei"}
 		            }
 		        ),
-		
+
 		        ApplyReplacements = List.Accumulate(
 		            {"Parasha", "Occasion", "Jewish Holidays"},
 		            #"Renamed Columns",
@@ -410,10 +633,10 @@ expression 'leyning?cfg=json&start=2025-07-28&end=2025-08-03&triennial=off' =
 		let
 		    StartYear = 2025,
 		    EndYear = 2025,
-		
+
 		    // Generate list of years
 		    Years = List.Numbers(StartYear, EndYear - StartYear + 1),
-		
+
 		    // Function to get data for a single year
 		    GetHebcalData = (Year as number) =>
 		        let
@@ -435,7 +658,7 @@ expression 'leyning?cfg=json&start=2025-07-28&end=2025-08-03&triennial=off' =
 		            TableResponse = Table.FromRecords({JsonResponse})
 		        in
 		            TableResponse,
-		
+
 		    // Combine data for all years
 		    AllYearsRaw = List.Transform(Years, each GetHebcalData(_)),
 		    Combined = Table.Combine(AllYearsRaw),
