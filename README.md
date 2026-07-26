@@ -1,11 +1,20 @@
 # Torah Data
 
-Torah datasets, a Power BI Desktop project, and an R Shiny explorer.
+Torah datasets and a Power BI Desktop project.
 
-The Power BI project is `T-Projects.pbip`, with the report stored as PBIR under
-`T-Projects.Report` and the semantic model stored as TMDL under
+Open `T-Projects.pbip` in Power BI Desktop. The report is stored as PBIR under
+`T-Projects.Report`, and the semantic model is stored as TMDL under
 `T-Projects.SemanticModel`.
 
-See [scripts/powerbi/README.md](scripts/powerbi/README.md) for the local Power BI
-modeling MCP, PBIR authoring, Desktop reload, screenshot, and data-source
-credential workflow.
+The semantic model reads these tracked source workbooks from the public GitHub
+repository:
+
+- `Calendar.xlsx`
+- `Holidays.xlsx`
+- `Torah.xlsx`
+- `zmanim.xlsx`
+- `Zmanim_Last_Current_Year_Milwaukee.xlsx`
+
+See [scripts/powerbi/README.md](scripts/powerbi/README.md) for the supported
+local Power BI modeling, report-authoring, Desktop reload, screenshot, and
+data-source credential workflow.
