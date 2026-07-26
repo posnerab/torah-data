@@ -18,7 +18,7 @@ queryGroup Chumash
 
 	annotation PBI_QueryGroupOrder = 2
 
-annotation PBI_QueryOrder = ["Hebcal","Zmanim Definitions","Zmanim Today Unpivoted","Zmanim Today Unpivoted Elevation","Zmanim Last Week","Zmanim Last Week Unpivoted","Zmanim Yesterday Unpivoted","Zmanim Yesterday","Zmanim Today","Zmanim All Three","Zmanim Last Year/Current Year","Zmanim","Holidays","textBeforeCardinalDelimiters","Pasukim","Parashiyos","Parukim","Mitzvos","Fast Days","Leap Year Index","Common Year Index","Dates","Haftaros","Parasha-Mitzvos","Hebcal Power Query","leyning?cfg=json&start=2025-07-28&end=2025-08-03&triennial=off"]
+annotation PBI_QueryOrder = ["Hebcal","Zmanim Definitions","Zmanim Today Unpivoted","Zmanim Today Unpivoted Elevation","Zmanim Last Week","Zmanim Last Week Unpivoted","Zmanim Yesterday Unpivoted","Zmanim Yesterday","Zmanim Today","Zmanim","Holidays","Pasukim","Parashiyos","Mitzvos","Fast Days","Haftaros","Parasha-Mitzvos","Hebcal Corpus Path","Hebcal Power BI Path","Hebcal Readings Path","Hebcal Compatibility Path","Hebrew Year","Hebrew Date","Hebcal Schedule","Hebcal Day Schedule","Hebcal Event Occurrence","Hebcal Event Definition","Hebcal Parasha Definition","Hebcal Parasha Portion","Hebcal Parasha Occurrence","Hebcal Reading Definition","Hebcal Reading Parasha","Hebcal Reading Passage","Hebcal Reading Occurrence"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
