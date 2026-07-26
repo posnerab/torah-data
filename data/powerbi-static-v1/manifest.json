@@ -1,0 +1,1326 @@
+{
+  "builder": {
+    "duckdb_version": "1.5.5",
+    "script_sha256": "c40a839c1c0eba22e31090ac839fe7905b65b8417adf8b09f073c2ff5248a480"
+  },
+  "immutability": {
+    "changed_projection_requires_new_version": true,
+    "overwrite_existing_output": false,
+    "source_snapshot_modified": false
+  },
+  "materialization_version": "powerbi-static-v1",
+  "source": {
+    "exporter_script_sha256": "68a45afd1aaf7f960aef502694b601527f789b56e8827564414033bc7bdbfbfe",
+    "kind": "power-bi-semantic-model-snapshot",
+    "schema_sha256": "a8b10785354f6cf1da0c524a7b62f440926cd49a9b690c2bc90ba92298b71fd6",
+    "snapshot_version": "powerbi-static-source-v1"
+  },
+  "status": "complete-immutable-derived",
+  "table_order": [
+    "Holidays",
+    "Pasukim",
+    "Parashiyos",
+    "Fast Days",
+    "Haftaros",
+    "Parasha-Mitzvos"
+  ],
+  "tables": {
+    "Fast Days": {
+      "columns": [
+        {
+          "data_type": "string",
+          "name": "Hebrew Month Day",
+          "source_column": "Hebrew Month Day"
+        },
+        {
+          "data_type": "string",
+          "name": "Name",
+          "source_column": "Name"
+        },
+        {
+          "data_type": "string",
+          "name": "Biblical",
+          "source_column": "Biblical"
+        },
+        {
+          "data_type": "string",
+          "name": "Source",
+          "source_column": "Source"
+        },
+        {
+          "data_type": "string",
+          "name": "Firstborn Only",
+          "source_column": "Firstborn Only"
+        },
+        {
+          "data_type": "string",
+          "name": "Category",
+          "source_column": "Category"
+        },
+        {
+          "data_type": "int64",
+          "name": "Category Rank",
+          "source_column": "Category Rank"
+        }
+      ],
+      "file": {
+        "bytes": 1686,
+        "columns": [
+          {
+            "name": "Hebrew Month Day",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Name",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Biblical",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Source",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Firstborn Only",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Category",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Category Rank",
+            "nullable": "YES",
+            "type": "BIGINT"
+          }
+        ],
+        "path": "tables/fast_days.parquet",
+        "rows": 14,
+        "sha256": "bcc3ace32ec7ecbfdf03d074c9964f28b1659350b700531f47b242e314734e68"
+      },
+      "ordering": [
+        "Hebrew Month Day",
+        "Name",
+        "Biblical",
+        "Source",
+        "Firstborn Only",
+        "Category",
+        "Category Rank"
+      ],
+      "slug": "fast_days",
+      "source": {
+        "contract_sha256": "f0dc3c4eaba60f2434dda2594293c36731f8baf1dcffc4dce399849e1aa5845a",
+        "dax_query_sha256": "236140cb7b1da799d086e4898ea96fe402db635d12a9a5146ed993ba7ad901fb",
+        "file": "tables/fast_days.jsonl",
+        "jsonl_sha256": "3487ebaa2132a0fb560018936128de32625df5e0c41e928d2fa73f8fc05d5681",
+        "tmdl_sha256": "adf69fb8791e1c0bf0e6000e19d21e338e463a7403f2aa803afebd69b511918a"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 14,
+        "source_minus_output_rows": 0,
+        "source_rows": 14
+      }
+    },
+    "Haftaros": {
+      "columns": [
+        {
+          "data_type": "dateTime",
+          "name": "Date",
+          "source_column": "Date"
+        },
+        {
+          "data_type": "string",
+          "name": "Hebrew Date",
+          "source_column": "Hebrew Date"
+        },
+        {
+          "data_type": "string",
+          "name": "Haftarah",
+          "source_column": "Haftarah"
+        },
+        {
+          "data_type": "string",
+          "name": "Haftarah.1",
+          "source_column": "Haftarah.1"
+        },
+        {
+          "data_type": "string",
+          "name": "Haftarah.2",
+          "source_column": "Haftarah.2"
+        },
+        {
+          "data_type": "string",
+          "name": "Haftarah.3",
+          "source_column": "Haftarah.3"
+        },
+        {
+          "data_type": "int64",
+          "name": "Year",
+          "source_column": "Year"
+        },
+        {
+          "data_type": "int64",
+          "name": "Hebrew Year",
+          "source_column": "Hebrew Year"
+        },
+        {
+          "data_type": "string",
+          "name": "Hebrew Month Day",
+          "source_column": "Hebrew Month Day"
+        },
+        {
+          "data_type": "string",
+          "name": "Day Name",
+          "source_column": "Day Name"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefer.1",
+          "source_column": "Sefer.1"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefer.2",
+          "source_column": "Sefer.2"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefer.3",
+          "source_column": "Sefer.3"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefarim",
+          "source_column": "Sefarim"
+        },
+        {
+          "data_type": "int64",
+          "name": "Hebrew Day Index",
+          "source_column": "Hebrew Day Index"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Haftarah",
+          "source_column": "Index_Haftarah"
+        }
+      ],
+      "file": {
+        "bytes": 6578,
+        "columns": [
+          {
+            "name": "Date",
+            "nullable": "YES",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "Hebrew Date",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Haftarah",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Haftarah.1",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Haftarah.2",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Haftarah.3",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Year",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Hebrew Year",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Hebrew Month Day",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Day Name",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefer.1",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefer.2",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefer.3",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefarim",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Hebrew Day Index",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Haftarah",
+            "nullable": "YES",
+            "type": "BIGINT"
+          }
+        ],
+        "path": "tables/haftaros.parquet",
+        "rows": 78,
+        "sha256": "2b5f0301ca10fb49ed39b6b4bae64d78774dfbb3c469447552a78a75b255819f"
+      },
+      "ordering": [
+        "Date",
+        "Hebrew Date",
+        "Haftarah",
+        "Haftarah.1",
+        "Haftarah.2",
+        "Haftarah.3",
+        "Year",
+        "Hebrew Year",
+        "Hebrew Month Day",
+        "Day Name",
+        "Sefer.1",
+        "Sefer.2",
+        "Sefer.3",
+        "Sefarim",
+        "Hebrew Day Index",
+        "Index_Haftarah"
+      ],
+      "slug": "haftaros",
+      "source": {
+        "contract_sha256": "4b8ed9b7fd85acb00217de6f117a91ff8079e8b07e81f3ccacf3d3949152106c",
+        "dax_query_sha256": "72e6bf4c8609aab6ebe113b3cd4a0656e9c9de4f4e6739912d2b61d6d5e25a99",
+        "file": "tables/haftaros.jsonl",
+        "jsonl_sha256": "5ad7aedb51e60b1164db392638d251b6ebf28a44af3007467df6558feed57983",
+        "tmdl_sha256": "584008179b7990a9379508ed631a6a9567b2aa18f0591f3bc71285a54aa7f988"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 78,
+        "source_minus_output_rows": 0,
+        "source_rows": 78
+      }
+    },
+    "Holidays": {
+      "columns": [
+        {
+          "data_type": "string",
+          "name": "Holiday",
+          "source_column": "Holiday"
+        },
+        {
+          "data_type": "string",
+          "name": "Holiday Detail",
+          "source_column": "Holiday Detail"
+        },
+        {
+          "data_type": "dateTime",
+          "name": "Date",
+          "source_column": "Date"
+        },
+        {
+          "data_type": "string",
+          "name": "Day of Week",
+          "source_column": "Day of Week"
+        },
+        {
+          "data_type": "string",
+          "name": "Shabbat",
+          "source_column": "Shabbat"
+        },
+        {
+          "data_type": "string",
+          "name": "Yom Tov",
+          "source_column": "Yom Tov"
+        },
+        {
+          "data_type": "string",
+          "name": "Work Permitted",
+          "source_column": "Work Permitted"
+        },
+        {
+          "data_type": "string",
+          "name": "Begins sunset",
+          "source_column": "Begins sunset"
+        },
+        {
+          "data_type": "string",
+          "name": "Work Prohibition Begins Sunset",
+          "source_column": "Work Prohibition Begins Sunset"
+        },
+        {
+          "data_type": "string",
+          "name": "Work Prohibition Ends Nightfall",
+          "source_column": "Work Prohibition Ends Nightfall"
+        },
+        {
+          "data_type": "string",
+          "name": "Ends Nightfall",
+          "source_column": "Ends Nightfall"
+        },
+        {
+          "data_type": "int64",
+          "name": "Work Days",
+          "source_column": "Work Days"
+        },
+        {
+          "data_type": "int64",
+          "name": "Vacation Days",
+          "source_column": "Vacation Days"
+        },
+        {
+          "data_type": "string",
+          "name": "Link",
+          "source_column": "Link"
+        },
+        {
+          "data_type": "dateTime",
+          "name": "Start Date",
+          "source_column": "Start Date"
+        }
+      ],
+      "file": {
+        "bytes": 5582,
+        "columns": [
+          {
+            "name": "Holiday",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Holiday Detail",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Date",
+            "nullable": "YES",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "Day of Week",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Shabbat",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Yom Tov",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Work Permitted",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Begins sunset",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Work Prohibition Begins Sunset",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Work Prohibition Ends Nightfall",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Ends Nightfall",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Work Days",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Vacation Days",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Link",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Start Date",
+            "nullable": "YES",
+            "type": "TIMESTAMP"
+          }
+        ],
+        "path": "tables/holidays.parquet",
+        "rows": 98,
+        "sha256": "5122983137402ea414261c1782ef951f01f491fa75968a37b7658e4693557fb5"
+      },
+      "ordering": [
+        "Holiday",
+        "Holiday Detail",
+        "Date",
+        "Day of Week",
+        "Shabbat",
+        "Yom Tov",
+        "Work Permitted",
+        "Begins sunset",
+        "Work Prohibition Begins Sunset",
+        "Work Prohibition Ends Nightfall",
+        "Ends Nightfall",
+        "Work Days",
+        "Vacation Days",
+        "Link",
+        "Start Date"
+      ],
+      "slug": "holidays",
+      "source": {
+        "contract_sha256": "0713647ec3ddbce7820b59e9e0022681a8eb8ee472cdbc02973fb7b10e20a7b5",
+        "dax_query_sha256": "f35e676437291716620bae1304644a0377fcede9c201083b686e0e5871bab5f1",
+        "file": "tables/holidays.jsonl",
+        "jsonl_sha256": "ec7a495ef0d5d3da81b7f1e11e874c5ddc937986cf2667967d6b051f1903ffaa",
+        "tmdl_sha256": "e22fb7ff5fcc5c9667164f54d4d9a7fcee5627a2cefca3d2629d71489e87fbce"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 98,
+        "source_minus_output_rows": 0,
+        "source_rows": 98
+      }
+    },
+    "Parasha-Mitzvos": {
+      "columns": [
+        {
+          "data_type": "string",
+          "name": "Link",
+          "source_column": "Link"
+        },
+        {
+          "data_type": "string",
+          "name": "Mitzvah",
+          "source_column": "Mitzvah"
+        },
+        {
+          "data_type": "string",
+          "name": "URL",
+          "source_column": "URL"
+        },
+        {
+          "data_type": "string",
+          "name": "Book",
+          "source_column": "Book"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefer",
+          "source_column": "Sefer"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_BookChapter",
+          "source_column": "Index_BookChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_ChapterVerse",
+          "source_column": "Index_ChapterVerse"
+        },
+        {
+          "data_type": "string",
+          "name": "Parek",
+          "source_column": "Parek"
+        },
+        {
+          "data_type": "string",
+          "name": "Pasuk",
+          "source_column": "Pasuk"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_BookVerse",
+          "source_column": "Index_BookVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Book",
+          "source_column": "Index_Book"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Verse",
+          "source_column": "Index_Verse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_ParashaVerse",
+          "source_column": "Index_ParashaVerse"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha.Start",
+          "source_column": "Parasha.Start"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha.End",
+          "source_column": "Parasha.End"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.StartChapter",
+          "source_column": "Parasha.StartChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.StartVerse",
+          "source_column": "Parasha.StartVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.EndChapter",
+          "source_column": "Parasha.EndChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.EndVerse",
+          "source_column": "Parasha.EndVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Chapter",
+          "source_column": "Index_Chapter"
+        },
+        {
+          "data_type": "string",
+          "name": "Reference",
+          "source_column": "Reference"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha",
+          "source_column": "Parasha"
+        },
+        {
+          "data_type": "int64",
+          "name": "StartChapter",
+          "source_column": "StartChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "StartVerse",
+          "source_column": "StartVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "EndChapter",
+          "source_column": "EndChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "EndVerse",
+          "source_column": "EndVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Mitzvah",
+          "source_column": "Index_Mitzvah"
+        },
+        {
+          "data_type": "boolean",
+          "name": "Doubled",
+          "source_column": "Doubled"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Parasha",
+          "source_column": "Index_Parasha"
+        }
+      ],
+      "file": {
+        "bytes": 55319,
+        "columns": [
+          {
+            "name": "Link",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Mitzvah",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "URL",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Book",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefer",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Index_BookChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_ChapterVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parek",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Pasuk",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Index_BookVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Book",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Verse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_ParashaVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.Start",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha.End",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha.StartChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.StartVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.EndChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.EndVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Chapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Reference",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "StartChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "StartVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "EndChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "EndVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Mitzvah",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Doubled",
+            "nullable": "YES",
+            "type": "BOOLEAN"
+          },
+          {
+            "name": "Index_Parasha",
+            "nullable": "YES",
+            "type": "BIGINT"
+          }
+        ],
+        "path": "tables/parasha_mitzvos.parquet",
+        "rows": 781,
+        "sha256": "d8d2c1b1f0fd8bc5e963358e61575deb59db0bfbf318ae5d65017e88689becb6"
+      },
+      "ordering": [
+        "Link",
+        "Mitzvah",
+        "URL",
+        "Book",
+        "Sefer",
+        "Index_BookChapter",
+        "Index_ChapterVerse",
+        "Parek",
+        "Pasuk",
+        "Index_BookVerse",
+        "Index_Book",
+        "Index_Verse",
+        "Index_ParashaVerse",
+        "Parasha.Start",
+        "Parasha.End",
+        "Parasha.StartChapter",
+        "Parasha.StartVerse",
+        "Parasha.EndChapter",
+        "Parasha.EndVerse",
+        "Index_Chapter",
+        "Reference",
+        "Parasha",
+        "StartChapter",
+        "StartVerse",
+        "EndChapter",
+        "EndVerse",
+        "Index_Mitzvah",
+        "Doubled",
+        "Index_Parasha"
+      ],
+      "slug": "parasha_mitzvos",
+      "source": {
+        "contract_sha256": "faefe777936f1e66ae2de33b1f005fe5fba539c737f81b6804f52540fac8b109",
+        "dax_query_sha256": "6d04f924ab6ba8902f9bb3f5be136e71136e605947b933684a5f168d85e3c29f",
+        "file": "tables/parasha_mitzvos.jsonl",
+        "jsonl_sha256": "df0d37d5a603881e88649b31f448fa0b20a86e72d4c393ab860ebefbe001350d",
+        "tmdl_sha256": "0745788f9c0f0faaa1fea05004839251a4465f65194a6bca64dbd3c8548928bc"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 781,
+        "source_minus_output_rows": 0,
+        "source_rows": 781
+      }
+    },
+    "Parashiyos": {
+      "columns": [
+        {
+          "data_type": "string",
+          "name": "Sefer",
+          "source_column": "Sefer"
+        },
+        {
+          "data_type": "string",
+          "name": "Book",
+          "source_column": "Book"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha",
+          "source_column": "Parasha"
+        },
+        {
+          "data_type": "string",
+          "name": "Start",
+          "source_column": "Start"
+        },
+        {
+          "data_type": "string",
+          "name": "End",
+          "source_column": "End"
+        },
+        {
+          "data_type": "int64",
+          "name": "StartChapter",
+          "source_column": "StartChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "StartVerse",
+          "source_column": "StartVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "EndChapter",
+          "source_column": "EndChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "EndVerse",
+          "source_column": "EndVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Verses",
+          "source_column": "Verses"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_BookParasha",
+          "source_column": "Index_BookParasha"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Parasha",
+          "source_column": "Index_Parasha"
+        },
+        {
+          "data_type": "boolean",
+          "name": "Doubled",
+          "source_column": "Doubled"
+        }
+      ],
+      "file": {
+        "bytes": 3834,
+        "columns": [
+          {
+            "name": "Sefer",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Book",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Start",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "End",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "StartChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "StartVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "EndChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "EndVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Verses",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_BookParasha",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Parasha",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Doubled",
+            "nullable": "YES",
+            "type": "BOOLEAN"
+          }
+        ],
+        "path": "tables/parashiyos.parquet",
+        "rows": 61,
+        "sha256": "4fc550c10d318e8ab7bbed5af9ce4411975337c308def4a4e2ee875fd8c3f6f5"
+      },
+      "ordering": [
+        "Sefer",
+        "Book",
+        "Parasha",
+        "Start",
+        "End",
+        "StartChapter",
+        "StartVerse",
+        "EndChapter",
+        "EndVerse",
+        "Verses",
+        "Index_BookParasha",
+        "Index_Parasha",
+        "Doubled"
+      ],
+      "slug": "parashiyos",
+      "source": {
+        "contract_sha256": "6b94c085211341132fd8dbd940eab2b481550e916ecca582343fbc7f0d681fd2",
+        "dax_query_sha256": "446e401c64db28972ca4c8ad17bf97fc71bfaa4e2c1672922a2b426da0b2c496",
+        "file": "tables/parashiyos.jsonl",
+        "jsonl_sha256": "f715ca51f1e282d4f4af658e505a6528f323881cc2ff02402b2c00803cef3a5f",
+        "tmdl_sha256": "af67eba57f887221afa758c9c49b1ef786bde1e93e6680bf05559c2dd6b47b51"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 61,
+        "source_minus_output_rows": 0,
+        "source_rows": 61
+      }
+    },
+    "Pasukim": {
+      "columns": [
+        {
+          "data_type": "string",
+          "name": "Book",
+          "source_column": "Book"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha",
+          "source_column": "Parasha"
+        },
+        {
+          "data_type": "string",
+          "name": "Sefer",
+          "source_column": "Sefer"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_BookChapter",
+          "source_column": "Index_BookChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_ChapterVerse",
+          "source_column": "Index_ChapterVerse"
+        },
+        {
+          "data_type": "string",
+          "name": "Parek",
+          "source_column": "Parek"
+        },
+        {
+          "data_type": "string",
+          "name": "Pasuk",
+          "source_column": "Pasuk"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_BookVerse",
+          "source_column": "Index_BookVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Book",
+          "source_column": "Index_Book"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Verse",
+          "source_column": "Index_Verse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_ParashaVerse",
+          "source_column": "Index_ParashaVerse"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha.Start",
+          "source_column": "Parasha.Start"
+        },
+        {
+          "data_type": "string",
+          "name": "Parasha.End",
+          "source_column": "Parasha.End"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.StartChapter",
+          "source_column": "Parasha.StartChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.StartVerse",
+          "source_column": "Parasha.StartVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.EndChapter",
+          "source_column": "Parasha.EndChapter"
+        },
+        {
+          "data_type": "int64",
+          "name": "Parasha.EndVerse",
+          "source_column": "Parasha.EndVerse"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Chapter",
+          "source_column": "Index_Chapter"
+        },
+        {
+          "data_type": "string",
+          "name": "Reference",
+          "source_column": "Reference"
+        },
+        {
+          "data_type": "string",
+          "name": "Hebrew_Text",
+          "source_column": "Hebrew_Text"
+        },
+        {
+          "data_type": "string",
+          "name": "English_Text",
+          "source_column": "English_Text"
+        },
+        {
+          "data_type": "int64",
+          "name": "Index_Parasha",
+          "source_column": "Index_Parasha"
+        }
+      ],
+      "file": {
+        "bytes": 651090,
+        "columns": [
+          {
+            "name": "Book",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Sefer",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Index_BookChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_ChapterVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parek",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Pasuk",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Index_BookVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Book",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Verse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_ParashaVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.Start",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha.End",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Parasha.StartChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.StartVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.EndChapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Parasha.EndVerse",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Index_Chapter",
+            "nullable": "YES",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Reference",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Hebrew_Text",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "English_Text",
+            "nullable": "YES",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Index_Parasha",
+            "nullable": "YES",
+            "type": "BIGINT"
+          }
+        ],
+        "path": "tables/pasukim.parquet",
+        "rows": 5863,
+        "sha256": "9405b59778a0e917fe8003f6aa2bb948bc115a5299cda0fa5254cc9102c74ee3"
+      },
+      "ordering": [
+        "Book",
+        "Parasha",
+        "Sefer",
+        "Index_BookChapter",
+        "Index_ChapterVerse",
+        "Parek",
+        "Pasuk",
+        "Index_BookVerse",
+        "Index_Book",
+        "Index_Verse",
+        "Index_ParashaVerse",
+        "Parasha.Start",
+        "Parasha.End",
+        "Parasha.StartChapter",
+        "Parasha.StartVerse",
+        "Parasha.EndChapter",
+        "Parasha.EndVerse",
+        "Index_Chapter",
+        "Reference",
+        "Hebrew_Text",
+        "English_Text",
+        "Index_Parasha"
+      ],
+      "slug": "pasukim",
+      "source": {
+        "contract_sha256": "cb6be46b294fa77e3853fedacc06c927c1a59746fa3aaa0eb67ab29963414fff",
+        "dax_query_sha256": "f674a10a40e2b57aacd16179f15581e2d9d765d402b24d3930bcd0ef99eb492d",
+        "file": "tables/pasukim.jsonl",
+        "jsonl_sha256": "f192790999f92188a496e1999532c942e0f39a3f480250af71fa3646bb5a1944",
+        "tmdl_sha256": "93344a1d4ae596c8ef34a984bea155c1d718c7c9669573f9c444b1b7f44ac035"
+      },
+      "validation": {
+        "output_minus_source_rows": 0,
+        "output_rows": 5863,
+        "source_minus_output_rows": 0,
+        "source_rows": 5863
+      }
+    }
+  },
+  "validation": {
+    "output_minus_source_rows": 0,
+    "output_rows": 6895,
+    "source_minus_output_rows": 0,
+    "source_rows": 6895,
+    "tables": 6
+  }
+}

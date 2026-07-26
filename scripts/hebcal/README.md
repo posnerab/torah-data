@@ -103,7 +103,9 @@ G:\Projects\.venv\Scripts\python.exe populate_corpus.py `
 
 There is deliberately no overwrite or force option. See
 [MIGRATION.md](MIGRATION.md) and
-[schemas/corpus-v1.md](schemas/corpus-v1.md).
+[schemas/corpus-v1.md](schemas/corpus-v1.md). See
+[OPERATIONS.md](OPERATIONS.md) for immutable-data relocation, recovery,
+versioning, and refresh boundaries.
 
 ## One-time Power BI materialization
 
@@ -190,3 +192,30 @@ This is a transition shim, not the authoritative all-years corpus. Load it
 side-by-side, compare every column, then change only the existing `Hebcal`
 partition and exclude it from routine refresh. See
 [schemas/powerbi-compatibility-v1.md](schemas/powerbi-compatibility-v1.md).
+
+## One-time curated semantic-table materialization
+
+The remaining small curated tables are independent of the all-years Hebcal
+corpus. Export their already-loaded values from the validated Desktop model:
+
+```powershell
+.\scripts\powerbi\Export-PowerBIStaticSnapshots.ps1 `
+  -DataSource localhost:<discovered-port> `
+  -OutputRoot G:\Projects\tmp\powerbi-static-source-v1
+```
+
+Then materialize the exact imported-column contracts once:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe `
+  scripts\hebcal\materialize_powerbi_static_snapshots.py `
+  --snapshot-root G:\Projects\tmp\powerbi-static-source-v1
+```
+
+The default `data\powerbi-static-v1` artifact contains one deterministic
+Parquet file for each of `Holidays`, `Pasukim`, `Parashiyos`, `Fast Days`,
+`Haftaros`, and `Parasha-Mitzvos`. Its 6,895 rows and 102 imported columns are
+validated with duplicate-aware comparisons in both directions. This exact
+compatibility boundary retires repeated Excel/Power Query work; it does not
+claim to be the canonical domain source. A changed contract creates
+`powerbi-static-v2`.

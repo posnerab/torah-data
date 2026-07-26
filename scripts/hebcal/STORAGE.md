@@ -69,6 +69,16 @@ data/
       hebcal_compatibility.parquet
       manifest.json
       provenance.json
+  powerbi-static-v1/
+    tables/
+      holidays.parquet
+      pasukim.parquet
+      parashiyos.parquet
+      fast_days.parquet
+      haftaros.parquet
+      parasha_mitzvos.parquet
+    manifest.json
+    provenance.json
 scripts/
   hebcal/
     corpus-v1.json       # immutable scope and version contract
@@ -78,6 +88,7 @@ scripts/
     materialize_powerbi.py # one-time narrow Power BI projection
     materialize_powerbi_readings.py # separate one-time readings projection
     materialize_powerbi_compatibility.py # exact legacy cutover snapshot
+    materialize_powerbi_static_snapshots.py # six curated compatibility tables
     hebcal_api.py        # REST sampling and verification helper
     sql/                 # derived transformations
 ```
@@ -115,6 +126,14 @@ large workbook query is retired. Known legacy formatting and workbook errors
 remain isolated in the shim; they do not alter the correct normalized
 `corpus-v1` data. Later cleanup creates a narrower v2 instead of rewriting v1.
 
+`powerbi-static-v1` is a separate immutable compatibility boundary for six
+small curated semantic tables that do not belong in the all-years Hebcal
+corpus. It preserves the exact 102 imported-column values across 6,895 live
+model rows. The one-time exporter binds the snapshot to the TMDL contracts;
+the materializer verifies the source hashes and compares every output row in
+both directions. These Parquet files replace repeated Excel and Power Query
+processing without introducing a database service.
+
 ## Migration sequence
 
 1. Lock `corpus-v1` and the exact Hebcal package versions.
@@ -125,6 +144,8 @@ remain isolated in the shim; they do not alter the correct normalized
 5. Export and materialize the exact loaded `Hebcal` compatibility snapshot.
 6. Load it side-by-side, compare all 87 imported columns, then switch only the
    existing `Hebcal` partition.
-7. Refresh and validate the model in Desktop after each cutover.
-8. Retain each workbook until every dependent query has migrated and passed
+7. Export and materialize the six curated semantic tables as
+   `powerbi-static-v1`, then compare and switch their existing partitions.
+8. Refresh and validate the model in Desktop after each cutover.
+9. Retain each workbook until every dependent query has migrated and passed
    comparison.

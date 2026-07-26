@@ -122,6 +122,44 @@ This snapshot is validation input for
 `scripts\hebcal\materialize_powerbi_compatibility.py`. It does not edit or save
 Desktop and does not replace Modeling MCP for model changes.
 
+## One-time static semantic snapshot
+
+The six remaining curated tables are small and effectively immutable:
+`Holidays`, `Pasukim`, `Parashiyos`, `Fast Days`, `Haftaros`, and
+`Parasha-Mitzvos`. Export their exact imported-column values from the validated
+live model to a disposable directory:
+
+```powershell
+.\scripts\powerbi\Export-PowerBIStaticSnapshots.ps1 `
+  -DataSource localhost:<port-from-modeling-discovery> `
+  -OutputRoot G:\Projects\tmp\powerbi-static-source-v1
+```
+
+The exporter reads each imported `sourceColumn` contract from TMDL, queries the
+live table with a deterministic full-column order, writes typed
+newline-delimited JSON, and refuses an existing destination. It is read-only
+and does not save or modify Desktop.
+
+Materialize the disposable snapshot as deterministic Parquet:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe `
+  scripts\hebcal\materialize_powerbi_static_snapshots.py `
+  --snapshot-root G:\Projects\tmp\powerbi-static-source-v1
+```
+
+The default immutable destination is `data\powerbi-static-v1`. The builder
+verifies the snapshot schema and hashes, preserves the complete 102-column
+contract across 6,895 rows, compares each Parquet file to its source with
+`EXCEPT ALL` in both directions, writes through staging, and has no overwrite
+mode. The JSONL export is disposable after the committed artifact and manifest
+have been verified.
+
+Load candidate partitions side by side, require complete DAX comparisons in
+both directions, then change only the six existing production partitions.
+Refresh each changed partition once and retain `excludeFromModelRefresh` so
+Refresh All does not reprocess immutable data.
+
 ## PBIR edit, reload, and screenshot loop
 
 ```powershell

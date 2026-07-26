@@ -42,7 +42,11 @@ calculated columns, measures, and lineage intact.
    complete-column hashes, DAX checks, partition refresh, and Desktop save.
 7. Migrate visuals and relationships gradually to normalized tables. Move
    Zmanim and `TODAY()`-dependent status into separate small model surfaces.
-8. Remove a workbook or named expression only when no model or report
+8. Export the exact imported-column values for the six remaining curated
+   tables and materialize them once as `powerbi-static-v1`.
+9. Load those Parquet files side-by-side, compare complete rows in both
+   directions, and change only the existing six production partitions.
+10. Remove a workbook or named expression only when no model or report
    dependency remains.
 
 Compatibility v1 intentionally preserves legacy spellings, blank-versus-empty
@@ -59,9 +63,11 @@ contract creates `powerbi-readings-v2`.
 
 ## Data that remains separate
 
-- `Pasukim`, `Parashiyos`, mitzvos, and curated parasha mappings.
-- US business/vacation logic in `Holidays`.
-- Curated fast-day and haftarah metadata unless exact equivalence is proven.
+- `Pasukim`, `Parashiyos`, mitzvos, and curated parasha mappings are captured
+  exactly in the independent `powerbi-static-v1` compatibility boundary.
+- US business/vacation logic in `Holidays` is preserved in that same snapshot.
+- Curated fast-day and haftarah metadata is preserved there after exact
+  equivalence validation.
 - Zmanim descriptions and location/current-date Milwaukee calculations.
 - Personal yahrzeit, birthday, or anniversary inputs.
 - Daily-learning schedules, which require their own bounded immutable corpus

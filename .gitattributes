@@ -9,3 +9,5 @@ data/hebcal/powerbi-readings-v1/manifest.json text eol=lf
 data/hebcal/powerbi-readings-v1/provenance.json text eol=lf
 data/hebcal/powerbi-compatibility-v1/manifest.json text eol=lf
 data/hebcal/powerbi-compatibility-v1/provenance.json text eol=lf
+data/powerbi-static-v1/manifest.json text eol=lf
+data/powerbi-static-v1/provenance.json text eol=lf
