@@ -31,13 +31,25 @@ calculated columns, measures, and lineage intact.
 2. Load them hidden and side-by-side without changing existing relationships.
 3. Replace Dates and leap/common indexes with compatible corpus-derived
    projections.
-4. Build a modern diaspora compatibility projection with the existing
-   `Hebcal` source schema and compare all 18,987 overlapping rows.
-5. Change only the existing `Hebcal` partition after a full outer comparison,
+4. Export the loaded legacy `Hebcal` table once and materialize its exact
+   87-imported-column, 18,987-row result as `powerbi-compatibility-v1`.
+   This is a cutover shim for Hebrew years 5784–5835, not a duplicate of the
+   all-years normalized corpus.
+5. Load the compatibility Parquet side-by-side and require a null-aware exact
+   comparison of every imported column, including the already-loaded
+   2025–2027 Milwaukee zmanim overlay.
+6. Change only the existing `Hebcal` partition after the full comparison,
    complete-column hashes, DAX checks, partition refresh, and Desktop save.
-6. Migrate visuals and relationships gradually to normalized tables.
-7. Remove a workbook or named expression only when no model or report
+7. Migrate visuals and relationships gradually to normalized tables. Move
+   Zmanim and `TODAY()`-dependent status into separate small model surfaces.
+8. Remove a workbook or named expression only when no model or report
    dependency remains.
+
+Compatibility v1 intentionally preserves legacy spellings, blank-versus-empty
+semantics, concatenation order, and known workbook date-field errors so the
+partition-only cutover is behaviorally exact. Correct all-years values remain
+in `corpus-v1`; a later coordinated report cleanup may publish a narrower
+compatibility v2 rather than rewriting v1.
 
 After each static Parquet table has been loaded and validated, exclude its
 partition from ordinary scheduled refresh. Core and v1 derived data do not

@@ -1,0 +1,493 @@
+{
+  "attribution": "Hebcal.com; generated content licensed CC BY 4.0",
+  "builder": {
+    "duckdb_version": "1.5.5",
+    "script_sha256": "fb7104dd7c78dd5c326d39630c1ccdc163dcb0f4c5bfb319bf7802e936a1fd56"
+  },
+  "files": {
+    "hebcal_compatibility.parquet": {
+      "bytes": 564355,
+      "columns": [
+        {
+          "name": "Date",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "Hebrew Date",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Category",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Title",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Link",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Description",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Yom Tov?",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Omer Count",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Sefira Transliteration",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Sefira English",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Torah Reading",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Haftarah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Maftir",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "First Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Second Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Third Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Fourth Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Fifth Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Sixth Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Seventh Aliyah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Haftarah Sephardim",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Occasion",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Haftarah Reason",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Maftir Reason",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Year",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Hebrew Day of Month",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Hebrew Month",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Month Year",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Month Year Order",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Day Name",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Month Number",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Hebrew Month Number Tishrei Start",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Day of the Omer",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Days in Hebrew Month",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Parasha M-Th",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Torah Reading M-Th",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "First Aliyah M-Th",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Second Aliyah M-Th",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Third Aliyah M-Th",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Parasha",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Sefer",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Book",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Index_Parasha",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Haftarah.1",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Haftarah.2",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Haftarah.3",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Index_Haftarah",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Hebrew Month Day",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Index_Leap",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "Index_Common",
+          "nullable": "YES",
+          "type": "BIGINT"
+        },
+        {
+          "name": "city",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "tzid",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "latitude",
+          "nullable": "YES",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "longitude",
+          "nullable": "YES",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "chatzotNight",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "alotHaShachar",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "misheyakir",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "misheyakirMachmir",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "dawn",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sunrise",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanShmaMGA16Point1",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanShmaMGA",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanShma",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanTfillaMGA16Point1",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanTfillaMGA",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sofZmanTfilla",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "chatzot",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "minchaGedola",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "minchaKetana",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "plagHaMincha",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "sunset",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "beinHaShmashos",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "dusk",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tzeit7083deg",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tzeit85deg",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tzeit42min",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tzeit50min",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "tzeit72min",
+          "nullable": "YES",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "Other",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Major",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Fast",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Special Shabbos",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Minor",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Shabbos Mevorchim",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Rosh Chodesh",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "Doubled",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "Jewish Holidays",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 18987,
+      "sha256": "c59883945e95976966effe17a5107716e0117b23a8aff32b1f1e445517dbb730"
+    }
+  },
+  "grain": [
+    "Date"
+  ],
+  "immutability": {
+    "changed_projection_requires_new_version": true,
+    "core_corpus_modified": false,
+    "overwrite_existing_output": false,
+    "source_snapshot_modified": false
+  },
+  "materialization_version": "powerbi-compatibility-v1",
+  "official_legacy_baseline_verified": true,
+  "scope": {
+    "includes_loaded_zmanim_overlay": true,
+    "normalized_all_years_data_location": "corpus-v1 and normalized Power BI projections",
+    "purpose": "exact wide-table cutover shim"
+  },
+  "source": {
+    "kind": "power-bi-semantic-model-snapshot",
+    "snapshot_version": "hebcal-compatibility-source-v1",
+    "source_dax_query_sha256": "73b453dc72f2b44a0336974f6f4bdded0656ce5730e4b6c726e7e90245161df8",
+    "source_exporter_script_sha256": "346f7e152d3d5787bdf4c9817cc7678defdba485a864025fb74b2aa1baeb7535",
+    "source_jsonl_sha256": "df72a72b36e2a75e0c6cb6d5ec4dc7956f0a412a629dc8acfc861a16057c5e47",
+    "source_schema_sha256": "288aa02dc36367cce18b1653b9ab700263423347e85e4f4671c8973e51ed5aaa",
+    "source_tmdl_sha256": "c0b0f6607c067e4738d5bf5f6f4b6b743f3548062699fd02850e93e0e3e33e94",
+    "table_name": "Hebcal"
+  },
+  "status": "complete-immutable-derived",
+  "validation": {
+    "date_gaps": 0,
+    "first_date": "2023-09-16 00:00:00",
+    "first_hebrew_year": 5784,
+    "first_zmanim_date": "2025-01-01 00:00:00",
+    "last_date": "2075-09-09 00:00:00",
+    "last_hebrew_year": 5835,
+    "last_zmanim_date": "2027-12-31 00:00:00",
+    "output_minus_source_rows": 0,
+    "partial_zmanim_rows": 0,
+    "rows": 18987,
+    "source_minus_output_rows": 0,
+    "unique_dates": 18987,
+    "zmanim_rows": 1095
+  }
+}

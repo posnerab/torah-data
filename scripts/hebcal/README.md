@@ -155,3 +155,38 @@ partitions from scheduled refresh; only later model transformations,
 relationships, or new data types should require work. A changed readings
 projection creates `powerbi-readings-v2`, never a rebuild of v1. See
 [schemas/powerbi-readings-v1.md](schemas/powerbi-readings-v1.md).
+
+## One-time legacy compatibility materialization
+
+The current wide `Hebcal` table is used throughout the report and contains 87
+imported plus 59 calculated columns. Preserve that contract before changing
+its partition. With the exact `T-Projects` Desktop instance open, export the
+loaded imported values to a disposable directory:
+
+```powershell
+.\scripts\powerbi\Export-HebcalCompatibilitySnapshot.ps1 `
+  -DataSource localhost:<discovered-port> `
+  -OutputRoot G:\Projects\tmp\hebcal-compatibility-source-v1
+```
+
+The exporter reads the 87 imported-column contract from TMDL, queries the live
+model in date order, writes typed newline-delimited JSON, validates exactly
+18,987 rows, and refuses an existing destination. It does not save or modify
+Desktop.
+
+Materialize that exact source once:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe `
+  scripts\hebcal\materialize_powerbi_compatibility.py `
+  --snapshot-root G:\Projects\tmp\hebcal-compatibility-source-v1
+```
+
+The default immutable destination is
+`data\hebcal\powerbi-compatibility-v1`. It contains a single deterministic
+Parquet file with the full imported schema, the legacy 2023-09-16 through
+2075-09-09 horizon, and the already-loaded 2025–2027 Milwaukee zmanim values.
+This is a transition shim, not the authoritative all-years corpus. Load it
+side-by-side, compare every column, then change only the existing `Hebcal`
+partition and exclude it from routine refresh. See
+[schemas/powerbi-compatibility-v1.md](schemas/powerbi-compatibility-v1.md).

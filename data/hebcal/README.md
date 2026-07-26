@@ -25,3 +25,12 @@ Neither directory is a build cache, neither should participate in scheduled
 refresh after its initial import, and neither may be regenerated or
 overwritten after landing. Changed transformations or added data types use a
 new versioned directory. The readings boundary does not modify `powerbi-v1`.
+
+`powerbi-compatibility-v1` is a third, deliberately different artifact. It is
+the exact 87-imported-column, 18,987-row snapshot of the loaded legacy
+`Hebcal` table for Hebrew years 5784 through 5835. It preserves the existing
+report contract while the all-years data remains in `corpus-v1` and the
+normalized projections. It also retains the already-loaded 2025–2027 Milwaukee
+zmanim overlay. The compatibility artifact is imported once, validated
+side-by-side, and then excluded from ordinary refresh; it is not an all-years
+duplicate and is never regenerated.

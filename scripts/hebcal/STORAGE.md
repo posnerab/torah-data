@@ -65,6 +65,10 @@ data/
       leyning_occurrence.parquet
       manifest.json
       provenance.json
+    powerbi-compatibility-v1/
+      hebcal_compatibility.parquet
+      manifest.json
+      provenance.json
 scripts/
   hebcal/
     corpus-v1.json       # immutable scope and version contract
@@ -73,6 +77,7 @@ scripts/
     build_corpus.py      # one-time DuckDB population
     materialize_powerbi.py # one-time narrow Power BI projection
     materialize_powerbi_readings.py # separate one-time readings projection
+    materialize_powerbi_compatibility.py # exact legacy cutover snapshot
     hebcal_api.py        # REST sampling and verification helper
     sql/                 # derived transformations
 ```
@@ -101,6 +106,15 @@ once and excluded from scheduled semantic-model refresh. Raw JSON stays in
 type or transformation contract lands under `powerbi-readings-v2` instead of
 regenerating v1.
 
+`powerbi-compatibility-v1` is an immutable cutover shim rather than another
+all-years normalized table. It captures the 87 imported columns and 18,987
+one-row-per-date records currently loaded in `Hebcal`, including the finite
+2025–2027 Zmanim overlay. This preserves the table's calculated columns,
+measures, hierarchy, relationships, lineage, and report references while its
+large workbook query is retired. Known legacy formatting and workbook errors
+remain isolated in the shim; they do not alter the correct normalized
+`corpus-v1` data. Later cleanup creates a narrower v2 instead of rewriting v1.
+
 ## Migration sequence
 
 1. Lock `corpus-v1` and the exact Hebcal package versions.
@@ -108,7 +122,9 @@ regenerating v1.
 3. Populate all 60 immutable blocks and publish their checksummed manifest.
 4. Add new corpus-backed semantic tables alongside the existing workbook
    tables.
-5. Compare overlapping rows and switch one existing partition at a time.
-6. Refresh and validate the model in Desktop after each cutover.
-7. Retain each workbook until every dependent query has migrated and passed
+5. Export and materialize the exact loaded `Hebcal` compatibility snapshot.
+6. Load it side-by-side, compare all 87 imported columns, then switch only the
+   existing `Hebcal` partition.
+7. Refresh and validate the model in Desktop after each cutover.
+8. Retain each workbook until every dependent query has migrated and passed
    comparison.

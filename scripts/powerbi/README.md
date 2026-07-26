@@ -97,6 +97,31 @@ Use the registered MCP for semantic-model changes so changes apply to the live
 Desktop model. The report-authoring bridge does not replace Modeling MCP for
 TMDL/model changes.
 
+## One-time Hebcal compatibility snapshot
+
+Before replacing the workbook-backed `Hebcal` partition, export the exact 87
+imported columns from the validated live model:
+
+```powershell
+.\scripts\powerbi\Export-HebcalCompatibilitySnapshot.ps1 `
+  -DataSource localhost:<port-from-modeling-discovery> `
+  -OutputRoot G:\Projects\tmp\hebcal-compatibility-source-v1
+```
+
+The exporter:
+
+- reads the imported-column contract from `Hebcal.tmdl`;
+- locates the matching local Analysis Services process from the supplied port;
+- uses Power BI's local ADOMD client for a read-only, date-ordered DAX export;
+- preserves null, empty-string, Boolean, numeric, and DateTime values in typed
+  newline-delimited JSON;
+- requires exactly 87 imported columns and 18,987 rows; and
+- writes through staging and refuses to overwrite an existing snapshot.
+
+This snapshot is validation input for
+`scripts\hebcal\materialize_powerbi_compatibility.py`. It does not edit or save
+Desktop and does not replace Modeling MCP for model changes.
+
 ## PBIR edit, reload, and screenshot loop
 
 ```powershell
