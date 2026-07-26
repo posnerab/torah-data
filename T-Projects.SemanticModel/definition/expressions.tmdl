@@ -675,3 +675,8 @@ expression 'leyning?cfg=json&start=2025-07-28&end=2025-08-03&triennial=off' =
 
 	annotation PBI_ResultType = Table
 
+/// Local path to the finalized immutable Hebcal corpus v1 Parquet partitions. Change only when relocating the corpus; core data is not regenerated.
+expression 'Hebcal Corpus Path' = "G:\Projects\torah-data\data\hebcal\corpus-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 68d66809-1897-47fa-938c-cba1952fad3c
+	queryGroup: Hebcal
+

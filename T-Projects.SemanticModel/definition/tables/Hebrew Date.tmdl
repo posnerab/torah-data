@@ -1,0 +1,159 @@
+/// One row per Hebrew calendar date from Hebrew year 1 through 6000, keyed by Rata Die absolute day. Native Power BI Date is populated only from 1 March 1900 onward; earlier dates retain signed Gregorian components and display text.
+table 'Hebrew Date'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 15a2f1f3-51e6-48d9-a631-d9305cfa1979
+
+	/// Rata Die absolute day key used for all historical relationships, including dates Power BI cannot represent natively.
+	column 'Absolute Day'
+		dataType: int64
+		isHidden
+		isUnique
+		isNullable: false
+		isAvailableInMdx: false
+		lineageTag: 0fbc5694-fb0e-40ec-a61a-79e3094439e7
+		summarizeBy: none
+		sourceColumn: Absolute Day
+
+	/// Hebrew year foreign key to the Hebrew Year table.
+	column 'Hebrew Year'
+		dataType: int64
+		isHidden
+		isNullable: false
+		isAvailableInMdx: false
+		lineageTag: e209fb66-759a-427e-9935-18de40dba192
+		summarizeBy: none
+		sourceColumn: Hebrew Year
+
+	/// Hebcal month number within the Hebrew year.
+	column 'Hebrew Month Number'
+		dataType: int64
+		isNullable: false
+		lineageTag: 300c05a8-f28f-44ee-85a4-cf7e6c7bf57e
+		summarizeBy: none
+		sourceColumn: Hebrew Month Number
+
+	/// Month sequence beginning with Tishrei as 1.
+	column 'Hebrew Month Index'
+		dataType: int64
+		isNullable: false
+		lineageTag: 72511bcf-c689-4349-8a17-1431f20526c9
+		summarizeBy: none
+		sourceColumn: Hebrew Month Index
+
+	/// English name of the Hebrew month.
+	column 'Hebrew Month'
+		dataType: string
+		isNullable: false
+		lineageTag: 99e70674-4ad2-4a84-a794-65659abd5734
+		sourceColumn: Hebrew Month
+
+	/// Day number within the Hebrew month.
+	column 'Hebrew Day'
+		dataType: int64
+		isNullable: false
+		lineageTag: 9c569162-ca0e-4cee-a87a-271b08f74ad9
+		summarizeBy: none
+		sourceColumn: Hebrew Day
+
+	/// Weekday number where Sunday is 0 and Shabbat is 6.
+	column 'Weekday Number'
+		dataType: int64
+		isNullable: false
+		lineageTag: 512c2492-7e2d-4493-9b66-9b1b54497f44
+		summarizeBy: none
+		sourceColumn: Weekday Number
+
+	/// Full Hebrew date rendered in English.
+	column 'Hebrew Date English'
+		dataType: string
+		isNullable: false
+		lineageTag: 83b8dbf9-b6fa-4241-a22d-7d676aef05bd
+		sourceColumn: Hebrew Date English
+
+	/// Full Hebrew date rendered in Hebrew.
+	column 'Hebrew Date Hebrew'
+		dataType: string
+		isNullable: false
+		lineageTag: 4798487f-ef79-4ab5-b953-206abc3b22b9
+		sourceColumn: Hebrew Date Hebrew
+
+	/// Full Hebrew date rendered with Ashkenazi transliteration.
+	column 'Hebrew Date Ashkenazi'
+		dataType: string
+		isNullable: false
+		lineageTag: c3a2d570-40b8-4ce3-965e-777d56971247
+		sourceColumn: Hebrew Date Ashkenazi
+
+	/// Hebrew date rendered with gematria numerals.
+	column 'Hebrew Date Gematria'
+		dataType: string
+		isNullable: false
+		lineageTag: 971a98f0-f8bc-4071-98b1-913933056915
+		sourceColumn: Hebrew Date Gematria
+
+	/// Astronomical Gregorian year number, with year 0 representing 1 BCE.
+	column 'Gregorian Year Signed'
+		dataType: int64
+		isNullable: false
+		lineageTag: ddd2fe55-8780-4c84-bc8f-61e139683d3d
+		summarizeBy: none
+		sourceColumn: Gregorian Year Signed
+
+	/// CE or BCE era label for the signed Gregorian components.
+	column 'Gregorian Era'
+		dataType: string
+		isNullable: false
+		lineageTag: 58ae7a6a-b166-4a62-bc62-d53080bad276
+		sourceColumn: Gregorian Era
+
+	/// Positive Gregorian year number within the CE or BCE era.
+	column 'Gregorian Year of Era'
+		dataType: int64
+		isNullable: false
+		lineageTag: 6a6ae11f-670b-40b2-9757-cfafebad77d5
+		summarizeBy: none
+		sourceColumn: Gregorian Year of Era
+
+	/// Gregorian month number from 1 through 12.
+	column 'Gregorian Month'
+		dataType: int64
+		isNullable: false
+		lineageTag: f4c32330-2cd5-4350-b06e-290bf427c2bb
+		summarizeBy: none
+		sourceColumn: Gregorian Month
+
+	/// Gregorian day of month.
+	column 'Gregorian Day'
+		dataType: int64
+		isNullable: false
+		lineageTag: ad637184-f544-4283-adba-e921c24089cb
+		summarizeBy: none
+		sourceColumn: Gregorian Day
+
+	/// Proleptic Gregorian date display text that remains valid for BCE dates.
+	column 'Gregorian Date Text'
+		dataType: string
+		isNullable: false
+		lineageTag: 8742f363-19d0-4ec7-80da-3bdb4dbe7fb0
+		sourceColumn: Gregorian Date Text
+
+	/// Native Power BI date when representable, populated from 1 March 1900 onward.
+	column Date
+		dataType: dateTime
+		lineageTag: 6f868e36-5629-4b4b-b8bb-b31ce00eda54
+		sourceColumn: Date
+
+	partition 'Hebrew Date' = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files(#"Hebcal Corpus Path"),
+				    SelectedFiles = Table.SelectRows(Source, each [Name] = "core_day.parquet" and Text.Contains([Folder Path], "block=")),
+				    ParquetTables = List.Transform(SelectedFiles[Content], each Parquet.Document(_)),
+				    Combined = Table.Combine(ParquetTables),
+				    SelectedColumns = Table.SelectColumns(Combined, {"absolute_day", "hebrew_year", "hebrew_month", "hebrew_month_tishrei_index", "hebrew_month_name", "hebrew_day", "weekday_sunday_0", "hebrew_date_en", "hebrew_date_he", "hebrew_date_ashkenazi", "hebrew_date_gematria", "gregorian_year_signed", "gregorian_era", "gregorian_year_of_era", "gregorian_month", "gregorian_day", "gregorian_date_text", "powerbi_date"}),
+				    RenamedColumns = Table.RenameColumns(SelectedColumns, {{"absolute_day", "Absolute Day"}, {"hebrew_year", "Hebrew Year"}, {"hebrew_month", "Hebrew Month Number"}, {"hebrew_month_tishrei_index", "Hebrew Month Index"}, {"hebrew_month_name", "Hebrew Month"}, {"hebrew_day", "Hebrew Day"}, {"weekday_sunday_0", "Weekday Number"}, {"hebrew_date_en", "Hebrew Date English"}, {"hebrew_date_he", "Hebrew Date Hebrew"}, {"hebrew_date_ashkenazi", "Hebrew Date Ashkenazi"}, {"hebrew_date_gematria", "Hebrew Date Gematria"}, {"gregorian_year_signed", "Gregorian Year Signed"}, {"gregorian_era", "Gregorian Era"}, {"gregorian_year_of_era", "Gregorian Year of Era"}, {"gregorian_month", "Gregorian Month"}, {"gregorian_day", "Gregorian Day"}, {"gregorian_date_text", "Gregorian Date Text"}, {"powerbi_date", "Date"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Hebrew Year", Int64.Type}, {"Hebrew Month Number", Int64.Type}, {"Hebrew Month Index", Int64.Type}, {"Hebrew Month", type text}, {"Hebrew Day", Int64.Type}, {"Weekday Number", Int64.Type}, {"Hebrew Date English", type text}, {"Hebrew Date Hebrew", type text}, {"Hebrew Date Ashkenazi", type text}, {"Hebrew Date Gematria", type text}, {"Gregorian Year Signed", Int64.Type}, {"Gregorian Era", type text}, {"Gregorian Year of Era", Int64.Type}, {"Gregorian Month", Int64.Type}, {"Gregorian Day", Int64.Type}, {"Gregorian Date Text", type text}, {"Date", type date}})
+				in
+				    Typed

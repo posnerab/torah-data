@@ -39,6 +39,8 @@ ref table Parasha-Mitzvos
 ref table LocalDateTable_71f78e24-30f1-4e58-b7f6-ed2e35ef7a0c
 ref table LocalDateTable_09b2995e-f648-492d-beec-15f6dbdc7558
 ref table LocalDateTable_d1b3aa27-1419-439c-b2a9-b147bbeeef8c
+ref table 'Hebrew Year'
+ref table 'Hebrew Date'
 
 ref cultureInfo en-US
 

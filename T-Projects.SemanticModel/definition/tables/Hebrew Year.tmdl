@@ -1,0 +1,93 @@
+/// One row per Hebrew year from the immutable Hebcal corpus v1, covering years 1 through 6000. Hidden while the legacy Hebcal compatibility table remains active.
+table 'Hebrew Year'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: 8e933a78-f934-4ee5-96fe-05bb3caa610d
+
+	/// Hebrew calendar year number from 1 through 6000.
+	column 'Hebrew Year'
+		dataType: int64
+		isUnique
+		isNullable: false
+		lineageTag: 85f511f9-93d7-4d65-9f14-a252e7c501d0
+		summarizeBy: none
+		sourceColumn: Hebrew Year
+
+	/// Rata Die absolute day of 1 Tishrei for the Hebrew year.
+	column 'First Absolute Day'
+		dataType: int64
+		isHidden
+		isNullable: false
+		isAvailableInMdx: false
+		lineageTag: 5a1962f3-a493-4512-abbb-9475f66d9bb8
+		summarizeBy: none
+		sourceColumn: First Absolute Day
+
+	/// Rata Die absolute day of the final date in the Hebrew year.
+	column 'Last Absolute Day'
+		dataType: int64
+		isHidden
+		isNullable: false
+		isAvailableInMdx: false
+		lineageTag: 5fd9c06f-f1bc-4c7f-bd82-7678bc3f9869
+		summarizeBy: none
+		sourceColumn: Last Absolute Day
+
+	/// Number of days in the Hebrew year.
+	column 'Days in Year'
+		dataType: int64
+		isNullable: false
+		lineageTag: bed6fbb1-c1aa-41b5-bcac-ffa876dfafff
+		summarizeBy: none
+		sourceColumn: Days in Year
+
+	/// Whether the Hebrew year contains Adar I and Adar II.
+	column 'Is Leap Year'
+		dataType: boolean
+		isNullable: false
+		lineageTag: 226880f4-bec2-465e-9981-686b200e7889
+		sourceColumn: Is Leap Year
+
+	/// Number of months in the Hebrew year.
+	column 'Months in Year'
+		dataType: int64
+		isNullable: false
+		lineageTag: 1e3fc737-73ec-4a55-980f-91ee28e05544
+		summarizeBy: none
+		sourceColumn: Months in Year
+
+	/// Weekday number for 1 Tishrei, where Sunday is 0 and Shabbat is 6.
+	column 'Rosh Hashanah Weekday'
+		dataType: int64
+		isNullable: false
+		lineageTag: c756b71d-17eb-4632-8aa0-43fda85db806
+		summarizeBy: none
+		sourceColumn: Rosh Hashanah Weekday
+
+	/// Whether Cheshvan contains 30 days in the Hebrew year.
+	column 'Long Cheshvan'
+		dataType: boolean
+		isNullable: false
+		lineageTag: b21fbe54-a261-4aa3-8476-93bf5d3849db
+		sourceColumn: Long Cheshvan
+
+	/// Whether Kislev contains 29 days in the Hebrew year.
+	column 'Short Kislev'
+		dataType: boolean
+		isNullable: false
+		lineageTag: b52b5b3f-db18-44b4-98e5-c9cf6b0fb582
+		sourceColumn: Short Kislev
+
+	partition 'Hebrew Year' = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files(#"Hebcal Corpus Path"),
+				    SelectedFiles = Table.SelectRows(Source, each [Name] = "core_year.parquet" and Text.Contains([Folder Path], "block=")),
+				    ParquetTables = List.Transform(SelectedFiles[Content], each Parquet.Document(_)),
+				    Combined = Table.Combine(ParquetTables),
+				    SelectedColumns = Table.SelectColumns(Combined, {"hebrew_year", "first_absolute_day", "last_absolute_day", "days_in_year", "is_leap_year", "months_in_year", "rosh_hashanah_weekday_sunday_0", "long_cheshvan", "short_kislev"}),
+				    RenamedColumns = Table.RenameColumns(SelectedColumns, {{"hebrew_year", "Hebrew Year"}, {"first_absolute_day", "First Absolute Day"}, {"last_absolute_day", "Last Absolute Day"}, {"days_in_year", "Days in Year"}, {"is_leap_year", "Is Leap Year"}, {"months_in_year", "Months in Year"}, {"rosh_hashanah_weekday_sunday_0", "Rosh Hashanah Weekday"}, {"long_cheshvan", "Long Cheshvan"}, {"short_kislev", "Short Kislev"}}),
+				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Hebrew Year", Int64.Type}, {"First Absolute Day", Int64.Type}, {"Last Absolute Day", Int64.Type}, {"Days in Year", Int64.Type}, {"Is Leap Year", type logical}, {"Months in Year", Int64.Type}, {"Rosh Hashanah Weekday", Int64.Type}, {"Long Cheshvan", type logical}, {"Short Kislev", type logical}})
+				in
+				    Typed

@@ -60,3 +60,7 @@ relationship f7857183-bfc4-4ccb-9f37-644a9079741f
 	fromColumn: Hebcal.'Shabbos Date'
 	toColumn: LocalDateTable_d1b3aa27-1419-439c-b2a9-b147bbeeef8c.Date
 
+relationship 'Hebrew Date to Hebrew Year'
+	fromColumn: 'Hebrew Date'.'Hebrew Year'
+	toColumn: 'Hebrew Year'.'Hebrew Year'
+
