@@ -104,3 +104,27 @@ G:\Projects\.venv\Scripts\python.exe populate_corpus.py `
 There is deliberately no overwrite or force option. See
 [MIGRATION.md](MIGRATION.md) and
 [schemas/corpus-v1.md](schemas/corpus-v1.md).
+
+## One-time Power BI materialization
+
+`materialize_powerbi.py` converts the finalized corpus into the narrow,
+relationship-ready `powerbi-v1` boundary. It reads and verifies the immutable
+source files but never changes them:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe scripts\hebcal\materialize_powerbi.py
+```
+
+The default destination is `data\hebcal\powerbi-v1`. It must not exist. The
+command has no overwrite option and atomically lands the output only after
+source-checksum, row-count, key, null, and orphan validation succeeds.
+
+The deterministic artifacts are three Zstandard-compressed Parquet files and
+`manifest.json`. Timestamped run metadata is isolated in `provenance.json`.
+For the finalized corpus-v1, the builder also asserts the checked-in production
+row counts, per-schedule splits, and event-definition fingerprint.
+
+Power BI should import these files once and exclude the resulting static
+partitions from ordinary model refresh. A new transformation contract creates
+`powerbi-v2` rather than rewriting `powerbi-v1`. See
+[schemas/powerbi-v1.md](schemas/powerbi-v1.md).

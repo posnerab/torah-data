@@ -1,0 +1,188 @@
+{
+  "attribution": "Hebcal.com; generated content licensed CC BY 4.0",
+  "builder": {
+    "duckdb_version": "1.5.5",
+    "script_sha256": "ebefbdffad976a0862b4e92410711cf75037b5cab09795958c02a3a88e8417f3"
+  },
+  "files": {
+    "hebcal_event_definition.parquet": {
+      "bytes": 3607986,
+      "columns": [
+        {
+          "name": "event_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "event_class",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_description",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_basename",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "event_flags",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "title_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 142603,
+      "sha256": "fee5529451f3b6c3949fb6d5a4e54681c5505ddbdcb68d1ee0d62a48a92677ac"
+    },
+    "hebcal_event_occurrence.parquet": {
+      "bytes": 2432286,
+      "columns": [
+        {
+          "name": "absolute_day",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule_key",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "event_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        }
+      ],
+      "rows": 2037895,
+      "sha256": "96c1cc2d71d4ac009803028217c20a2c0d491d07a9ed88cfec3b7676934ca5bf"
+    },
+    "hebrew_day_schedule.parquet": {
+      "bytes": 2442320,
+      "columns": [
+        {
+          "name": "absolute_day",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule_key",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "hallel_level",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "tachanun_shacharit",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tachanun_mincha",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tachanun_all_congregations",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "tachanun_supported",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "eruv_tavshilin",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        }
+      ],
+      "rows": 4382930,
+      "sha256": "2b201d3c8a45d6266b97a051ac35893872ce45e09fb709ee855595cee7878327"
+    }
+  },
+  "immutability": {
+    "changed_projection_requires_new_version": true,
+    "overwrite_existing_output": false,
+    "source_corpus_modified": false
+  },
+  "keys": {
+    "event_definition_key": {
+      "base": 1,
+      "dense": true,
+      "sort_columns": [
+        "event_class",
+        "event_description",
+        "event_basename",
+        "event_flags",
+        "title_en",
+        "title_he",
+        "title_ashkenazi"
+      ]
+    },
+    "schedule_key": {
+      "diaspora": 0,
+      "israel": 1
+    }
+  },
+  "materialization_version": "powerbi-v1",
+  "official_corpus_v1_baseline_verified": true,
+  "source": {
+    "corpus_manifest_sha256": "021fb23d9f30f614141a102691e9453c83717ae7963dff18a83aba0d78a46450",
+    "corpus_version": "v1",
+    "verified_file_count": 180,
+    "verified_partition_count": 60
+  },
+  "status": "complete-immutable-derived",
+  "validation": {
+    "hebcal_event_definition": {
+      "distinct_definition_tuples": 142603,
+      "event_definition_fingerprint_sha256": "108ea0bfffe3e5fe214a1fe3e6dc4bf4cb9e85d36f230adb2f42453b5a5b47b6",
+      "first_key": 1,
+      "last_key": 142603,
+      "rows": 142603,
+      "unique_keys": 142603
+    },
+    "hebcal_event_occurrence": {
+      "day_orphans": 0,
+      "definition_orphans": 0,
+      "rows": 2037895,
+      "rows_by_schedule": {
+        "diaspora": 1027106,
+        "israel": 1010789
+      },
+      "unique_keys": 2037895
+    },
+    "hebrew_day_schedule": {
+      "day_orphans": 0,
+      "rows": 4382930,
+      "rows_by_schedule": {
+        "diaspora": 2191465,
+        "israel": 2191465
+      },
+      "unique_keys": 4382930,
+      "unsupported_tachanun_rows": 710
+    }
+  }
+}

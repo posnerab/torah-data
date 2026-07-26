@@ -49,12 +49,19 @@ data/
       block=0001-0100/
       ...
       block=5901-6000/
+    powerbi-v1/
+      hebrew_day_schedule.parquet
+      hebcal_event_definition.parquet
+      hebcal_event_occurrence.parquet
+      manifest.json
+      provenance.json
 scripts/
   hebcal/
     corpus-v1.json       # immutable scope and version contract
     generate_corpus.mjs  # pinned local Hebcal generator
     proleptic_hebcal.mjs # negative-absolute-day compatibility layer
     build_corpus.py      # one-time DuckDB population
+    materialize_powerbi.py # one-time narrow Power BI projection
     hebcal_api.py        # REST sampling and verification helper
     sql/                 # derived transformations
 ```
@@ -67,6 +74,12 @@ outside the repository, such as `G:\Projects\tmp\hebcal-corpus`.
 The full historical corpus uses `absolute_day` as its relationship key. Dates
 before March 1900 are stored as signed Gregorian components and display text,
 not as Power BI native dates.
+
+The `powerbi-v1` derivative is independently immutable. It removes source
+payload JSON and repeated event text from occurrence rows while retaining the
+lossless fields in `corpus-v1`. Its manifest binds the derivative to the exact
+corpus manifest and builder version. A changed projection lands under a new
+versioned directory.
 
 ## Migration sequence
 
