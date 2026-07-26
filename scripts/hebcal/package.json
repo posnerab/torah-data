@@ -1,0 +1,13 @@
+{
+  "name": "torah-data-hebcal-corpus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test_generate_corpus.mjs"
+  },
+  "dependencies": {
+    "@hebcal/core": "6.8.2",
+    "@hebcal/leyning": "9.5.6"
+  }
+}

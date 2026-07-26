@@ -2,20 +2,20 @@
 
 ## Decision
 
-Materialize the model-ready tables before Power BI refresh and commit them as
-small UTF-8 CSV snapshots. Keep the corresponding raw Hebcal responses as JSON
-when provenance or reprocessing matters.
+Generate the location-independent Hebcal corpus once for Hebrew years 1 through
+6000, validate it, and preserve the resulting `corpus-v1` partitions as
+immutable source data. Core rows are never regenerated or overwritten after
+publication. A correction creates a new corpus version.
 
-Use source-controlled Python and SQL under `scripts/` to regenerate those
-snapshots. DuckDB may be used as a local, disposable build database for joins,
-window functions, schema checks, and CSV exports. Its database file is ignored
-because it must be reproducible from committed inputs and transformations.
+Large core tables use Zstandard-compressed Parquet in 100-Hebrew-year
+partitions. Small manifests and lookup tables use JSON or UTF-8 CSV. DuckDB is
+the one-time population and validation engine. Its working database remains
+disposable; the landed Parquet partitions are the durable source.
 
-Power BI should use Import mode with slim Power Query expressions:
-
-1. download a model-ready CSV from the repository;
-2. apply explicit column types;
-3. load it without repeating workbook or API transformation logic.
+Power BI should use Import mode with slim expressions that read the landed
+partitions and apply only explicit types and intentional filters. New
+transformations and relationships may evolve without modifying the core
+partitions.
 
 ## Why not PostgreSQL now
 
@@ -29,46 +29,52 @@ Adopt PostgreSQL later if the requirements change to include concurrent
 writes, several applications querying the same live state, row-level
 transactional updates, or unattended refresh from an always-on host.
 
-## Why CSV at the Power BI boundary
+## Why Parquet at the Power BI boundary
 
-- Power Query can read a repository-hosted CSV through its built-in web and CSV
-  functions without an ODBC driver or custom connector.
-- The data is small enough that CSV size and scan cost are negligible.
-- Text diffs are reviewable, and agents can edit or regenerate individual
-  tables.
-- Explicit typing stays visible in the semantic model.
+- The full day spine contains 2,191,465 rows before event and reading tables.
+- Columnar compression avoids the repeated text and parsing cost of CSV.
+- Power Query can read local Parquet directly without an ODBC driver.
+- Partition files are immutable; Git's poor binary-diff behavior is therefore
+  not multiplied by repeated rebuilds.
+- Explicit typing remains defined in the corpus schema and semantic model.
 
-Parquet remains a good optional local interchange or archive format, but Power
-Query's documented Parquet connector is designed around local files, Azure
-Blob Storage, and Azure Data Lake Storage Gen2. Repository-hosted web files
-therefore make CSV the less fragile boundary here.
+Small human-maintained lookup and compatibility tables may still use CSV.
 
 ## Intended repository layout
 
 ```text
 data/
   hebcal/
-    raw/             # deterministic API JSON snapshots
-    model/           # model-ready CSV tables
+    corpus-v1/
+      block=0001-0100/
+      ...
+      block=5901-6000/
 scripts/
   hebcal/
-    hebcal_api.py    # API client and focused CLI
-    sql/             # future DuckDB transformation queries
+    corpus-v1.json       # immutable scope and version contract
+    generate_corpus.mjs  # pinned local Hebcal generator
+    build_corpus.py      # one-time DuckDB population
+    hebcal_api.py        # REST sampling and verification helper
+    sql/                 # derived transformations
 ```
 
-Generated snapshots should enter `data/` only after their date range, schema,
-row count, and comparison with the current semantic model have been verified.
-Temporary API experiments belong outside the repository, such as
-`G:\Projects\tmp\hebcal`.
+Partitions enter `data/` only after their schema, row counts, key continuity,
+boundary behavior, package versions, and checksums have been verified. The
+builder refuses to overwrite a completed partition. Temporary pilots belong
+outside the repository, such as `G:\Projects\tmp\hebcal-corpus`.
+
+The full historical corpus uses `absolute_day` as its relationship key. Dates
+before March 1900 are stored as signed Gregorian components and display text,
+not as Power BI native dates.
 
 ## Migration sequence
 
-1. Inventory one existing workbook query and its downstream model columns.
-2. Capture raw inputs and materialize an equivalent CSV.
-3. Compare row counts, keys, nulls, and representative values with the live
-   semantic model.
-4. Replace only that Power Query partition with the typed CSV loader.
-5. Refresh and validate the model in Desktop, save, and commit the isolated
-   batch.
-6. Retain the workbook until every dependent query has migrated and passed
+1. Lock `corpus-v1` and the exact Hebcal package versions.
+2. Populate and validate boundary and modern pilot blocks.
+3. Populate all 60 immutable blocks and publish their checksummed manifest.
+4. Add new corpus-backed semantic tables alongside the existing workbook
+   tables.
+5. Compare overlapping rows and switch one existing partition at a time.
+6. Refresh and validate the model in Desktop after each cutover.
+7. Retain each workbook until every dependent query has migrated and passed
    comparison.

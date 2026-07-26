@@ -2,6 +2,11 @@
 
 Torah datasets and a Power BI Desktop project.
 
+The one-time, location-independent Hebcal corpus for Hebrew years 1 through
+6000 is defined and populated by `scripts/hebcal`. Its landed Parquet core is
+immutable; later derived transformations and semantic-model relationships may
+change without rerunning Hebcal.
+
 Open `T-Projects.pbip` in Power BI Desktop. The report is stored as PBIR under
 `T-Projects.Report`, and the semantic model is stored as TMDL under
 `T-Projects.SemanticModel`.
@@ -18,3 +23,6 @@ repository:
 See [scripts/powerbi/README.md](scripts/powerbi/README.md) for the supported
 local Power BI modeling, report-authoring, Desktop reload, screenshot, and
 data-source credential workflow.
+
+See [scripts/hebcal/README.md](scripts/hebcal/README.md) for the immutable
+corpus contract, population, validation, and migration workflow.
