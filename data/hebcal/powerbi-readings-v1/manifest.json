@@ -1,0 +1,484 @@
+{
+  "attribution": "Hebcal.com; generated content licensed CC BY 4.0",
+  "builder": {
+    "duckdb_version": "1.5.5",
+    "script_sha256": "fb982a5b37b22323325bff210a9f8404a6a0267e9e473f358c1e4bbe8d65dc59",
+    "threads": 1
+  },
+  "files": {
+    "leyning_definition_parasha.parquet": {
+      "bytes": 2188,
+      "columns": [
+        {
+          "name": "reading_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "member_index",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "parasha_name",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "parasha_number",
+          "nullable": "YES",
+          "type": "SMALLINT"
+        }
+      ],
+      "rows": 202,
+      "sha256": "34b38420d78ef8cfe513416552a0983c939bf0a8ebf70fcbaaf0c203f15abebb"
+    },
+    "leyning_occurrence.parquet": {
+      "bytes": 1614434,
+      "columns": [
+        {
+          "name": "absolute_day",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule_key",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "reading_index",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "reading_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        }
+      ],
+      "rows": 2339622,
+      "sha256": "b02c379a0370abcab1f29a1b5398e46602491fcbc87c215b597f6733f45d6fc5"
+    },
+    "leyning_reading_definition.parquet": {
+      "bytes": 23535,
+      "columns": [
+        {
+          "name": "reading_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "source_payload_sha256",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reading_type",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "name_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "summary_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 269,
+      "sha256": "e8f3f2759cfc8d8837590b68be996372eb40f1f8a3b18751a056c8c36e3e3f33"
+    },
+    "leyning_segment_definition.parquet": {
+      "bytes": 41483,
+      "columns": [
+        {
+          "name": "reading_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "segment_kind",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment_label",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "segment_index",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "book_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "book_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "book_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "begin_ref_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "begin_ref_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "begin_ref_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_ref_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_ref_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "end_ref_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "verse_count",
+          "nullable": "YES",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "parasha_number",
+          "nullable": "YES",
+          "type": "SMALLINT"
+        },
+        {
+          "name": "reason_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reason_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "reason_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "note_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 2265,
+      "sha256": "f0f17e03c0bfc52eca710b6c8a1c837218ccd39015253bf5e60a07fcd6cae962"
+    },
+    "parasha_definition.parquet": {
+      "bytes": 3109,
+      "columns": [
+        {
+          "name": "parasha_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "is_combined",
+          "nullable": "YES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "title_en",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title_he",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "title_ashkenazi",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "basename",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 60,
+      "sha256": "ce20cb5200a445614321885729025c9bfdd53d4aa70646df2a0025b8a5360631"
+    },
+    "parasha_definition_member.parquet": {
+      "bytes": 1144,
+      "columns": [
+        {
+          "name": "parasha_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "member_index",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "parasha_name",
+          "nullable": "YES",
+          "type": "VARCHAR"
+        }
+      ],
+      "rows": 67,
+      "sha256": "67812a297e52fb2b9a9823c3ba544496404fef516c3688ef59ec72f8f54fed79"
+    },
+    "parasha_occurrence.parquet": {
+      "bytes": 378649,
+      "columns": [
+        {
+          "name": "absolute_day",
+          "nullable": "YES",
+          "type": "INTEGER"
+        },
+        {
+          "name": "schedule_key",
+          "nullable": "YES",
+          "type": "TINYINT"
+        },
+        {
+          "name": "parasha_definition_key",
+          "nullable": "YES",
+          "type": "INTEGER"
+        }
+      ],
+      "rows": 588052,
+      "sha256": "ad943d72b04826a9538f5ff8e5cfccd71a6f90a955674ebba04a22e113dc3d29"
+    }
+  },
+  "immutability": {
+    "changed_projection_requires_new_version": true,
+    "overwrite_existing_output": false,
+    "source_corpus_modified": false
+  },
+  "json_contract": {
+    "locale_structure_alignment_required": true,
+    "recognized_root_keys": [
+      "alt",
+      "chabad",
+      "fullkriyah",
+      "haft",
+      "haftara",
+      "haftaraNumV",
+      "megillah",
+      "name",
+      "note",
+      "parsha",
+      "parshaNum",
+      "reason",
+      "seph",
+      "sephardic",
+      "sephardicNumV",
+      "summary",
+      "summaryParts",
+      "type",
+      "weekday"
+    ],
+    "recognized_segment_kinds": [
+      "alt",
+      "chabad",
+      "fullkriyah",
+      "haft",
+      "megillah",
+      "seph",
+      "summaryParts",
+      "weekday"
+    ],
+    "unknown_root_or_path_behavior": "fail"
+  },
+  "keys": {
+    "parasha_definition_key": {
+      "base": 1,
+      "dense": true,
+      "sort": "UTF-8 byte order of ordered parasha members"
+    },
+    "reading_definition_key": {
+      "base": 1,
+      "dense": true,
+      "sort": "source_payload_sha256 ascending"
+    },
+    "schedule_key": {
+      "diaspora": 0,
+      "israel": 1
+    }
+  },
+  "materialization_version": "powerbi-readings-v1",
+  "official_corpus_v1_baseline_verified": true,
+  "source": {
+    "corpus_manifest_sha256": "021fb23d9f30f614141a102691e9453c83717ae7963dff18a83aba0d78a46450",
+    "corpus_version": "v1",
+    "verified_file_count": 240,
+    "verified_partition_count": 60
+  },
+  "status": "complete-immutable-derived",
+  "validation": {
+    "leyning_definition_parasha": {
+      "definition_orphans": 0,
+      "fingerprint_sha256": "22c28511f9f8efcb782670dfbeff28ecfcbdc71b627c075e864d8fd97037d357",
+      "first_parasha_number": 1,
+      "last_parasha_number": 54,
+      "mapping_conflicts": 0,
+      "non_dense_index_groups": 0,
+      "represented_definition_count": 184,
+      "rows": 202,
+      "rows_by_member_index": {
+        "1": 184,
+        "2": 18
+      },
+      "unique_keys": 202
+    },
+    "leyning_occurrence": {
+      "day_orphans": 0,
+      "definition_orphans": 0,
+      "rows": 2339622,
+      "rows_by_reading_index": {
+        "0": 2234361,
+        "1": 97091,
+        "2": 8170
+      },
+      "rows_by_schedule": {
+        "diaspora": 1172415,
+        "israel": 1167207
+      },
+      "schedule_orphans": 0,
+      "unique_keys": 2339622,
+      "used_definition_count": 269
+    },
+    "leyning_reading_definition": {
+      "fingerprint_sha256": "2d967b7a5d4bbc8be7e5220258e6f389d03c6071f25caf93e1130e6dde260209",
+      "first_key": 1,
+      "last_key": 269,
+      "null_summaries": {
+        "summary": 1,
+        "summary_ashkenazi": 1,
+        "summary_he": 1
+      },
+      "rows": 269,
+      "rows_by_type": {
+        "holiday": 85,
+        "shabbat": 123,
+        "weekday": 61
+      },
+      "unique_keys": 269,
+      "unique_payload_hashes": 269
+    },
+    "leyning_segment_definition": {
+      "definition_orphans": 0,
+      "fingerprint_sha256": "97e291fbeb67223105c3b50bd71164ac41a8f4f1f77da57a27706cfb9a7322e5",
+      "max_index_by_kind": {
+        "alt": 6,
+        "chabad": 2,
+        "fullkriyah": 9,
+        "haft": 3,
+        "megillah": 12,
+        "seph": 4,
+        "summaryParts": 4,
+        "weekday": 3
+      },
+      "non_dense_index_groups": 0,
+      "null_parasha_number_rows": 1792,
+      "null_verse_count_rows": 244,
+      "populated_note_rows": 1,
+      "populated_reason_rows": 190,
+      "rows": 2265,
+      "rows_by_kind": {
+        "alt": 24,
+        "chabad": 18,
+        "fullkriyah": 1387,
+        "haft": 182,
+        "megillah": 168,
+        "seph": 59,
+        "summaryParts": 244,
+        "weekday": 183
+      },
+      "unique_keys": 2265
+    },
+    "parasha_definition": {
+      "combined_rows": 7,
+      "fingerprint_sha256": "88a2aaedb0d1ce960bb24761b9d1a3ed809494e58011f37f80000d5c797f7332",
+      "first_key": 1,
+      "last_key": 60,
+      "rows": 60,
+      "single_rows": 53,
+      "unique_keys": 60
+    },
+    "parasha_definition_member": {
+      "definition_orphans": 0,
+      "fingerprint_sha256": "9daf028f3f0231d301f71c04ba852a5fde1800ccb093288ceff36da63119ac9a",
+      "non_dense_index_groups": 0,
+      "rows": 67,
+      "rows_by_member_index": {
+        "1": 60,
+        "2": 7
+      },
+      "unique_keys": 67
+    },
+    "parasha_occurrence": {
+      "day_orphans": 0,
+      "definition_orphans": 0,
+      "rows": 588052,
+      "rows_by_schedule": {
+        "diaspora": 292328,
+        "israel": 295724
+      },
+      "schedule_orphans": 0,
+      "unique_keys": 588052,
+      "used_definition_count": 60
+    }
+  }
+}

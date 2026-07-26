@@ -55,6 +55,16 @@ data/
       hebcal_event_occurrence.parquet
       manifest.json
       provenance.json
+    powerbi-readings-v1/
+      parasha_definition.parquet
+      parasha_definition_member.parquet
+      parasha_occurrence.parquet
+      leyning_reading_definition.parquet
+      leyning_definition_parasha.parquet
+      leyning_segment_definition.parquet
+      leyning_occurrence.parquet
+      manifest.json
+      provenance.json
 scripts/
   hebcal/
     corpus-v1.json       # immutable scope and version contract
@@ -62,6 +72,7 @@ scripts/
     proleptic_hebcal.mjs # negative-absolute-day compatibility layer
     build_corpus.py      # one-time DuckDB population
     materialize_powerbi.py # one-time narrow Power BI projection
+    materialize_powerbi_readings.py # separate one-time readings projection
     hebcal_api.py        # REST sampling and verification helper
     sql/                 # derived transformations
 ```
@@ -80,6 +91,15 @@ payload JSON and repeated event text from occurrence rows while retaining the
 lossless fields in `corpus-v1`. Its manifest binds the derivative to the exact
 corpus manifest and builder version. A changed projection lands under a new
 versioned directory.
+
+`powerbi-readings-v1` is a second, independently immutable derivative. It
+normalizes the Parasha and leyning definition/member/passage structures and
+keeps the two occurrence tables narrow. Its seven Parquet files are imported
+once and excluded from scheduled semantic-model refresh. Raw JSON stays in
+`corpus-v1`; only normalized localized passage fields cross this boundary.
+`materialize_powerbi.py` and `powerbi-v1` remain unchanged. A new reading data
+type or transformation contract lands under `powerbi-readings-v2` instead of
+regenerating v1.
 
 ## Migration sequence
 

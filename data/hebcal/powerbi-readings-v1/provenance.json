@@ -1,0 +1,6 @@
+{
+  "content_manifest_sha256": "c2554bba767bd55770ce452b967ba3eaefad5fd7c91ef161b04eef6c8f42f216",
+  "created_utc": "2026-07-26T21:44:00.592408+00:00",
+  "materialization_id": "sha256:c2554bba767bd55770ce452b967ba3eaefad5fd7c91ef161b04eef6c8f42f216",
+  "materialization_tool": "DuckDB 1.5.5"
+}

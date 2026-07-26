@@ -128,3 +128,30 @@ Power BI should import these files once and exclude the resulting static
 partitions from ordinary model refresh. A new transformation contract creates
 `powerbi-v2` rather than rewriting `powerbi-v1`. See
 [schemas/powerbi-v1.md](schemas/powerbi-v1.md).
+
+## One-time Power BI readings materialization
+
+`materialize_powerbi_readings.py` independently normalizes the Parasha and
+leyning payloads that remain outside `powerbi-v1`. It does not modify
+`materialize_powerbi.py` or `data\hebcal\powerbi-v1`:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe `
+  scripts\hebcal\materialize_powerbi_readings.py
+```
+
+The separate default destination is
+`data\hebcal\powerbi-readings-v1`. It must not exist, and the command has no
+overwrite option. The script verifies the complete source manifest and file
+hashes, uses one DuckDB thread, rejects unknown reading JSON structures,
+validates localized passage alignment and relationships, and atomically lands
+only after the frozen production counts, schedule/type/kind splits, and
+content fingerprints pass.
+
+The seven Parquet files normalize Parasha definitions/members/occurrences and
+leyning definitions/Parasha members/passages/occurrences. Raw payload JSON
+remains only in `corpus-v1`. Import these static files once and exclude their
+partitions from scheduled refresh; only later model transformations,
+relationships, or new data types should require work. A changed readings
+projection creates `powerbi-readings-v2`, never a rebuild of v1. See
+[schemas/powerbi-readings-v1.md](schemas/powerbi-readings-v1.md).
