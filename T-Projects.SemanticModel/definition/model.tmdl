@@ -22,7 +22,7 @@ annotation PBI_QueryOrder = ["Hebcal","Zmanim Definitions","Zmanim Today Unpivot
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
 
 ref table DateTableTemplate_4bf295f4-cea9-41fc-8254-44e21a2915f7
 ref table Zmanim

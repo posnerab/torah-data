@@ -1,0 +1,14 @@
+{
+  "name": "torah-data-powerbi-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test:modeling-mcp": "node ./test-powerbi-modeling-mcp.mjs",
+    "test:modeling-mcp:unattended": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite",
+    "refresh:model": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite --refresh-all"
+  }
+}
