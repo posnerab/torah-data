@@ -690,3 +690,10 @@ expression 'Hebcal Readings Path' = "G:\Projects\torah-data\data\hebcal\powerbi-
 	lineageTag: e5e778c0-a169-4127-b555-702daa9ccea5
 	queryGroup: Hebcal
 
+/// Local path to the immutable exact Hebcal compatibility v1 snapshot. Relocate only; the data is loaded once and then excluded from model refresh.
+expression 'Hebcal Compatibility Path' = "G:\Projects\torah-data\data\hebcal\powerbi-compatibility-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 419b7a3a-464f-4f53-bef3-f1d1c273b958
+	queryGroup: Hebcal
+
+	annotation PBI_ResultType = Text
+
