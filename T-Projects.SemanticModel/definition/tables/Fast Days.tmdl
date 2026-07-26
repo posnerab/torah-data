@@ -1,0 +1,75 @@
+table 'Fast Days'
+	excludeFromModelRefresh
+	lineageTag: 2df27d5a-750e-47bd-b01e-65368c44d5b2
+
+	column 'Hebrew Month Day'
+		dataType: string
+		lineageTag: 9b1903de-4118-46bb-9909-16071ff67220
+		summarizeBy: none
+		sourceColumn: Hebrew Month Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 30398b8b-7490-4e23-b56e-2fb381d0bf83
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Biblical
+		dataType: string
+		lineageTag: 4c236505-d291-48b5-a9f2-3c85d4943c4e
+		summarizeBy: none
+		sourceColumn: Biblical
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source
+		dataType: string
+		lineageTag: c329cd6b-f110-4a05-9a65-adae6395cf55
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Firstborn Only'
+		dataType: string
+		lineageTag: 15e9f528-40c6-4a1c-9325-3fb250ee6ef3
+		summarizeBy: none
+		sourceColumn: Firstborn Only
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 11e90da0-f194-4dd2-873a-837e711f691d
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fed9870-42f0-45df-9a60-e5526a8c3667
+		summarizeBy: none
+		sourceColumn: Category Rank
+
+		annotation SummarizationSetBy = User
+
+	partition 'Fast Days' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("vZTLCsIwEEV/Zei6i75EXVYQEaGKZCPqYtRAAtqUjHXh15s01meX0U3KZO49NzRD1usgjoBJEprLIAxW6gQzWVW1tgUnszKlUZhvoT77cbANjb8PDE/11Uqvpt0Wzr3QqhL8TC0gJ9QIo00dRUmf8QunEBrbhB/wKFHcy5aSuozB7zPSl9/wpvack/0px9xrfrEZJu3hbna6U751ScMZ+sHEMeQHtGPD0DWxlARjOguuW/MSdzv5RHUKs1ccTKfeiKnfA6beD5hAIQnLT9mI74XSir6I7oLmd0jPQTIfEPNk2DHsnE2fY7y9AQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Hebrew Month Day" = _t, Name = _t, Biblical = _t, Source = _t, #"Firstborn Only" = _t, Category = _t, #"Category Rank" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Hebrew Month Day", type text}, {"Name", type text}, {"Biblical", type text}, {"Source", type text}, {"Firstborn Only", type text}, {"Category", type text}, {"Category Rank", Int64.Type}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Category Rank", Order.Ascending}, {"Name", Order.Ascending}, {"Hebrew Month Day", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

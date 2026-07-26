@@ -1,0 +1,62 @@
+relationship 34c112d9-2e1b-40bf-8f6e-bc2f9d291ed8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Holidays.'Start Date'
+	toColumn: LocalDateTable_633cb0f0-6690-4259-8387-a030210fc104.Date
+
+relationship 326d3be8-e289-4a9c-b870-d89f7ac89258
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Zmanim.Date
+	toColumn: LocalDateTable_7fda378c-2b82-4d64-8010-de003d9a6282.Date
+
+relationship edba25fc-d6db-42b9-b219-33212d95f027
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Haftaros.Date
+	toColumn: LocalDateTable_e275d787-4c7e-40a1-87f5-c075eba52cfd.Date
+
+relationship 47ea1715-a460-d611-29c2-4a8f6d82b86e
+	crossFilteringBehavior: bothDirections
+	fromColumn: Holidays.Date
+	toColumn: Hebcal.Date
+
+relationship 740ef83a-d8d7-4676-b973-367b81c5ab24
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Hebcal.HebrewDatePseudo
+	toColumn: LocalDateTable_71f78e24-30f1-4e58-b7f6-ed2e35ef7a0c.Date
+
+relationship AutoDetected_60aede3b-cad2-4328-9413-9e7af8628b83
+	crossFilteringBehavior: bothDirections
+	fromColumn: Parasha-Mitzvos.Parasha
+	toColumn: Parashiyos.Parasha
+
+relationship 86ec0119-7160-58da-6d9d-cb8524ce0336
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Hebcal.Parasha
+	toColumn: Parasha-Mitzvos.Parasha
+
+relationship 67f00579-9357-b29a-e436-0871452dee80
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Parasha-Mitzvos.Index_Verse
+	toColumn: Pasukim.Index_Verse
+
+relationship 03b1dc98-8d9c-43f6-b408-cb74ca6129e1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Hebcal.Date
+	toColumn: LocalDateTable_09b2995e-f648-492d-beec-15f6dbdc7558.Date
+
+relationship fa490d7e-c5f6-f002-dabd-02071469f15d
+	crossFilteringBehavior: bothDirections
+	fromColumn: Hebcal.'Hebrew Month Day'
+	toColumn: 'Fast Days'.'Hebrew Month Day'
+
+relationship cc5bb677-bed1-ed88-5061-092ac3bef503
+	crossFilteringBehavior: bothDirections
+	fromColumn: Hebcal.Haftarah
+	toColumn: Haftaros.Haftarah
+
+relationship f7857183-bfc4-4ccb-9f37-644a9079741f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Hebcal.'Shabbos Date'
+	toColumn: LocalDateTable_d1b3aa27-1419-439c-b2a9-b147bbeeef8c.Date
+

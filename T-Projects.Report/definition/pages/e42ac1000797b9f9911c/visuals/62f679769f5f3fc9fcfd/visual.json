@@ -1,0 +1,229 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "62f679769f5f3fc9fcfd",
+  "position": {
+    "x": 0,
+    "y": 204.02079722703641,
+    "z": 0,
+    "height": 875.97920277296373,
+    "width": 1920.4159445407281,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Parasha"
+                }
+              },
+              "queryRef": "Hebcal.Parasha",
+              "nativeQueryRef": "Parasha"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Torah Reading"
+                }
+              },
+              "queryRef": "Hebcal.Torah Reading",
+              "nativeQueryRef": "Torah Reading"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Haftarah"
+                }
+              },
+              "queryRef": "Hebcal.Haftarah",
+              "nativeQueryRef": "Haftarah"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Haftarah Reason Display"
+                }
+              },
+              "queryRef": "Hebcal.Haftarah Reason Display",
+              "nativeQueryRef": "Haftarah Reason Display",
+              "displayName": "Haftarah Reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "Hebcal.Date",
+              "nativeQueryRef": "Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Date",
+              "nativeQueryRef": "Hebrew Date1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Year"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Year",
+              "nativeQueryRef": "Year",
+              "displayName": "Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Holiday Display"
+                }
+              },
+              "queryRef": "Hebcal.Holiday Display",
+              "nativeQueryRef": "Holiday Display"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Hebcal"
+                  }
+                },
+                "Property": "Date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "201b3f1a0d41ecc134db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Hebcal"
+              }
+            },
+            "Property": "Haftarah"
+          }
+        },
+        "type": "Categorical",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

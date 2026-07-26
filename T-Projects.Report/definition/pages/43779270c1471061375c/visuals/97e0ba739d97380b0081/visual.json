@@ -1,0 +1,1532 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "97e0ba739d97380b0081",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 1000,
+    "height": 1080,
+    "width": 487.59098786828429,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Biblical Festival",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Festivals"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Yontiff?",
+              "nativeQueryRef": "Yontiff?",
+              "active": true
+            },
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Holiday Part",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Major Holiday Days"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Yom Tov or Chol Hamoed",
+              "nativeQueryRef": "Yom Tov or Chol Hamoed",
+              "active": true
+            },
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Festivals",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Major Holiday"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Festivals",
+              "nativeQueryRef": "Festivals",
+              "active": true
+            },
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Major Holiday",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Major Holiday Days"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Major Holiday",
+              "nativeQueryRef": "Major Holiday",
+              "active": true
+            },
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Major Holiday Days",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Major"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Major Holiday Days",
+              "nativeQueryRef": "Major Holiday Days",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Values"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Hebcal.Yontiff?"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Biblical Festival"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Yom Tov or Chol Hamoed"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Holiday Part"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Festivals"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Festivals"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Major Holiday"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Major Holiday"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Major Holiday Days"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Yes'"
+                  }
+                }
+              ],
+              "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'No'"
+                  }
+                }
+              ],
+              "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'No Work Permitted'"
+                  }
+                }
+              ],
+              "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Biblical'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'Yom Tov'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'High Holidays'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Rosh Hashanah'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        },
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Yom Kippur'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    },
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'Shalosh Regalim'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Succos'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        },
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Shemini Atzeres & Simchas Torah'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        },
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Shavuos'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        },
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Pesach'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Rabbinic'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'Erev'"
+                      }
+                    }
+                  ],
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'Purim'"
+                          }
+                        }
+                      ],
+                      "isToggled": true
+                    }
+                  ]
+                },
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'Chanukah'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'Chanukah'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Chanukah'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'Purim'"
+                      }
+                    }
+                  ],
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'Purim'"
+                          }
+                        }
+                      ],
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'Purim'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "h",
+                    "Entity": "Hebcal",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Or": {
+                        "Left": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Biblical Festival"
+                                }
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Holiday Part"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Rabbinic'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Purim'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        },
+                        "Right": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Biblical Festival"
+                                }
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Holiday Part"
+                                }
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Festivals"
+                                }
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Major Holiday"
+                                }
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "h"
+                                    }
+                                  },
+                                  "Property": "Major Holiday Days"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'High Holidays'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Kippur'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Kippur'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shalosh Regalim'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Pesach'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Pesach I'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shalosh Regalim'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Pesach'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Pesach VII'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shalosh Regalim'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shavuos'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shavuos I'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shalosh Regalim'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shemini Atzeres & Simchas Torah'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shemini Atzeres'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Shalosh Regalim'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Succos'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Succos I'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Rabbinic'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Chanukah'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Chanukah'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Chanukah'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Chanukah: 1 Candle'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Biblical'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Yom Tov'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'High Holidays'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Rosh Hashanah'"
+                                  }
+                                },
+                                {
+                                  "Literal": {
+                                    "Value": "'Rosh Hashana I'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "Annotations": {
+                      "filterExpressionMetadata": {
+                        "expressions": [
+                          {
+                            "GroupRef": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "Hebcal"
+                                }
+                              },
+                              "Property": "Biblical Festival",
+                              "GroupedColumns": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Entity": "Hebcal"
+                                      }
+                                    },
+                                    "Property": "Festivals"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "GroupRef": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "Hebcal"
+                                }
+                              },
+                              "Property": "Holiday Part",
+                              "GroupedColumns": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Entity": "Hebcal"
+                                      }
+                                    },
+                                    "Property": "Major Holiday Days"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "GroupRef": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "Hebcal"
+                                }
+                              },
+                              "Property": "Festivals",
+                              "GroupedColumns": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Entity": "Hebcal"
+                                      }
+                                    },
+                                    "Property": "Major Holiday"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "GroupRef": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "Hebcal"
+                                }
+                              },
+                              "Property": "Major Holiday",
+                              "GroupedColumns": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Entity": "Hebcal"
+                                      }
+                                    },
+                                    "Property": "Major Holiday Days"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "GroupRef": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "Hebcal"
+                                }
+                              },
+                              "Property": "Major Holiday Days",
+                              "GroupedColumns": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Entity": "Hebcal"
+                                      }
+                                    },
+                                    "Property": "Major"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "decomposedIdentities": {
+                          "values": [
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'High Holidays'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Rosh Hashanah'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Rosh Hashana I'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'High Holidays'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Kippur'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Kippur'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shalosh Regalim'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Pesach'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Pesach I'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shalosh Regalim'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Pesach'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Pesach VII'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shalosh Regalim'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shavuos'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shavuos I'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shalosh Regalim'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shemini Atzeres & Simchas Torah'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shemini Atzeres'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Biblical'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Yom Tov'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Shalosh Regalim'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Succos'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Succos I'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Rabbinic'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Chanukah'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "2": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Chanukah'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "3": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Chanukah'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "4": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Chanukah: 1 Candle'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Rabbinic'"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "1": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Purim'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          ],
+                          "columns": [
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Hebcal"
+                                    }
+                                  },
+                                  "Property": "Biblical Festival"
+                                }
+                              }
+                            },
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Hebcal"
+                                    }
+                                  },
+                                  "Property": "Holiday Part"
+                                }
+                              }
+                            },
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Hebcal"
+                                    }
+                                  },
+                                  "Property": "Festivals"
+                                }
+                              }
+                            },
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Hebcal"
+                                    }
+                                  },
+                                  "Property": "Major Holiday"
+                                }
+                              }
+                            },
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Hebcal"
+                                    }
+                                  },
+                                  "Property": "Major Holiday Days"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "valueMap": [
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "High Holidays",
+                            "3": "Rosh Hashanah",
+                            "4": "Rosh Hashana I"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "High Holidays",
+                            "3": "Yom Kippur",
+                            "4": "Yom Kippur"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "Shalosh Regalim",
+                            "3": "Pesach",
+                            "4": "Pesach I"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "Shalosh Regalim",
+                            "3": "Pesach",
+                            "4": "Pesach VII"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "Shalosh Regalim",
+                            "3": "Shavuos",
+                            "4": "Shavuos I"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "Shalosh Regalim",
+                            "3": "Shemini Atzeres & Simchas Torah",
+                            "4": "Shemini Atzeres"
+                          },
+                          {
+                            "0": "Biblical",
+                            "1": "Yom Tov",
+                            "2": "Shalosh Regalim",
+                            "3": "Succos",
+                            "4": "Succos I"
+                          },
+                          {
+                            "0": "Rabbinic",
+                            "1": "Chanukah",
+                            "2": "Chanukah",
+                            "3": "Chanukah",
+                            "4": "Chanukah: 1 Candle"
+                          },
+                          {
+                            "0": "Rabbinic",
+                            "1": "Purim"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "items": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4e42f806b7823813c0b7",
+        "field": {
+          "GroupRef": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Hebcal"
+              }
+            },
+            "Property": "Major Holiday",
+            "GroupedColumns": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Major Holiday Days"
+                }
+              }
+            ]
+          }
+        },
+        "type": "Categorical",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

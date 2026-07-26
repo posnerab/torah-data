@@ -1,0 +1,102 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "c41972d70880f7c46bc6",
+  "position": {
+    "x": 0,
+    "y": 40,
+    "z": 2000,
+    "height": 236,
+    "width": 1280,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pasukim"
+                        }
+                      },
+                      "Property": "Sefer"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Pasukim.Sefer)",
+              "nativeQueryRef": "Sefer",
+              "displayName": "Sefer"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pasukim"
+                        }
+                      },
+                      "Property": "Parasha"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Pasukim.Parasha)",
+              "nativeQueryRef": "First Parasha",
+              "displayName": "First Parasha"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pasukim"
+                        }
+                      },
+                      "Property": "Citation_Transliteration"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Pasukim.Citation_Transliteration)",
+              "nativeQueryRef": "First Verse",
+              "displayName": "First Verse"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "32D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,179 @@
+table Holidays
+	excludeFromModelRefresh
+	lineageTag: 1622c207-f3a5-4cbe-9409-d3c307b8bb90
+
+	column Holiday
+		dataType: string
+		lineageTag: 7baa6f0b-090c-40f7-bc9b-21e5fd1b5d09
+		summarizeBy: none
+		sourceColumn: Holiday
+		sortByColumn: 'Start Date'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Holiday Detail'
+		dataType: string
+		lineageTag: 8f9b2d9c-1e82-4482-884e-53d1b7ec608f
+		summarizeBy: none
+		sourceColumn: Holiday Detail
+		sortByColumn: Date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: dddd, mmmm d, yyyy
+		lineageTag: b274955b-c2db-4092-b7fa-1304dce181e1
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'Day of Week'
+		dataType: string
+		lineageTag: 623eb273-f172-47fe-824b-99d9b7d2833a
+		summarizeBy: none
+		sourceColumn: Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shabbat
+		dataType: string
+		lineageTag: 26ca403d-a10d-4bb4-a5bb-82e3652e4372
+		summarizeBy: none
+		sourceColumn: Shabbat
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Yom Tov'
+		dataType: string
+		lineageTag: ef4dc891-f979-4d71-ba5d-1376625bae3d
+		summarizeBy: none
+		sourceColumn: Yom Tov
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Work Permitted'
+		dataType: string
+		lineageTag: a2468462-0708-473b-a6a5-a07131e970f1
+		summarizeBy: none
+		sourceColumn: Work Permitted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Begins sunset'
+		dataType: string
+		lineageTag: 493bf1d4-61b0-4b99-9ada-1fb74eaf3310
+		summarizeBy: none
+		sourceColumn: Begins sunset
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Work Prohibition Begins Sunset'
+		dataType: string
+		lineageTag: 2659e20b-54e2-4165-b8a9-61af775d40b9
+		summarizeBy: none
+		sourceColumn: Work Prohibition Begins Sunset
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Work Prohibition Ends Nightfall'
+		dataType: string
+		lineageTag: 2ed31530-9c2f-4766-8378-b060975bff19
+		summarizeBy: none
+		sourceColumn: Work Prohibition Ends Nightfall
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ends Nightfall'
+		dataType: string
+		lineageTag: 2aab4821-6942-44ca-b9b3-0e3a1303b3bc
+		summarizeBy: none
+		sourceColumn: Ends Nightfall
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Work Days'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e6fe93d-0c2c-47d8-a6fe-e8e071afd359
+		summarizeBy: sum
+		sourceColumn: Work Days
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vacation Days'
+		dataType: int64
+		formatString: 0
+		lineageTag: d8e8e997-19cc-4968-ace8-572a4010d853
+		summarizeBy: sum
+		sourceColumn: Vacation Days
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: 2a9da846-975d-4104-96a8-6aa35c6348bc
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ec8ce498-8a05-45cb-8dc3-6d5b57c6ecb7
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		variation Variation
+			isDefault
+			relationship: 34c112d9-2e1b-40bf-8f6e-bc2f9d291ed8
+			defaultHierarchy: LocalDateTable_633cb0f0-6690-4259-8387-a030210fc104.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Upcoming = IF(Holidays[Start Date]>=TODAY(),"Yes","No")
+		lineageTag: 4eadaf51-9460-408a-ab99-59aeaa6fe3ca
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Off?' = IF(Holidays[Vacation Days]=1,"Yes","No")
+		lineageTag: a9235b52-96b8-443f-a89e-8ff7fdb2e6c1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR(Holidays[Date])
+		formatString: 0
+		lineageTag: d61ac3ee-a6ee-4ae4-ae1a-b2a869c00713
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Holidays = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Holidays.xlsx"), null, true),
+				    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"Holiday", type text}, {"Holiday Detail", type text}, {"Date", type date}, {"Day of Week", type text}, {"Shabbat", type text}, {"Yom Tov", type text}, {"Work Permitted", type text}, {"Begins sunset", type text}, {"Work Prohibition Begins Sunset", type text}, {"Work Prohibition Ends Nightfall", type text}, {"Ends Nightfall", type text}, {"Work Days", Int64.Type}, {"Vacation Days", Int64.Type}, {"Link", type text}, {"Start Date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

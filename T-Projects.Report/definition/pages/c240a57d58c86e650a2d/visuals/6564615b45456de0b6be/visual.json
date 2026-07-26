@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "6564615b45456de0b6be",
+  "position": {
+    "x": 1362.6343154246101,
+    "y": 466.06585788561529,
+    "z": 4000,
+    "height": 613.93414211438483,
+    "width": 1137.0883882149049,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Year"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Year",
+              "nativeQueryRef": "Hebrew Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "HebrewYear_Position"
+                }
+              },
+              "queryRef": "Hebcal.HebrewYear_Position",
+              "nativeQueryRef": "Type",
+              "displayName": "Type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "MajorHoliday_DayName_List"
+                }
+              },
+              "queryRef": "Hebcal.MajorHoliday_DayName_List",
+              "nativeQueryRef": "Holiday List",
+              "displayName": "Holiday List"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "951.2859629958458D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal.MajorHoliday_DayName_List"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

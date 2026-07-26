@@ -1,0 +1,716 @@
+table Zmanim
+	lineageTag: 29de61c5-7ee7-4685-a677-e7b0ffec528f
+
+	measure Day_Length = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 8c4197c4-da85-4cef-890e-54497c6371e3
+
+	measure Day_Length_Yesterday = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 8b9f2208-7373-4bf9-995d-5f45a8a17671
+
+	measure Day_Length_OneWeekAgo = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: bad912e4-5bdc-430e-94dc-727590d0d159
+
+	measure Day_Length_Diff_Yesterday = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsYesterday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsYesterday
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR HourText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinuteText = IF(OR(Minutes > 0, Hours < 1), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "") // Ensure whole minutes are displayed
+			VAR SecondText = FORMAT(Seconds, "0") & "s" // Add seconds to the output
+			VAR TimeDiffFormat = Sign & HourText & MinuteText & SecondText
+			RETURN
+			IF (
+			    NOT ISBLANK(TotalSecondsToday) && NOT ISBLANK(TotalSecondsYesterday),
+			    TimeDiffFormat,
+			    "No change"
+			)
+			
+			```
+		lineageTag: fe140c8d-c8e7-4edd-a128-df72b6beb893
+
+	measure Day_Length_Diff_OneWeekAgo = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsOneWeekAgo = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsOneWeekAgo
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR HourText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinuteText = IF(OR(Minutes > 0, Hours < 1), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "") // Ensure whole minutes are displayed
+			VAR SecondText = FORMAT(Seconds, "0") & "s" // Add seconds to the output
+			VAR TimeDiffFormat = Sign & HourText & MinuteText & SecondText
+			RETURN
+			IF (
+			    NOT ISBLANK(TotalSecondsToday) && NOT ISBLANK(TotalSecondsOneWeekAgo),
+			    TimeDiffFormat,
+			    "No change"
+			)
+			
+			```
+		lineageTag: 551a7dec-58fb-4252-9dc3-f5ebe4067220
+
+	measure Day_Length_Arrow_Yesterday = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsYesterday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsYesterday
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "⇧", IF(SecondsDifference < 0, "⇩", IF(SecondsDifference = 0, "━", "")))
+			RETURN
+			    Sign
+			```
+		lineageTag: 82336171-2080-4939-9157-ac638bb49054
+
+	measure Day_Length_Arrow_OneWeekAgo = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsOneWeekAgo = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsOneWeekAgo
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "⇧", IF(SecondsDifference < 0, "⇩", IF(SecondsDifference = 0, "━", "")))
+			RETURN
+			    Sign
+			```
+		lineageTag: 23661b1e-a969-4a75-8d7e-b165527fc73a
+
+	measure Day_Length_Direction_OneWeekAgo = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsOneWeekAgo = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsOneWeekAgo
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "Getting later", IF(SecondsDifference < 0, "Getting earlier", IF(SecondsDifference = 0, "No change", "")))
+			RETURN
+			    Sign
+			```
+		lineageTag: 21ee50b7-0997-455e-a25a-d4cf6c49cfee
+
+	measure Day_Length_Direction_Yesterday = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR TotalSecondsYesterday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsYesterday
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "Getting later", IF(SecondsDifference < 0, "Getting earlier", IF(SecondsDifference = 0, "No change", "")))
+			RETURN
+			    Sign
+			```
+		lineageTag: 204c2dec-49de-4a73-adbc-3828f7fce2dd
+
+	measure Hour_Length = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)/12
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 5b983368-795e-4a57-86a7-8961b6478ce2
+
+	measure Hour_Length_Diff_OneWeekAgo = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )/12
+			VAR TotalSecondsOneWeekAgo = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )/12
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsOneWeekAgo
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR HourText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinuteText = IF(OR(Minutes > 0, Hours < 1), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "") // Ensure whole minutes are displayed
+			VAR SecondText = FORMAT(Seconds, "0") & "s" // Add seconds to the output
+			VAR TimeDiffFormat = Sign & HourText & MinuteText & SecondText
+			RETURN
+			IF (
+			    NOT ISBLANK(TotalSecondsToday) && NOT ISBLANK(TotalSecondsOneWeekAgo),
+			    TimeDiffFormat,
+			    "No change"
+			)
+			
+			```
+		lineageTag: 9d432bfb-35d7-41dc-9bad-f675bd087f2a
+
+	measure Hour_Length_Diff_Yesterday = ```
+			
+			VAR TotalSecondsToday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )/12
+			VAR TotalSecondsYesterday = 
+			    CALCULATE(
+			        DATEDIFF(
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise"),
+			            CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset"),
+			            SECOND
+			        )
+			    )/12
+			VAR SecondsDifference = TotalSecondsToday - TotalSecondsYesterday
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60) // Calculate remaining seconds
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR HourText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinuteText = IF(OR(Minutes > 0, Hours < 1), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "") // Ensure whole minutes are displayed
+			VAR SecondText = FORMAT(Seconds, "0") & "s" // Add seconds to the output
+			VAR TimeDiffFormat = Sign & HourText & MinuteText & SecondText
+			RETURN
+			IF (
+			    NOT ISBLANK(TotalSecondsToday) && NOT ISBLANK(TotalSecondsYesterday),
+			    TimeDiffFormat,
+			    "No change"
+			)
+			
+			```
+		lineageTag: b100a47c-ca4b-4421-b413-e10d6920e8a9
+
+	measure Hour_Length_OneWeekAgo = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value_OneWeekAgo]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)/12
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 8d061938-81c2-4c78-b48e-ede95186406c
+
+	measure Hour_Length_Yesterday = ```
+			
+			VAR SunriseTime = CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunrise")
+			VAR SunsetTime = CALCULATE(MAX('Zmanim'[Value_Yesterday]), 'Zmanim'[Variable] = "Sunset")
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)/12
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 1f26c2cd-accc-40e4-98b0-845a7d2ff028
+
+	column Variable
+		dataType: string
+		lineageTag: 3cdeb62a-d4b6-468d-80a2-a0b7af52662c
+		summarizeBy: none
+		sourceColumn: Variable
+		sortByColumn: Value
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Definition
+		dataType: string
+		lineageTag: d258241e-820c-45ca-a921-3b90d8f2f8a9
+		summarizeBy: none
+		sourceColumn: Definition
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: c1b7b8c4-830a-45ee-a9bb-27d232338bc3
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 011a23ff-2fe1-4dda-bc48-c1a4b6bbb8d0
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: dateTime
+		formatString: Short Time
+		lineageTag: baca6cbd-9fc2-42d7-8c85-8d3c7f1812f0
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Value_Elevation
+		dataType: dateTime
+		formatString: Short Time
+		lineageTag: 95b290a3-c64a-463e-9da9-912455a6a122
+		summarizeBy: none
+		sourceColumn: Value_Elevation
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Elevation_Influence = IF('Zmanim'[Value]='Zmanim'[Value_Elevation],FALSE,TRUE)
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 20c70060-26cb-4b15-8634-6e3f4469c3d4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 676da0ba-1c8b-4462-b6b6-3035d19928d1
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 326d3be8-e289-4a9c-b870-d89f7ac89258
+			defaultHierarchy: LocalDateTable_7fda378c-2b82-4d64-8010-de003d9a6282.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Elevation_Diff_Fmt = ```
+			
+			VAR Elevation_Diff_Min = 
+			    DATEDIFF(
+			        'Zmanim'[Value],
+			        'Zmanim'[Value_Elevation],
+			        MINUTE
+			    )
+			VAR Elevation_Diff_Rmndr = 
+			    (DATEDIFF(
+			        'Zmanim'[Value],
+			        'Zmanim'[Value_Elevation],
+			        SECOND
+			    )) - (Elevation_Diff_Min * 60)
+			RETURN
+			    IF (
+			        'Zmanim'[Elevation_Influence] = TRUE,
+			        IF (
+			            Elevation_Diff_Min > 0,
+			            "+" & FORMAT(Elevation_Diff_Min, "0") & "m",
+			            IF (
+			                Elevation_Diff_Min < 0,
+			                FORMAT(Elevation_Diff_Min, "0") & "m",
+			                "0m"
+			            )
+			        ) &
+			        IF (
+			            Elevation_Diff_Rmndr < 0,
+			            " " & FORMAT(-1*Elevation_Diff_Rmndr, "0") & "s",
+			            IF (
+			                Elevation_Diff_Rmndr > 0,
+			                " " & FORMAT(Elevation_Diff_Rmndr, "0") & "s",
+			                ""
+			            )
+			        ),
+			        ""
+			    )
+			```
+		lineageTag: 66685e43-7634-472d-867a-f0e1bc16cbf6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value_Yesterday
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: de5ee155-53b1-41f1-a325-34a198d6bf14
+		summarizeBy: none
+		sourceColumn: Value_Yesterday
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Value_OneWeekAgo
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 38f00a68-e2ee-4a4e-81b2-dc2983056d62
+		summarizeBy: none
+		sourceColumn: Value_OneWeekAgo
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Diff_OneWeekAgo = ```
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_OneWeekAgo]), MINUTE('Zmanim'[Value_OneWeekAgo]), SECOND('Zmanim'[Value_OneWeekAgo]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60)
+			VAR HoursText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinutesText = IF(OR(Hours >= 1, Minutes > 0), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "")
+			VAR SecondsText = IF(OR(OR(Hours >= 1, Minutes > 0), Seconds > 0), FORMAT(Seconds, "0") & "s", "")
+			VAR FinalText = Sign & HoursText & MinutesText & SecondsText
+			RETURN
+			    IF (
+			        SecondsDifference = 0, "No change", FinalText
+			    )
+			
+			```
+		lineageTag: 08d5d740-9e13-42e9-8de5-3e582d791a0e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Diff_Yesterday = ```
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_Yesterday]), MINUTE('Zmanim'[Value_Yesterday]), SECOND('Zmanim'[Value_Yesterday]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "+", IF(SecondsDifference < 0, "-", ""))
+			VAR Hours = ABS(SecondsDifference) / 3600
+			VAR Minutes = MOD(ABS(SecondsDifference), 3600) / 60
+			VAR Seconds = MOD(ABS(SecondsDifference), 60)
+			VAR HoursText = IF(Hours >= 1, FORMAT(FLOOR(Hours, 1), "0") & "h ", "")
+			VAR MinutesText = IF(OR(Hours >= 1, Minutes > 0), FORMAT(FLOOR(Minutes, 1), "0") & "m ", "")
+			VAR SecondsText = IF(OR(OR(Hours >= 1, Minutes > 0), Seconds > 0), FORMAT(Seconds, "0") & "s", "")
+			VAR FinalText = Sign & HoursText & MinutesText & SecondsText
+			RETURN
+			    IF (
+			        SecondsDifference = 0, "No change", FinalText
+			    )
+			
+			```
+		lineageTag: 7b308581-cff7-4371-8935-fc203698fb30
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrow_OneWeekAgo = ```
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_OneWeekAgo]), MINUTE('Zmanim'[Value_OneWeekAgo]), SECOND('Zmanim'[Value_OneWeekAgo]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "⇧", IF(SecondsDifference < 0, "⇩", IF(SecondsDifference = 0, "━", "")))
+			RETURN
+			   Sign
+			   
+			```
+		lineageTag: 7420c9d1-32a7-4ee5-8681-8e9dea4b7afd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrow_Yesterday = ```
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_Yesterday]), MINUTE('Zmanim'[Value_Yesterday]), SECOND('Zmanim'[Value_Yesterday]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "⇧", IF(SecondsDifference < 0, "⇩", IF(SecondsDifference = 0, "━", "")))
+			RETURN
+			   Sign
+			   
+			```
+		lineageTag: 582e719d-40c2-4897-879e-ec42492583c8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Time_OneWeekAgo = ```
+			
+			VAR OneWeekAgoTime = 'Zmanim'[Value_OneWeekAgo]
+			RETURN
+			IF(
+			    NOT ISBLANK(OneWeekAgoTime),
+			    FORMAT(OneWeekAgoTime, "h:mm:ss AM/PM"), // Time format with AM/PM
+			    BLANK()
+			)
+			
+			```
+		lineageTag: bb6523d2-ead2-4a62-984d-06d4f7c04781
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Time_Yesterday = ```
+			
+			VAR YesterdayTime = 'Zmanim'[Value_Yesterday]
+			RETURN
+			IF(
+			    NOT ISBLANK(YesterdayTime),
+			    FORMAT(YesterdayTime, "h:mm:ss AM/PM"), // Time format with AM/PM
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 39adf430-4177-4bc7-be81-ad86984ae101
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Direction_OneWeekAgo =
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_OneWeekAgo]), MINUTE('Zmanim'[Value_OneWeekAgo]), SECOND('Zmanim'[Value_OneWeekAgo]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "Getting later", IF(SecondsDifference < 0, "Getting earlier", IF(SecondsDifference = 0, "No change", "")))
+			RETURN
+			    Sign
+		lineageTag: ef8c3dea-0087-46f2-a5a3-b0dcdd7dc56d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Direction_Yesterday =
+			
+			VAR TodayTime = TIME(HOUR('Zmanim'[Value]), MINUTE('Zmanim'[Value]), SECOND('Zmanim'[Value]))
+			VAR OneWeekAgoTime = TIME(HOUR('Zmanim'[Value_Yesterday]), MINUTE('Zmanim'[Value_Yesterday]), SECOND('Zmanim'[Value_Yesterday]))
+			VAR SecondsDifference = DATEDIFF(OneWeekAgoTime, TodayTime, SECOND)
+			VAR Sign = IF(SecondsDifference > 0, "Getting later", IF(SecondsDifference < 0, "Getting earlier", IF(SecondsDifference = 0, "No change", "")))
+			RETURN
+			    Sign
+		lineageTag: 3a3952fa-d5c3-4414-957d-dfedbcb601de
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value_Long = 'Zmanim'[Value]
+		formatString: Long Time
+		lineageTag: 64f4df71-e5a3-4b40-8abe-d3e885595424
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Value_Elevation_Long = 'Zmanim'[Value_Elevation]
+		formatString: Long Time
+		lineageTag: b7d96df9-7a80-42a1-9822-40a7b0cf5614
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	partition Zmanim = m
+		mode: import
+		queryGroup: Zmanim
+		source =
+				let
+				    Source = Table.NestedJoin(#"Zmanim Definitions", {"Variable"}, #"Zmanim Today Unpivoted", {"Attribute"}, "Today_Unpivot", JoinKind.LeftOuter),
+				    #"Merged Queries" = Table.NestedJoin(Source, {"Variable"}, #"Zmanim Today Unpivoted Elevation", {"Attribute"}, "Today_Unpivot_Elevation", JoinKind.LeftOuter),
+				    #"Merged Queries1" = Table.NestedJoin(#"Merged Queries", {"Variable"}, #"Zmanim Yesterday Unpivoted", {"Attribute"}, "Zmanim Yesterday Unpivoted", JoinKind.LeftOuter),
+				    #"Merged Queries2" = Table.NestedJoin(#"Merged Queries1", {"Variable"}, #"Zmanim Last Week Unpivoted", {"Attribute"}, "Zmanim Last Week Unpivoted", JoinKind.LeftOuter),
+				    #"Expanded Today_Unpivot" = Table.ExpandTableColumn(#"Merged Queries2", "Today_Unpivot", {"Value"}, {"Value"}),
+				    #"Expanded Today_Unpivot_Elevation" = Table.ExpandTableColumn(#"Expanded Today_Unpivot", "Today_Unpivot_Elevation", {"Value_Elevation"}, {"Value_Elevation"}),
+				    #"Expanded Zmanim Yesterday Unpivoted" = Table.ExpandTableColumn(#"Expanded Today_Unpivot_Elevation", "Zmanim Yesterday Unpivoted", {"Value_Yesterday"}, {"Value_Yesterday"}),
+				    #"Expanded Zmanim Last Week Unpivoted" = Table.ExpandTableColumn(#"Expanded Zmanim Yesterday Unpivoted", "Zmanim Last Week Unpivoted", {"Value_OneWeekAgo"}, {"Value_OneWeekAgo"}),
+				    #"Added Custom" = Table.AddColumn(#"Expanded Zmanim Last Week Unpivoted", "Date", each Date.From(DateTime.LocalNow())),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Date", type date}, {"Value", type datetimezone}, {"Value_Elevation", type datetimezone}, {"Value_Yesterday", type datetimezone}, {"Value_OneWeekAgo", type datetimezone}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

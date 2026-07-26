@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "1456f09de741261bad1f",
+  "position": {
+    "x": 1440.311958405546,
+    "y": 0,
+    "z": 1000,
+    "height": 1080,
+    "width": 480.103986135182,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Parasha Display"
+                }
+              },
+              "queryRef": "Hebcal.Parasha Display",
+              "nativeQueryRef": "Parasha",
+              "displayName": "Parasha"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

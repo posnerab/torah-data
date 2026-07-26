@@ -1,0 +1,579 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "7e34b61744d78987f90f",
+  "position": {
+    "x": 0,
+    "y": 416,
+    "z": 0,
+    "height": 656,
+    "width": 1920,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "Date"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.Date)",
+              "nativeQueryRef": "Date",
+              "displayName": "Date"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "Hebrew Date"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.Hebrew Date)",
+              "nativeQueryRef": "Hebrew Date",
+              "displayName": "Hebrew Date"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "Unique Holiday Text"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.Unique Holiday Text)",
+              "nativeQueryRef": "Occasion",
+              "displayName": "Occasion"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "alotHaShachar"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.alotHaShachar)",
+              "nativeQueryRef": "Alos HaShachar (Dawn)1",
+              "displayName": "Alos HaShachar (Dawn)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "misheyakir"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.misheyakir)",
+              "nativeQueryRef": "Earliest Tallis & Tefillin",
+              "displayName": "Earliest Tallis & Tefillin"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "sunrise"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.sunrise)",
+              "nativeQueryRef": "Sunrise",
+              "displayName": "Sunrise"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "sofZmanShmaMGA16Point1"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.sofZmanShmaMGA16Point1)",
+              "nativeQueryRef": "Latest Shema (MGA 16.1°)1",
+              "displayName": "Latest Shema (MGA 16.1°)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "sofZmanShmaMGA"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.sofZmanShmaMGA)",
+              "nativeQueryRef": "Latest Shema (MGA Gra-36 min.)1",
+              "displayName": "Latest Shema (MGA Gra-36 min.)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "sofZmanTfilla"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.sofZmanTfilla)",
+              "nativeQueryRef": "Latest Shacharis (Gra)",
+              "displayName": "Latest Shacharis (Gra)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "minchaGedola"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.minchaGedola)",
+              "nativeQueryRef": "Earliest Mincha",
+              "displayName": "Earliest Mincha"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "minchaKetana"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.minchaKetana)",
+              "nativeQueryRef": "Ideal Mincha",
+              "displayName": "Ideal Mincha"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "plagHaMincha"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.plagHaMincha)",
+              "nativeQueryRef": "Plag HaMincha",
+              "displayName": "Plag HaMincha"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "sunset"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.sunset)",
+              "nativeQueryRef": "Sunset1",
+              "displayName": "Sunset"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "tzeit72min"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.tzeit72min)",
+              "nativeQueryRef": "Nightfall (Rabbeinu Tam)",
+              "displayName": "Nightfall (Rabbeinu Tam)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "padding": [
+        {
+          "properties": {
+            "paddingSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Normal'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "fillCustom": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "accentBar": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "textWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "32D"
+                }
+              }
+            },
+            "italic": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "showBlankAs": {
+              "expr": {
+                "Literal": {
+                  "Value": "'No special occasion'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "24D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(Hebcal.Unique Holiday Text)"
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "textWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "customizePadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "cellPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            },
+            "rowCount": {
+              "expr": {
+                "Literal": {
+                  "Value": "4L"
+                }
+              }
+            },
+            "columnCount": {
+              "expr": {
+                "Literal": {
+                  "Value": "4L"
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "calloutSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "65D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "overFlow": [
+        {
+          "properties": {
+            "overFlowStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "overFlowDirection": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Zmanim'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

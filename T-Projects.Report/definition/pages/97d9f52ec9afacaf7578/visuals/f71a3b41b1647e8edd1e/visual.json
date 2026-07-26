@@ -1,0 +1,68 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "f71a3b41b1647e8edd1e",
+  "position": {
+    "x": 666.32624113475174,
+    "y": 0,
+    "z": 2000,
+    "height": 199.71631205673759,
+    "width": 294.12765957446811,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parasha-Mitzvos"
+                    }
+                  },
+                  "Property": "Citation_Transliteration"
+                }
+              },
+              "queryRef": "Parasha-Mitzvos.Citation_Transliteration",
+              "nativeQueryRef": "Reference",
+              "active": true,
+              "displayName": "Reference"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "selfFilterEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

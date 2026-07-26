@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "864cedc960edafd32e4e",
+  "displayName": "Sifrei Torah Counter",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "pageBinding": {
+    "name": "f11c68062f4040e9e457",
+    "type": "Default",
+    "parameters": []
+  }
+}

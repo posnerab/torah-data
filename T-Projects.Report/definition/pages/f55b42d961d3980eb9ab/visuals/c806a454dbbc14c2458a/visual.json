@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "c806a454dbbc14c2458a",
+  "position": {
+    "x": 610.53726169844026,
+    "y": 14.974003466204506,
+    "z": 3000,
+    "height": 455.45927209705371,
+    "width": 669.46273830155974,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Name"
+                }
+              },
+              "queryRef": "Fast Days.Name",
+              "nativeQueryRef": "Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Biblical"
+                }
+              },
+              "queryRef": "Fast Days.Biblical",
+              "nativeQueryRef": "Biblical"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Source"
+                }
+              },
+              "queryRef": "Fast Days.Source",
+              "nativeQueryRef": "Source"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "Fast Days.Category",
+              "nativeQueryRef": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Category Rank"
+                }
+              },
+              "queryRef": "Fast Days.Category Rank",
+              "nativeQueryRef": "Rank",
+              "displayName": "Rank"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fast Days"
+                    }
+                  },
+                  "Property": "Firstborn Only"
+                }
+              },
+              "queryRef": "Fast Days.Firstborn Only",
+              "nativeQueryRef": "Firstborn Only"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fast Days"
+                  }
+                },
+                "Property": "Category Rank"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

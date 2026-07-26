@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "d80057ebd80d1bc5de69",
+  "position": {
+    "x": 528,
+    "y": 0,
+    "z": 5000,
+    "height": 195,
+    "width": 331,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Property": "Hebrew Month Day"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Hebcal.Hebrew Month Day)",
+              "nativeQueryRef": "Hebrew Date",
+              "displayName": "Hebrew Date"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,158 @@
+table Haftaros
+	excludeFromModelRefresh
+	lineageTag: 4012c89d-0d8c-43a5-a65c-4a5d4d005486
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 10da9813-00e7-4f9d-83a7-56d726342057
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: edba25fc-d6db-42b9-b219-33212d95f027
+			defaultHierarchy: LocalDateTable_e275d787-4c7e-40a1-87f5-c075eba52cfd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Hebrew Date'
+		dataType: string
+		lineageTag: ae1dde6f-91ed-4d02-a71f-d0b8cc7dd53b
+		summarizeBy: none
+		sourceColumn: Hebrew Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Haftarah
+		dataType: string
+		lineageTag: 307c8f2e-02de-47fe-8027-1eab4655a9cf
+		summarizeBy: none
+		sourceColumn: Haftarah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah.1'
+		dataType: string
+		lineageTag: 844e0722-a214-4e5d-9bef-12b0c03a5284
+		summarizeBy: none
+		sourceColumn: Haftarah.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah.2'
+		dataType: string
+		lineageTag: 068bea73-2975-4c4d-90a7-add4319979b8
+		summarizeBy: none
+		sourceColumn: Haftarah.2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah.3'
+		dataType: string
+		lineageTag: b48749fa-90ed-4d80-8a51-a708e2cf0e44
+		summarizeBy: none
+		sourceColumn: Haftarah.3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f21ca57-d7d1-47fc-9db5-41ed59094568
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column 'Hebrew Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 17d65444-1726-4dc0-926e-36582c2f1605
+		summarizeBy: none
+		sourceColumn: Hebrew Year
+
+		annotation SummarizationSetBy = User
+
+	column 'Hebrew Month Day'
+		dataType: string
+		lineageTag: 2427c483-fcad-4e2f-a04a-ac98af95d0f5
+		summarizeBy: none
+		sourceColumn: Hebrew Month Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: 0b95e4c2-df58-45cd-b669-9d3365fe68f1
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sefer.1'
+		dataType: string
+		lineageTag: 4043b084-1b1a-4a66-9294-0a1ee564bce0
+		summarizeBy: none
+		sourceColumn: Sefer.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sefer.2'
+		dataType: string
+		lineageTag: 7685cbfa-15d2-4b0f-9859-889adbb6d596
+		summarizeBy: none
+		sourceColumn: Sefer.2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sefer.3'
+		dataType: string
+		lineageTag: 233b430f-647f-4ec6-a3b7-964d13943cbc
+		summarizeBy: none
+		sourceColumn: Sefer.3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sefarim
+		dataType: string
+		lineageTag: 8205b463-97f9-4f5e-a94c-dae19130c43d
+		summarizeBy: none
+		sourceColumn: Sefarim
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Day Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: baeb0516-5e71-4b05-b960-b5f1e1efe79b
+		summarizeBy: none
+		sourceColumn: Hebrew Day Index
+
+		annotation SummarizationSetBy = User
+
+	column Index_Haftarah
+		dataType: int64
+		formatString: 0
+		lineageTag: 761db594-e11b-4ec4-a4d8-d148d197bc61
+		summarizeBy: none
+		sourceColumn: Index_Haftarah
+
+		annotation SummarizationSetBy = User
+
+	partition Haftaros = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Calendar.xlsx"), null, true),
+				    Haftaros_1_Table = Source{[Item="Haftaros_1",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Haftaros_1_Table,{{"Date", type date}, {"Hebrew Date", type text}, {"Haftarah", type text}, {"Haftarah.1", type text}, {"Haftarah.2", type text}, {"Haftarah.3", type text}, {"Year", Int64.Type}, {"Hebrew Year", Int64.Type}, {"Hebrew Month Day", type text}, {"Day Name", type text}, {"Sefer.1", type text}, {"Sefer.2", type text}, {"Sefer.3", type text}, {"Sefarim", type text}, {"Hebrew Day Index", Int64.Type}, {"Index_Haftarah", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

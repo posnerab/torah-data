@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "9e7f3aad4b31314b21c5",
+  "position": {
+    "x": 869.11611785095317,
+    "y": 0,
+    "z": 6000,
+    "height": 195.28596187175043,
+    "width": 132.894280762565,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Date",
+              "nativeQueryRef": "Hebrew Date"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

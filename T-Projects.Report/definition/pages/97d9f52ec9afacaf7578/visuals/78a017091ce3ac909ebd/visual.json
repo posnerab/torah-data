@@ -1,0 +1,111 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "78a017091ce3ac909ebd",
+  "position": {
+    "x": 0,
+    "y": 199.3414211438475,
+    "z": 4000,
+    "height": 880.65857885615264,
+    "width": 1532.0277296360487,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parasha-Mitzvos"
+                    }
+                  },
+                  "Property": "Sefer"
+                }
+              },
+              "queryRef": "Parasha-Mitzvos.Sefer",
+              "nativeQueryRef": "Sefer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parashiyos"
+                    }
+                  },
+                  "Property": "Parasha"
+                }
+              },
+              "queryRef": "Parashiyos.Parasha",
+              "nativeQueryRef": "Parasha1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parasha-Mitzvos"
+                    }
+                  },
+                  "Property": "Mitzvah"
+                }
+              },
+              "queryRef": "Parasha-Mitzvos.Mitzvah",
+              "nativeQueryRef": "Mitzvah"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pasukim"
+                    }
+                  },
+                  "Property": "Citation_Transliteration"
+                }
+              },
+              "queryRef": "Pasukim.Citation_Transliteration",
+              "nativeQueryRef": "Verse",
+              "displayName": "Verse"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Parasha-Mitzvos"
+                  }
+                },
+                "Property": "Sefer"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Parashiyos"
+                  }
+                },
+                "Property": "Parasha"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

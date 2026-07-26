@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "ed376b0b5fb71fb428a8",
+  "position": {
+    "x": 0,
+    "y": 116.67244367417678,
+    "z": 1000,
+    "height": 603.32755632582314,
+    "width": 1280.2772963604853,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parasha-Mitzvos"
+                    }
+                  },
+                  "Property": "Sefer"
+                }
+              },
+              "queryRef": "Parasha-Mitzvos.Sefer",
+              "nativeQueryRef": "Sefer",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parashiyos"
+                    }
+                  },
+                  "Property": "Parasha"
+                }
+              },
+              "queryRef": "Parashiyos.Parasha",
+              "nativeQueryRef": "Parasha",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parasha-Mitzvos"
+                        }
+                      },
+                      "Property": "Mitzvah"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Parasha-Mitzvos.Mitzvah)",
+              "nativeQueryRef": "Mitzvos",
+              "displayName": "Mitzvos"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "enableBackground": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

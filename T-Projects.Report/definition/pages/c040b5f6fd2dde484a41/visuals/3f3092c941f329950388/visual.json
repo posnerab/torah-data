@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "3f3092c941f329950388",
+  "position": {
+    "x": 868.838821490468,
+    "y": 194.66204506065856,
+    "z": 3000,
+    "height": 90.467937608318891,
+    "width": 411.161178509532,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Omer Count"
+                }
+              },
+              "queryRef": "Hebcal.Omer Count",
+              "nativeQueryRef": "Omer Count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

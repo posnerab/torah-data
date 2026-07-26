@@ -1,0 +1,202 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "b874b74849f8b11f040c",
+  "displayName": "Verses",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "81b41f1a689919bbc42c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Citation_Transliteration"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "2c752ad7362a52d172c6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Reference"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "672672147aca7d985945",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Parashiyos"
+              }
+            },
+            "Property": "Parasha"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "b8be10ed6502fb35f073",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Sefer"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "de2b04e5ff50e122b9c8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Book"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Pasukim",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "Book"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Genesis'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "4fbbe9c8e0ba57e28b73",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "1a4b70f6bab11702d4a0",
+        "boundFilter": "81b41f1a689919bbc42c",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Citation_Transliteration"
+          }
+        }
+      },
+      {
+        "name": "afa4828e88da49bd7dad",
+        "boundFilter": "2c752ad7362a52d172c6",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Reference"
+          }
+        }
+      },
+      {
+        "name": "e341e4bbf02d82acb32a",
+        "boundFilter": "672672147aca7d985945",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Parashiyos"
+              }
+            },
+            "Property": "Parasha"
+          }
+        }
+      },
+      {
+        "name": "d4b138b9a26af0c464d5",
+        "boundFilter": "b8be10ed6502fb35f073",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Sefer"
+          }
+        }
+      },
+      {
+        "name": "c4bdd9d19e97c6b49783",
+        "boundFilter": "de2b04e5ff50e122b9c8",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pasukim"
+              }
+            },
+            "Property": "Book"
+          }
+        }
+      }
+    ]
+  }
+}

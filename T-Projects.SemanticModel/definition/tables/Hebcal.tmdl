@@ -1,0 +1,2801 @@
+table Hebcal
+	lineageTag: bce62060-fb0a-4e69-bb06-4ac307934a8f
+
+	measure 'Hebrew Year Type' = ```
+			
+			VAR DaysInYear = DISTINCTCOUNT('Hebcal'[Hebrew Date])
+			VAR Year = SELECTEDVALUE('Hebcal'[Hebrew Year])
+			VAR IsLeap =
+			    IF(MOD(Year * 7 + 1, 19) < 7, TRUE, FALSE)
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        IsLeap && DaysInYear = 383, "Leap Year - Chaser",
+			        IsLeap && DaysInYear = 384, "Leap Year - Kesidrah",
+			        IsLeap && DaysInYear = 385, "Leap Year - Maleh",
+			        NOT IsLeap && DaysInYear = 353, "Common Year - Chaser",
+			        NOT IsLeap && DaysInYear = 354, "Common Year - Kesidrah",
+			        NOT IsLeap && DaysInYear = 355, "Common Year - Maleh",
+			        "Unknown"
+			    )
+			
+			```
+		lineageTag: 68cc9a3a-b630-4774-b55c-562aed338c50
+
+	measure 'Machzor Number Minor' = ```
+			
+			VAR Year = SELECTEDVALUE('Hebcal'[Hebrew Year])
+			RETURN 
+			INT( (Year - 1) / 19 ) + 1
+			
+			```
+		formatString: 0
+		lineageTag: d66470d8-aa87-4f70-b26e-7e0481220ecd
+
+	measure 'Machzor Year' = ```
+			
+			VAR Year = SELECTEDVALUE('Hebcal'[Hebrew Year])
+			RETURN 
+			MOD(Year - 1, 19) + 1
+			
+			```
+		formatString: 0
+		lineageTag: 2b1e876e-e4fc-44d0-9c78-7a173a71a0c7
+
+	measure 'Average Annual Sifrei Torah' = ```
+			
+			VAR YearlyTotals =
+			    SUMMARIZE (
+			        'Hebcal',
+			        'Hebcal'[Hebrew Year],                 -- group by year
+			        "YearTotal", SUM ( 'Hebcal'[Sifrei Torah Total] )  -- sum total per year
+			    )
+			RETURN
+			AVERAGEX ( YearlyTotals, [YearTotal] )
+			
+			```
+		formatString: 0.00
+		lineageTag: cdf43d40-0661-48ff-bf48-a26bdf759b55
+
+	measure 'Is Current Year' = ```
+			
+			IF (
+			    YEAR ( MAX ( 'Hebcal'[Date] ) ) = YEAR ( TODAY () ),
+			    "Yes",
+			    "No"
+			)
+			
+			```
+		lineageTag: 198e504d-b9a8-4ba0-8c41-6b093076a70c
+
+	measure 'Average Annual Day Count' = ```
+			
+			VAR YearlyTotals =
+			    SUMMARIZE (
+			        'Hebcal',
+			        'Hebcal'[Hebrew Year],                      -- group by Hebrew Year
+			        "YearTotal",
+			            COUNTROWS ( DISTINCT ( 'Hebcal'[Hebrew Date] ) )  -- count Hebrew days
+			    )
+			RETURN
+			AVERAGEX ( YearlyTotals, [YearTotal] )
+			
+			```
+		lineageTag: e6899b69-b851-4b7b-9615-6d01f82bc77b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MajorHoliday_DayName_List = ```
+			
+			VAR SelectedYear =
+			    SELECTEDVALUE ( Hebcal[Hebrew Year] )
+			
+			VAR Holidays =
+			    SUMMARIZE (
+			        CALCULATETABLE (
+			            FILTER (
+			                ALLSELECTED ( Hebcal ),
+			                NOT ISBLANK ( Hebcal[Major Holiday] )
+			            ),
+			            TREATAS ( { SelectedYear }, Hebcal[Hebrew Year] )
+			        ),
+			        Hebcal[Major Holiday],
+			        "HolidayOrder", MIN ( Hebcal[Date] )
+			    )
+			
+			RETURN
+			CONCATENATEX (
+			    ADDCOLUMNS (
+			        Holidays,
+			        "Items",
+			            VAR ThisHoliday = [Major Holiday]
+			            VAR DaysForHoliday =
+			                CALCULATETABLE (
+			                    SUMMARIZE (
+			                        FILTER (
+			                            ALLSELECTED ( Hebcal ),
+			                            Hebcal[Major Holiday] = ThisHoliday
+			                                && NOT ISBLANK ( Hebcal[Major Holiday] )
+			                                && NOT ( Hebcal[Major Holiday] = "")
+			                        ),
+			                        Hebcal[Major Holiday Days],
+			                        Hebcal[Day Name],
+			                        "SortOrder", MIN ( Hebcal[Date] )
+			                    ),
+			                    TREATAS ( { SelectedYear }, Hebcal[Hebrew Year] )
+			                )
+			            RETURN
+			                CONCATENATEX (
+			                    DaysForHoliday,
+			                    Hebcal[Major Holiday Days] & ": " & Hebcal[Day Name],
+			                    ", ",
+			                    [SortOrder], ASC
+			                )
+			    ),
+			    [Items],
+			    "; ",
+			    [HolidayOrder], ASC
+			)
+			
+			```
+		lineageTag: ab35c018-a8f6-4fc1-acde-b21b9fe0e6aa
+
+	measure 'Is Current Hebrew Year' = ```
+			
+			IF (
+			    MAX ( 'Hebcal'[Hebrew Year] ) = 
+			        LOOKUPVALUE (
+			            'Hebcal'[Hebrew Year],
+			            'Hebcal'[Date], TODAY()
+			        ),
+			    "Yes",
+			    "No"
+			)
+			
+			```
+		lineageTag: 22e32b83-a34d-4253-b28a-ec75a67b3a93
+
+	measure 'Hebrew Year Full Type' = ```
+			
+			VAR DaysInYear = DISTINCTCOUNT('Hebcal'[Hebrew Date])
+			VAR Year = SELECTEDVALUE('Hebcal'[Hebrew Year])
+			VAR IsLeap =
+			    IF(MOD(Year * 7 + 1, 19) < 7, TRUE, FALSE)
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        IsLeap && DaysInYear = 383, "Chaser",
+			        IsLeap && DaysInYear = 384, "Kesidrah",
+			        IsLeap && DaysInYear = 385, "Maleh",
+			        NOT IsLeap && DaysInYear = 353, "Chaser",
+			        NOT IsLeap && DaysInYear = 354, "Kesidrah",
+			        NOT IsLeap && DaysInYear = 355, "Maleh",
+			        "Unknown"
+			    )
+			
+			```
+		lineageTag: f71d4b52-34cc-44e3-94ca-f49769e40f5a
+
+	measure 'Hebrew Year Type (Combined)' = ```
+			
+			VAR DaysInYear = DISTINCTCOUNT ( 'Hebcal'[Hebrew Date] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        DaysInYear IN { 383, 353 }, "Chaser (Deficient)",
+			        DaysInYear IN { 384, 354 }, "Kesidrah (Regular)",
+			        DaysInYear IN { 385, 355 }, "Maleh (Full)",
+			        "Unknown"
+			    )
+			
+			```
+		lineageTag: 6fa6aca7-4843-4a8a-8d71-c34ca70f1e71
+
+	measure 'Days in Cheshvan' = ```
+			
+			VAR _Year = SELECTEDVALUE ( 'Hebcal'[Hebrew Year] )
+			RETURN
+			CALCULATE (
+			    MAX ( 'Hebcal'[Days in Hebrew Month] ),
+			    KEEPFILTERS ( 'Hebcal'[Hebrew Month] = "Cheshvan" ),
+			    KEEPFILTERS ( 'Hebcal'[Hebrew Year] = _Year )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 42972f4e-2a86-40aa-887c-c055bae54bc8
+
+	measure 'Days in Kislev' = ```
+			
+			VAR _Year = SELECTEDVALUE ( 'Hebcal'[Hebrew Year] )
+			RETURN
+			CALCULATE (
+			    MAX ( 'Hebcal'[Days in Hebrew Month] ),
+			    KEEPFILTERS ( 'Hebcal'[Hebrew Month] = "Kislev" ),
+			    KEEPFILTERS ( 'Hebcal'[Hebrew Year] = _Year )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 2e45052b-c0f0-4f99-b3ef-5e4eb2b53563
+
+	measure 'Machzor Number Major' = ```
+			
+			VAR Year = SELECTEDVALUE ( 'Hebcal'[Hebrew Year] )
+			RETURN
+			INT ( ( Year - 1 ) / 28 ) + 1
+			
+			```
+		formatString: 0
+		lineageTag: 358217c4-1866-42e6-93d2-1ddbacf32f04
+
+	measure HolidayPatternTable = ```
+			
+			VAR Years =
+			    SUMMARIZE ( Hebcal, Hebcal[Hebrew Year] )
+			
+			RETURN
+			SUMMARIZE (
+			    ADDCOLUMNS (
+			        Years,
+			        "Pattern",
+			            VAR ThisYear = [Hebrew Year]
+			            VAR Days =
+			                SUMMARIZE (
+			                    CALCULATETABLE (
+			                        FILTER (
+			                            ALL ( Hebcal ),
+			                            NOT ISBLANK ( Hebcal[Major Holiday] )
+			                                && NOT ISBLANK ( Hebcal[Major Holiday Days] )
+			                        ),
+			                        TREATAS ( { ThisYear }, Hebcal[Hebrew Year] )
+			                    ),
+			                    Hebcal[Major Holiday],
+			                    Hebcal[Major Holiday Days],
+			                    Hebcal[Day Name],
+			                    "SortOrder", MIN ( Hebcal[Date] )
+			                )
+			            RETURN
+			                CONCATENATEX (
+			                    Days,
+			                    Hebcal[Major Holiday] & ": "
+			                        & Hebcal[Major Holiday Days] & " → "
+			                        & Hebcal[Day Name],
+			                    "; ",
+			                    [SortOrder],
+			                    ASC
+			                )
+			    ),
+			    [Pattern]
+			)
+			
+			```
+		lineageTag: 1b789afb-96cd-4636-b7df-a53ce6d4ed7b
+
+	column Date
+		dataType: dateTime
+		formatString: ddd, MMM d, yyyy
+		lineageTag: 7b5fe41e-c2c4-4152-a9ff-157ae01bf6c9
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 03b1dc98-8d9c-43f6-b408-cb74ca6129e1
+			defaultHierarchy: LocalDateTable_09b2995e-f648-492d-beec-15f6dbdc7558.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'Hebrew Date'
+		dataType: string
+		lineageTag: 9afcd1cd-21e2-4a44-88e7-718f45c141fa
+		summarizeBy: none
+		sourceColumn: Hebrew Date
+		sortByColumn: Date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 871f2a93-e5e5-4f31-913d-b5995977cc06
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Title'
+		dataType: string
+		lineageTag: c8a0cf27-90f4-4624-a780-f68cf7b9ce1a
+		summarizeBy: none
+		sourceColumn: Hebrew Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: b9bcb4b4-f432-4e83-9def-7111087a23f0
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 0a180e12-b5f4-4f9a-a279-9c2854928aa5
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Yom Tov?'
+		dataType: string
+		lineageTag: f428ffdf-f228-4807-9181-5003b78ad87a
+		summarizeBy: none
+		sourceColumn: Yom Tov?
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Omer Count'
+		dataType: string
+		lineageTag: 13b38c26-925e-45ca-a442-cc77e3b12a28
+		summarizeBy: none
+		sourceColumn: Omer Count
+		sortByColumn: 'Day of the Omer'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sefira Transliteration'
+		dataType: string
+		lineageTag: e638f4b2-abd7-4ead-a644-9683e38c1d2b
+		summarizeBy: none
+		sourceColumn: Sefira Transliteration
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sefira English'
+		dataType: string
+		lineageTag: 8f97eb85-4506-4de5-8b1b-e5d541ece51a
+		summarizeBy: none
+		sourceColumn: Sefira English
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Torah Reading'
+		dataType: string
+		lineageTag: 79b9b2c2-3380-45dd-8978-bd4fce1ceac7
+		summarizeBy: none
+		sourceColumn: Torah Reading
+
+		annotation SummarizationSetBy = Automatic
+
+	column Haftarah
+		dataType: string
+		lineageTag: 67dca1ef-6f8a-4d64-9ab0-9be1e596b044
+		summarizeBy: none
+		sourceColumn: Haftarah
+
+		annotation SummarizationSetBy = Automatic
+
+	column Maftir
+		dataType: string
+		lineageTag: 4453ffbc-b48b-4664-9f8c-0a3ba0e633f8
+		summarizeBy: none
+		sourceColumn: Maftir
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Aliyah'
+		dataType: string
+		lineageTag: 1e0941fd-e635-4afa-888f-c2548b428034
+		summarizeBy: none
+		sourceColumn: First Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Second Aliyah'
+		dataType: string
+		lineageTag: ffde914b-526f-42aa-8538-643d252d2c2a
+		summarizeBy: none
+		sourceColumn: Second Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Third Aliyah'
+		dataType: string
+		lineageTag: 7973be43-ec32-4bce-bffc-34c62e692508
+		summarizeBy: none
+		sourceColumn: Third Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fourth Aliyah'
+		dataType: string
+		lineageTag: 426fd854-c321-4d4a-8574-e7aa3dfb25ef
+		summarizeBy: none
+		sourceColumn: Fourth Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fifth Aliyah'
+		dataType: string
+		lineageTag: 423a877e-fdb0-42c7-89fb-f225dd640ce5
+		summarizeBy: none
+		sourceColumn: Fifth Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sixth Aliyah'
+		dataType: string
+		lineageTag: ac79ef5c-8700-41ef-96b5-02b5b19ce426
+		summarizeBy: none
+		sourceColumn: Sixth Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seventh Aliyah'
+		dataType: string
+		lineageTag: 8e74bc9c-438b-4579-9f27-6ab08ea03720
+		summarizeBy: none
+		sourceColumn: Seventh Aliyah
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah Sephardim'
+		dataType: string
+		lineageTag: 363db1ca-7875-40d8-bf6c-d71d3ba16faa
+		summarizeBy: none
+		sourceColumn: Haftarah Sephardim
+
+		annotation SummarizationSetBy = Automatic
+
+	column Occasion
+		dataType: string
+		lineageTag: ed790193-c8c2-4e24-9917-8d2c147f126d
+		summarizeBy: none
+		sourceColumn: Occasion
+		sortByColumn: Date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah Reason'
+		dataType: string
+		lineageTag: c7deeb62-d852-46c9-8fd3-c225b21d20b1
+		summarizeBy: none
+		sourceColumn: Haftarah Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maftir Reason'
+		dataType: string
+		lineageTag: 84406fa3-3b80-469a-bd5e-fcafb9c79dcf
+		summarizeBy: none
+		sourceColumn: Maftir Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b4f26dc-cf29-4fb4-af56-256c114cbbc9
+		summarizeBy: none
+		sourceColumn: Hebrew Year
+
+		annotation SummarizationSetBy = User
+
+	column 'Hebrew Day of Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 10af91a8-5ace-4574-be86-37fafb258e76
+		summarizeBy: none
+		sourceColumn: Hebrew Day of Month
+
+		annotation SummarizationSetBy = User
+
+	column 'Hebrew Month'
+		dataType: string
+		lineageTag: dc609d44-8e59-4dd6-82f1-4c0d9acbcea2
+		summarizeBy: none
+		sourceColumn: Hebrew Month
+		sortByColumn: 'Hebrew Month Number Tishrei Start'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Month Year'
+		dataType: string
+		lineageTag: e6fdca76-049b-4567-914b-0fb5237f9c94
+		summarizeBy: none
+		sourceColumn: Hebrew Month Year
+		sortByColumn: 'Hebrew Month Year Order'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Month Year Order'
+		dataType: string
+		lineageTag: 2996e539-338b-4684-a9a2-f6a5ea516e5a
+		summarizeBy: none
+		sourceColumn: Hebrew Month Year Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: bed8e136-0a73-43f0-840d-3a15741ff9dc
+		summarizeBy: none
+		sourceColumn: Day Name
+		sortByColumn: DayOfWeek
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5676dece-ac67-4193-b390-51fccd3c6c96
+		summarizeBy: none
+		sourceColumn: Hebrew Month Number
+
+		annotation SummarizationSetBy = User
+
+	column 'Hebrew Month Number Tishrei Start'
+		dataType: int64
+		formatString: 0
+		lineageTag: dbe80c4a-021e-4eba-961e-f02a6ca01d5b
+		summarizeBy: none
+		sourceColumn: Hebrew Month Number Tishrei Start
+
+		annotation SummarizationSetBy = User
+
+	column 'Day of the Omer'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e3435ad-8dd4-479e-b129-01c3dd4abc21
+		summarizeBy: sum
+		sourceColumn: Day of the Omer
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days in Hebrew Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 30a87ada-4524-45b5-a259-9954b8edf8e7
+		summarizeBy: sum
+		sourceColumn: Days in Hebrew Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha M-Th'
+		dataType: string
+		lineageTag: 69ae6f81-5b71-43cc-9f4b-cdaabc60e8db
+		summarizeBy: none
+		sourceColumn: Parasha M-Th
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Torah Reading M-Th'
+		dataType: string
+		lineageTag: 17214bac-b884-45e0-9b3d-0198c64fa9ab
+		summarizeBy: none
+		sourceColumn: Torah Reading M-Th
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Aliyah M-Th'
+		dataType: string
+		lineageTag: a5decfc3-9ce9-4b07-b4e8-c72255275869
+		summarizeBy: none
+		sourceColumn: First Aliyah M-Th
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Second Aliyah M-Th'
+		dataType: string
+		lineageTag: d1f10027-c7d9-4014-a72e-c83b0b0e305f
+		summarizeBy: none
+		sourceColumn: Second Aliyah M-Th
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Third Aliyah M-Th'
+		dataType: string
+		lineageTag: 009baf16-9070-4347-ab18-41cf12e9c2e8
+		summarizeBy: none
+		sourceColumn: Third Aliyah M-Th
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parasha
+		dataType: string
+		lineageTag: f6f389d0-efac-4b3d-93f2-fefcf7db2e94
+		summarizeBy: none
+		sourceColumn: Parasha
+		sortByColumn: Index_Parasha
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sefer
+		dataType: string
+		lineageTag: 9feffabe-8628-4ee7-8cd0-7c795a5c8240
+		summarizeBy: none
+		sourceColumn: Sefer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Book
+		dataType: string
+		lineageTag: f7b24a08-6295-477e-91fd-9fce457702fa
+		summarizeBy: none
+		sourceColumn: Book
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_Parasha
+		dataType: int64
+		formatString: 0
+		lineageTag: 007bc618-64b3-42f6-9fd7-1bef7f8e543e
+		summarizeBy: none
+		sourceColumn: Index_Parasha
+
+		annotation SummarizationSetBy = User
+
+	column 'Haftarah.1'
+		dataType: string
+		lineageTag: 88be6b18-3093-44d4-ae3f-9dfaae93cc96
+		summarizeBy: none
+		sourceColumn: Haftarah.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah.2'
+		dataType: string
+		lineageTag: 1782ba69-1e67-40d6-b43c-65f6e858ae5e
+		summarizeBy: none
+		sourceColumn: Haftarah.2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah.3'
+		dataType: string
+		lineageTag: 72309341-99a2-4cb1-b5ae-1f994820ccb3
+		summarizeBy: none
+		sourceColumn: Haftarah.3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_Haftarah
+		dataType: string
+		lineageTag: 9f65e5c5-c2b4-42ed-8d36-681ae6443e6b
+		summarizeBy: none
+		sourceColumn: Index_Haftarah
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysSinceYearStart = ```
+			
+			DATEDIFF(
+			    DATE(YEAR([Date]), 1, 1),
+			    [Date],
+			    DAY
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 4b252bf8-1eda-47a1-8858-b4a249d357a6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Year Type Col' = ```
+			
+			VAR ThisYear = 'Hebcal'[Hebrew Year]
+			VAR DaysInYear = 
+			    CALCULATE(
+			        DISTINCTCOUNT('Hebcal'[Hebrew Date]),
+			        FILTER('Hebcal', 'Hebcal'[Hebrew Year] = ThisYear)
+			    )
+			VAR IsLeap = 
+			    IF(MOD(ThisYear * 7 + 1, 19) < 7, TRUE, FALSE)
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        IsLeap && DaysInYear = 383, "Leap Year - Chaser",
+			        IsLeap && DaysInYear = 384, "Leap Year - Kesidrah",
+			        IsLeap && DaysInYear = 385, "Leap Year - Maleh",
+			        NOT IsLeap && DaysInYear = 353, "Common Year - Chaser",
+			        NOT IsLeap && DaysInYear = 354, "Common Year - Kesidrah",
+			        NOT IsLeap && DaysInYear = 355, "Common Year - Maleh",
+			        "Unknown"
+			    )
+			
+			```
+		lineageTag: 14730b2d-efe8-4146-9c52-a036c4be5ff4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column HebrewDatePseudo = DATE('Hebcal'[Hebrew Year], 'Hebcal'[HebrewMonthNumber], 'Hebcal'[Hebrew Day of Month])
+		lineageTag: 82d62a63-aff2-4345-ba71-998fcb47ab2a
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 740ef83a-d8d7-4676-b973-367b81c5ab24
+			defaultHierarchy: LocalDateTable_71f78e24-30f1-4e58-b7f6-ed2e35ef7a0c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column HebrewMonthNumber = ```
+			
+			VAR m = 'Hebcal'[Hebrew Month]  -- assuming text like "Adar II"
+			VAR leap = 'Hebcal'[IsLeapYear]
+			RETURN
+			    SWITCH(TRUE(),
+			        m = "Tishrei",      1,
+			        m = "Cheshvan",     2,
+			        m = "Kislev",       3,
+			        m = "Teves",        4,
+			        m = "Shevat",       5,
+			        m = "Adar" && NOT leap,   6,
+			        m = "Adar I",       6,
+			        m = "Adar II",      7,
+			        m = "Nisan",        IF(leap, 8, 7),
+			        m = "Iyar",         IF(leap, 9, 8),
+			        m = "Sivan",        IF(leap, 10, 9),
+			        m = "Tammuz",       IF(leap, 11, 10),
+			        m = "Av",           IF(leap, 12, 11),
+			        m = "Elul",         IF(leap, 13, 12),
+			        BLANK()
+			    )
+			
+			```
+		lineageTag: 70f61388-4331-4814-a9ac-fa1ab1988cbe
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column HebrewYearType = ```
+			
+			VAR Days = 'Hebcal'[YearLengthDays]
+			VAR Leap = 'Hebcal'[IsLeapYear]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Leap && Days = 383, "Leap Year - Chaser",
+			        Leap && Days = 384, "Leap Year - Kesidrah",
+			        Leap && Days = 385, "Leap Year - Maleh",
+			        NOT Leap && Days = 353, "Common Year - Chaser",
+			        NOT Leap && Days = 354, "Common Year - Kesidrah",
+			        NOT Leap && Days = 355, "Common Year - Maleh",
+			        "Unknown"
+			    )
+			
+			```
+		lineageTag: 171ba9fc-237e-4d6b-8156-58ae8ba57919
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsLeapYear = ```
+			
+			VAR y = 'Hebcal'[Hebrew Year]
+			RETURN IF(MOD(y * 7 + 1, 19) < 7, TRUE, FALSE)
+			
+			```
+		dataType: int64
+		formatString: 0
+		lineageTag: 880aa1ce-76d2-40ef-84b4-87d3570c96df
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reading = IF(AND(ISBLANK('Hebcal'[Torah Reading]),ISBLANK('Hebcal'[Torah Reading M-Th])),BLANK(),IF(ISBLANK('Hebcal'[Torah Reading]),'Hebcal'[Torah Reading M-Th],'Hebcal'[Torah Reading]))
+		lineageTag: 7f7de73e-6498-4c1a-8134-92149ee903d3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Number' = WEEKDAY('Hebcal'[Date])
+		formatString: 0
+		lineageTag: 6e0ad23a-6514-42d3-ad59-a636160af5bb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR('Hebcal'[Date])
+		formatString: 0
+		lineageTag: 24c49dd2-555b-4757-a339-f81cda8ffb40
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year in Machzor Minor' = ```
+			VAR Year = 'Hebcal'[Hebrew Year]
+			RETURN 
+			MOD(Year - 1, 19) + 1
+			
+			```
+		formatString: 0
+		lineageTag: 81bc646b-0431-498d-8ef5-d9016f590244
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column YearLengthDays = ```
+			
+			VAR ThisYear = 'Hebcal'[Hebrew Year]
+			VAR MinDate = 
+			    CALCULATE(
+			        MIN('Hebcal'[HebrewDatePseudo]),
+			        FILTER('Hebcal', 'Hebcal'[Hebrew Year] = ThisYear)
+			    )
+			VAR MaxDate = 
+			    CALCULATE(
+			        MAX('Hebcal'[HebrewDatePseudo]),
+			        FILTER('Hebcal', 'Hebcal'[Hebrew Year] = ThisYear)
+			    )
+			RETURN 
+			DATEDIFF(MinDate, MaxDate, DAY) + 1
+			
+			```
+		formatString: 0
+		lineageTag: a7758bc3-8a4a-43bc-a4ce-9871c77aa24a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Upcoming = IF('Hebcal'[Date]>=TODAY(),"Upcoming","Past")
+		lineageTag: 3363a4b1-0fdc-4b16-bbf0-30833cbee25e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hebrew Month Day'
+		dataType: string
+		lineageTag: b49b7a06-7cbb-44c1-bf13-fc2f45a3eece
+		summarizeBy: none
+		sourceColumn: Hebrew Month Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_Leap
+		dataType: int64
+		formatString: 0
+		lineageTag: ff52d971-eea0-4452-8588-e0556bfcefb7
+		summarizeBy: none
+		sourceColumn: Index_Leap
+
+		annotation SummarizationSetBy = User
+
+	column Index_Common
+		dataType: int64
+		formatString: 0
+		lineageTag: fe80c6c2-dbef-47df-a14b-2048f89fe2be
+		summarizeBy: none
+		sourceColumn: Index_Common
+
+		annotation SummarizationSetBy = User
+
+	column Index = ```
+			
+			VAR CurrentYear = YEAR('Hebcal'[Date])
+			RETURN
+			    RANKX(
+			        FILTER(
+			            ALL('Hebcal'),
+			            YEAR('Hebcal'[Date]) = CurrentYear
+			        ),
+			        'Hebcal'[Date],
+			        ,
+			        ASC,
+			        DENSE
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: e63ca34d-a7b5-419d-82d9-1d7a094ebd7b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Holiday' = ```
+			
+			VAR Holiday = TRIM('Hebcal'[Jewish Holidays])
+			VAR HebrewYear = 'Hebcal'[Hebrew Year]
+			VAR Index = 'Hebcal'[Index]
+			VAR HolidayLabel = 'Hebcal'[Jewish Holidays-Year]
+			VAR HolidayRankValue = 'Hebcal'[HolidayRank]
+			
+			RETURN
+			IF(
+			    ISBLANK(Holiday) || Holiday = "",
+			    "N/A (" & Index & ") " & HebrewYear,
+			    IF(
+			        HolidayRankValue > 1,
+			        HolidayLabel & " (Day " & HolidayRankValue & ")",
+			        HolidayLabel
+			    )
+			)
+			
+			```
+		lineageTag: 5452f978-ffe0-4c1b-985c-643856d6971a
+		summarizeBy: none
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jewish Holidays-Year' = ```
+			
+			VAR Holiday = TRIM('Hebcal'[Jewish Holidays])
+			VAR HebrewYear = 'Hebcal'[Hebrew Year]
+			
+			RETURN
+			IF(
+			    ISBLANK(Holiday) || Holiday = "",
+			    BLANK(),
+			    VAR ExtractedYear =
+			        CALCULATE(
+			            MAXX(
+			                FILTER(
+			                    GENERATESERIES(5700, 5900, 1),
+			                    SEARCH(FORMAT([Value], "0000"), Holiday, 1, 0) > 0
+			                ),
+			                [Value]
+			            )
+			        )
+			    VAR HolidayWithoutYear =
+			        TRIM(
+			            SUBSTITUTE(
+			                SUBSTITUTE(
+			                    SUBSTITUTE(Holiday, FORMAT(ExtractedYear, "0000"), ""),
+			                    FORMAT(HebrewYear, "0000"),
+			                    ""
+			                ),
+			                "()", ""
+			            )
+			        )
+			    RETURN
+			        IF(
+			            ISBLANK(ExtractedYear),
+			            Holiday & " " & HebrewYear,
+			            IF(
+			                HolidayWithoutYear = "",
+			                "Unnamed Holiday " & ExtractedYear,
+			                Holiday
+			            )
+			        )
+			)
+			
+			```
+		lineageTag: f0f272d7-9760-42f8-aeed-41a6f22a49b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column HolidayRank = ```
+			
+			VAR HolidayLabel = 'Hebcal'[Jewish Holidays-Year]
+			
+			RETURN
+			IF(
+			    ISBLANK(HolidayLabel) || HolidayLabel = "",
+			    BLANK(),
+			    RANKX(
+			        FILTER(
+			            'Hebcal',
+			            NOT(ISBLANK('Hebcal'[Jewish Holidays-Year])) &&
+			            'Hebcal'[Jewish Holidays-Year] <> "" &&
+			            'Hebcal'[Jewish Holidays-Year] = HolidayLabel
+			        ),
+			        'Hebcal'[Date],
+			        ,
+			        ASC,
+			        DENSE
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 39c7b9cd-51bd-44ac-8bd2-f8f5f4d8721a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type = ```
+			
+			VAR CurrentDate = TODAY()
+			
+			// Next Holiday (exclude N/A and Rosh Chodesh)
+			VAR NextHolidayDate =
+			    MINX(
+			        FILTER(
+			            'Hebcal',
+			            'Hebcal'[date] >= CurrentDate &&
+			            NOT ( ISBLANK ( 'Hebcal'[Major Holiday] ) ) &&
+			            'Hebcal'[Major Holiday] <> "" &&
+			            LEFT ( 'Hebcal'[Unique Holiday], 3 ) <> "N/A" &&
+			            LEFT ( 'Hebcal'[Unique Holiday], 12 ) <> "Rosh Chodesh"
+			        ),
+			        'Hebcal'[date]
+			    )
+			
+			// Next Shabbos (Saturday)
+			VAR NextShabbosDate =
+			    MINX(
+			        FILTER(
+			            'Hebcal',
+			            'Hebcal'[date] >= CurrentDate &&
+			            'Hebcal'[Day Name] = "Saturday"
+			        ),
+			        'Hebcal'[date]
+			    )
+			
+			// Next Rosh Chodesh
+			VAR NextRoshChodeshDate =
+			    MINX(
+			        FILTER(
+			            'Hebcal',
+			            'Hebcal'[date] >= CurrentDate &&
+			            CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Rosh Chodesh" )
+			        ),
+			        'Hebcal'[date]
+			    )
+			
+			// Next Yom Tov / Festival
+			VAR NextFestivalDate =
+			    MINX(
+			        FILTER(
+			            'Hebcal',
+			            'Hebcal'[date] >= CurrentDate &&
+			            (
+			                CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Pesach" ) ||
+			                CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Shavuos" ) ||
+			                CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Succos" ) ||
+			                (
+			                    CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Rosh Hashana" ) &&
+			                    NOT CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "LaBehemot" )
+			                ) ||
+			                CONTAINSSTRING ( 'Hebcal'[Unique Holiday], "Yom Kippur" )
+			            )
+			        ),
+			        'Hebcal'[date]
+			    )
+			
+			// Base next mitzvah *date* (first upcoming date whose Parasha has at least one non-blank Mitzvah)
+			VAR NextMitzvahBaseDate =
+			    MINX(
+			        FILTER(
+			            ADDCOLUMNS(
+			                'Hebcal',
+			                "__HasMitzvah",
+			                    VAR RelatedMitzvos =
+			                        FILTER(
+			                            RELATEDTABLE ( 'Parasha-Mitzvos' ),
+			                            NOT ISBLANK ( 'Parasha-Mitzvos'[Mitzvah] )
+			                        )
+			                    RETURN
+			                        IF ( NOT ISEMPTY ( RelatedMitzvos ), 1, 0 )
+			            ),
+			            'Hebcal'[date] >= CurrentDate &&
+			            [__HasMitzvah] = 1
+			        ),
+			        'Hebcal'[date]
+			    )
+			
+			// Shabbos Date corresponding to that base mitzvah date
+			VAR NextMitzvahShabbosDate =
+			    IF (
+			        ISBLANK ( NextMitzvahBaseDate ),
+			        BLANK (),
+			        CALCULATE(
+			            MIN ( 'Hebcal'[Shabbos Date] ),
+			            ALL ( 'Hebcal' ),
+			            'Hebcal'[date] = NextMitzvahBaseDate
+			        )
+			    )
+			
+			// Relative position
+			VAR RelativeType =
+			    SWITCH (
+			        TRUE (),
+			        'Hebcal'[date] = CurrentDate,       "Today",
+			        'Hebcal'[date] = CurrentDate - 1,   "Yesterday",
+			        'Hebcal'[date] = CurrentDate + 1,   "Tomorrow",
+			        "Other"
+			    )
+			
+			// Final result
+			RETURN
+			SWITCH (
+			    TRUE (),
+			    'Hebcal'[date] = NextMitzvahShabbosDate, "Next Mitzvah",
+			    'Hebcal'[date] = NextHolidayDate,        "Next Holiday",
+			    'Hebcal'[date] = NextShabbosDate,        "Next Shabbos",
+			    'Hebcal'[date] = NextRoshChodeshDate,    "Next Rosh Chodesh",
+			    'Hebcal'[date] = NextFestivalDate,       "Next Festival",
+			    TRUE (),                                 RelativeType
+			)
+			
+			```
+		lineageTag: ca2274b8-3268-452d-b940-75ee220f9373
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Holiday Text' = ```
+			
+			VAR HolidayText = 'Hebcal'[Unique Holiday]
+			RETURN
+			IF(
+			    ISBLANK(HolidayText) || HolidayText = "" || LEFT(HolidayText, 3) = "N/A",
+			    BLANK(),
+			    HolidayText
+			)
+			
+			```
+		lineageTag: dab1afa1-3d99-43f1-ac80-5728164504c6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 3764d3be-b8ca-4fce-85ce-9433b85508e2
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column tzid
+		dataType: string
+		lineageTag: 409dd2fe-aa91-49ec-8b7f-3dd7add4ed34
+		summarizeBy: none
+		sourceColumn: tzid
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 1ec389b0-88df-452f-9870-374b1e6e1565
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 9b7f69de-5d05-496d-8f57-f3007d71a140
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column chatzotNight
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a177f7bc-dae0-4392-b3fe-4a941a44adae
+		summarizeBy: none
+		sourceColumn: chatzotNight
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column alotHaShachar
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 85a4a0b6-7997-4576-9aec-796d9f671624
+		summarizeBy: none
+		sourceColumn: alotHaShachar
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column misheyakir
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 7598ff1a-bb80-4d04-a2c6-3f98afe719b4
+		summarizeBy: none
+		sourceColumn: misheyakir
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column misheyakirMachmir
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 5a9c2ff2-50c0-407d-bb37-7847d49284c9
+		summarizeBy: none
+		sourceColumn: misheyakirMachmir
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column dawn
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 0a72ffd5-adfe-454a-9b01-3761db4d7ca7
+		summarizeBy: none
+		sourceColumn: dawn
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sunrise
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 6b5a8bea-a1d5-4f19-81ad-24d7c63aef92
+		summarizeBy: none
+		sourceColumn: sunrise
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanShmaMGA16Point1
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 118a1f65-d836-441d-837d-4434f767f95b
+		summarizeBy: none
+		sourceColumn: sofZmanShmaMGA16Point1
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanShmaMGA
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 3d6129bb-fb64-4a96-88a7-50e78fafe937
+		summarizeBy: none
+		sourceColumn: sofZmanShmaMGA
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanShma
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: f9853853-b800-4851-91c6-d7796e5a0da8
+		summarizeBy: none
+		sourceColumn: sofZmanShma
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanTfillaMGA16Point1
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 0a1037c4-40a8-488c-9d1d-e513ea8c8acd
+		summarizeBy: none
+		sourceColumn: sofZmanTfillaMGA16Point1
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanTfillaMGA
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a478dc82-741e-4fbf-944e-c088e42f1ff5
+		summarizeBy: none
+		sourceColumn: sofZmanTfillaMGA
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sofZmanTfilla
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 1eb997d8-a4c7-45b4-96fa-9571a1d985cc
+		summarizeBy: none
+		sourceColumn: sofZmanTfilla
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column chatzot
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 856730aa-f297-4bad-b741-79e55adba905
+		summarizeBy: none
+		sourceColumn: chatzot
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column minchaGedola
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: b5707c9e-5248-4697-918e-c0b46f23957e
+		summarizeBy: none
+		sourceColumn: minchaGedola
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column minchaKetana
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 53a3a8ef-0ba7-484e-8694-449aee204875
+		summarizeBy: none
+		sourceColumn: minchaKetana
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column plagHaMincha
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 470a51dc-104c-4a00-a0d1-6f7d81c32491
+		summarizeBy: none
+		sourceColumn: plagHaMincha
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column sunset
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 34418c24-1df1-46d7-8d17-64084de26b33
+		summarizeBy: none
+		sourceColumn: sunset
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column beinHaShmashos
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 744c5f87-62c4-4d2d-b710-9914ec1128e2
+		summarizeBy: none
+		sourceColumn: beinHaShmashos
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column dusk
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: ec665cca-0c31-4729-a240-47ca49522ca0
+		summarizeBy: none
+		sourceColumn: dusk
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column tzeit7083deg
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: cf426ef2-639f-4e5c-83bd-eeac1373cee3
+		summarizeBy: none
+		sourceColumn: tzeit7083deg
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column tzeit85deg
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: db90fe6d-8719-4570-9791-294d102d98d6
+		summarizeBy: none
+		sourceColumn: tzeit85deg
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column tzeit42min
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: cd2d44a6-34c6-4caa-b7ca-fe5dc87df72e
+		summarizeBy: none
+		sourceColumn: tzeit42min
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column tzeit50min
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 184c4b19-f3f4-45b0-9bb5-466737a6f06b
+		summarizeBy: none
+		sourceColumn: tzeit50min
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column tzeit72min
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 71c9bea6-5666-4353-869c-42ed7e221405
+		summarizeBy: none
+		sourceColumn: tzeit72min
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Day_Length = ```
+			
+			VAR SunriseTime = 'Hebcal'[sunrise]
+			VAR SunsetTime = 'Hebcal'[sunset]
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(SunriseTime) && NOT ISBLANK(SunsetTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & "h " &
+			    FORMAT(FLOOR(Minutes, 1), "0") & "m " & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "0") & "s", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: db170ffe-6084-443e-9a7a-dcb82ea940de
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_Length_Sec =
+			
+			VAR SunriseTime = 'Hebcal'[sunrise]
+			VAR SunsetTime = 'Hebcal'[sunset]
+			VAR TotalSeconds = DATEDIFF(SunriseTime, SunsetTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: 6edc159d-0f01-4515-9b54-6baefda747ad
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Misheyakir_Time = ```
+			
+			VAR MisheyakirTime = 'Hebcal'[misheyakir]
+			VAR Midnight = CONVERT('Hebcal'[date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, MisheyakirTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(MisheyakirTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " AM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 1fa92b6f-3404-46b1-a4e6-3112e1008553
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Misheyakir_Time_Secs = ```
+			
+			VAR MisheyakirTime = 'Hebcal'[misheyakir]
+			VAR Midnight = CONVERT('Hebcal'[date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, MisheyakirTime, SECOND)
+			RETURN TotalSeconds
+			
+			```
+		formatString: 0
+		lineageTag: d62a1a08-3f93-4d12-aa20-3a1ee0a340bf
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shema_Time_Gra = ```
+			
+			VAR ShemaTime = 'Hebcal'[sofZmanShma]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemaTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(ShemaTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " AM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: af023f62-4089-4d75-8adb-e0e1f383c32b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shema_Time_Gra_Sec =
+			
+			VAR ShemaTime = 'Hebcal'[sofZmanShma]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemaTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: 3b0649a7-ca0d-42e1-a06e-870679c9e1ce
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShemonehEsrei_Time = ```
+			
+			VAR ShemonehEsreiTime = 'Hebcal'[sofZmanTfilla]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemonehEsreiTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(ShemonehEsreiTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " AM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: f61d72eb-e3bb-491b-8171-39b60e48e12e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShemonehEsrei_Time_Sec =
+			
+			VAR ShemonehEsreiTime = 'Hebcal'[sofZmanTfilla]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemonehEsreiTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: f9d5eb29-bc2e-44ac-8f9f-23e088bdd988
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column EarliestMincha_Time = ```
+			
+			VAR EarliestMinchaTime = 'Hebcal'[minchaGedola]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, EarliestMinchaTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			VAR Hours12 = MOD(FLOOR(Hours, 1) - 1, 12) + 1 // Convert to 12-hour format
+			VAR HourValue = IF(Hours12 = 0, "12", FORMAT(Hours12, "0"))
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(EarliestMinchaTime),
+			    HourValue & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " PM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: ab794a31-55f1-42a8-911f-d4f707312703
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column EarliestMincha_Time_Sec =
+			
+			VAR EarliestMinchaTime = 'Hebcal'[minchaGedola]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, EarliestMinchaTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: f73602ae-662d-4682-9b86-e770f8327c0c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdealMincha_Time = ```
+			
+			VAR IdealMinchaTime = 'Hebcal'[minchaKetana]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, IdealMinchaTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(IdealMinchaTime),
+			    FORMAT(FLOOR(Hours-12, 1), "0") & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " PM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 67fdc2a3-9cb1-47a9-9b50-fe88f68fa75e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdealMincha_Time_Sec =
+			
+			VAR IdealMinchaTime = 'Hebcal'[minchaKetana]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, IdealMinchaTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: 56991e9d-4bf1-4609-840a-d9b034e41a5c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlagHaMincha_Time = ```
+			
+			VAR PlagHaMinchaTime = 'Hebcal'[plagHaMincha]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, PlagHaMinchaTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			VAR Hours12 = MOD(FLOOR(Hours, 1) - 1, 12) + 1 // Convert to 12-hour format
+			VAR HourValue = IF(Hours12 = 0, "12", FORMAT(Hours12, "0"))
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(PlagHaMinchaTime),
+			    HourValue & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " PM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: a225274b-c1b6-417d-8b42-b30958df2c13
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlagHaMincha_Time_Sec =
+			
+			VAR PlagHaMinchaTime = 'Hebcal'[plagHaMincha]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, PlagHaMinchaTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: db14f119-2dc5-4e6f-9094-4bdc9f761eca
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sunset_Time = ```
+			
+			VAR SunsetTime = 'Hebcal'[sunset]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, SunsetTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			VAR Hours12 = MOD(FLOOR(Hours, 1) - 1, 12) + 1 // Convert to 12-hour format
+			VAR HourValue = IF(Hours12 = 0, "12", FORMAT(Hours12, "0"))
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(SunsetTime),
+			    HourValue & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " PM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 8c721936-1106-4616-a352-80882377acf3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sunset_Time_Sec =
+			
+			VAR SunsetTime = 'Hebcal'[sunset]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, SunsetTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: d3f115bf-183b-46ef-8583-b159b709052f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Candle_Time = ```
+			
+			VAR CandleTime = 'Hebcal'[sunset]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, CandleTime, SECOND) - (18*60)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = FLOOR(MOD(TotalSeconds, 3600) / 60, 1) // Floor the minutes to ensure rounding down
+			VAR Seconds = 0 // Set seconds to 0 explicitly to always round down
+			VAR Hours12 = MOD(FLOOR(Hours, 1) - 1, 12) + 1 // Convert to 12-hour format
+			VAR HourValue = IF(Hours12 = 0, "12", FORMAT(Hours12, "0"))
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(CandleTime),
+			    HourValue & ":" &
+			    FORMAT(Minutes, "00") & " PM",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 1619b23b-b950-4d40-bbb7-54aa5cc30a20
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Candle_Time_Sec = ```
+			
+			VAR CandleTime = 'Hebcal'[sunset]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, CandleTime, SECOND) - (18*60)
+			RETURN IF(TotalSeconds>0,TotalSeconds,BLANK())
+			
+			```
+		formatString: 0
+		lineageTag: b313e0b4-b131-4377-9388-7ac600131b95
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek = WEEKDAY([Date],1)
+		formatString: 0
+		lineageTag: 3cc5f57f-dd29-4f90-afc6-bc7f40bc6614
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Other
+		dataType: string
+		lineageTag: 0c1057a9-96f8-4d74-b3c2-3960b7cc715d
+		summarizeBy: none
+		sourceColumn: Other
+
+		annotation SummarizationSetBy = Automatic
+
+	column Major
+		dataType: string
+		lineageTag: c10c6ccb-0f06-4479-bd48-8efe6bacc1c2
+		summarizeBy: none
+		sourceColumn: Major
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Major Holiday Days","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Fast
+		dataType: string
+		lineageTag: 80985edd-83a6-4170-9f1e-8a2523c7badd
+		summarizeBy: none
+		sourceColumn: Fast
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Special Shabbos'
+		dataType: string
+		lineageTag: e113b89b-637f-480a-a328-35d440f92504
+		summarizeBy: none
+		sourceColumn: Special Shabbos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minor
+		dataType: string
+		lineageTag: bb79664a-cf3d-4e8c-bc0b-4544a08994f3
+		summarizeBy: none
+		sourceColumn: Minor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shabbos Mevorchim'
+		dataType: string
+		lineageTag: 5f6e85d6-ab43-4d98-bb41-855195af4739
+		summarizeBy: none
+		sourceColumn: Shabbos Mevorchim
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rosh Chodesh'
+		dataType: string
+		lineageTag: 1dc3f311-d3f6-4528-b1fc-ae818c23cdbb
+		summarizeBy: none
+		sourceColumn: Rosh Chodesh
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Major Holiday Days' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Major]),
+				"(Blank)",
+				'Hebcal'[Major] IN {"Rosh Hashana 5784",
+					"Rosh Hashana 5785",
+					"Rosh Hashana 5786",
+					"Rosh Hashana 5787",
+					"Rosh Hashana 5788",
+					"Rosh Hashana 5789",
+					"Rosh Hashana 5790",
+					"Rosh Hashana 5791",
+					"Rosh Hashana 5792",
+					"Rosh Hashana 5793",
+					"Rosh Hashana 5794",
+					"Rosh Hashana 5795",
+					"Rosh Hashana 5796",
+					"Rosh Hashana 5797",
+					"Rosh Hashana 5798",
+					"Rosh Hashana 5799",
+					"Rosh Hashana 5800",
+					"Rosh Hashana 5801",
+					"Rosh Hashana 5802",
+					"Rosh Hashana 5803",
+					"Rosh Hashana 5804",
+					"Rosh Hashana 5805",
+					"Rosh Hashana 5806",
+					"Rosh Hashana 5807",
+					"Rosh Hashana 5808",
+					"Rosh Hashana 5809",
+					"Rosh Hashana 5810",
+					"Rosh Hashana 5811",
+					"Rosh Hashana 5812",
+					"Rosh Hashana 5813",
+					"Rosh Hashana 5814",
+					"Rosh Hashana 5815",
+					"Rosh Hashana 5816",
+					"Rosh Hashana 5817",
+					"Rosh Hashana 5818",
+					"Rosh Hashana 5819",
+					"Rosh Hashana 5820",
+					"Rosh Hashana 5821",
+					"Rosh Hashana 5822",
+					"Rosh Hashana 5823",
+					"Rosh Hashana 5824",
+					"Rosh Hashana 5825",
+					"Rosh Hashana 5826",
+					"Rosh Hashana 5827",
+					"Rosh Hashana 5828",
+					"Rosh Hashana 5829",
+					"Rosh Hashana 5830",
+					"Rosh Hashana 5831",
+					"Rosh Hashana 5832",
+					"Rosh Hashana 5833",
+					"Rosh Hashana 5834",
+					"Rosh Hashana 5835"},
+				"Rosh Hashana I",
+				'Hebcal'[Major]
+			)
+		lineageTag: c6889881-f8e5-460c-834f-720291eece02
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Major"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Rosh Hashana I","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major"}}],"Values":[[{"Literal":{"Value":"'Rosh Hashana 5784'"}}],[{"Literal":{"Value":"'Rosh Hashana 5785'"}}],[{"Literal":{"Value":"'Rosh Hashana 5786'"}}],[{"Literal":{"Value":"'Rosh Hashana 5787'"}}],[{"Literal":{"Value":"'Rosh Hashana 5788'"}}],[{"Literal":{"Value":"'Rosh Hashana 5789'"}}],[{"Literal":{"Value":"'Rosh Hashana 5790'"}}],[{"Literal":{"Value":"'Rosh Hashana 5791'"}}],[{"Literal":{"Value":"'Rosh Hashana 5792'"}}],[{"Literal":{"Value":"'Rosh Hashana 5793'"}}],[{"Literal":{"Value":"'Rosh Hashana 5794'"}}],[{"Literal":{"Value":"'Rosh Hashana 5795'"}}],[{"Literal":{"Value":"'Rosh Hashana 5796'"}}],[{"Literal":{"Value":"'Rosh Hashana 5797'"}}],[{"Literal":{"Value":"'Rosh Hashana 5798'"}}],[{"Literal":{"Value":"'Rosh Hashana 5799'"}}],[{"Literal":{"Value":"'Rosh Hashana 5800'"}}],[{"Literal":{"Value":"'Rosh Hashana 5801'"}}],[{"Literal":{"Value":"'Rosh Hashana 5802'"}}],[{"Literal":{"Value":"'Rosh Hashana 5803'"}}],[{"Literal":{"Value":"'Rosh Hashana 5804'"}}],[{"Literal":{"Value":"'Rosh Hashana 5805'"}}],[{"Literal":{"Value":"'Rosh Hashana 5806'"}}],[{"Literal":{"Value":"'Rosh Hashana 5807'"}}],[{"Literal":{"Value":"'Rosh Hashana 5808'"}}],[{"Literal":{"Value":"'Rosh Hashana 5809'"}}],[{"Literal":{"Value":"'Rosh Hashana 5810'"}}],[{"Literal":{"Value":"'Rosh Hashana 5811'"}}],[{"Literal":{"Value":"'Rosh Hashana 5812'"}}],[{"Literal":{"Value":"'Rosh Hashana 5813'"}}],[{"Literal":{"Value":"'Rosh Hashana 5814'"}}],[{"Literal":{"Value":"'Rosh Hashana 5815'"}}],[{"Literal":{"Value":"'Rosh Hashana 5816'"}}],[{"Literal":{"Value":"'Rosh Hashana 5817'"}}],[{"Literal":{"Value":"'Rosh Hashana 5818'"}}],[{"Literal":{"Value":"'Rosh Hashana 5819'"}}],[{"Literal":{"Value":"'Rosh Hashana 5820'"}}],[{"Literal":{"Value":"'Rosh Hashana 5821'"}}],[{"Literal":{"Value":"'Rosh Hashana 5822'"}}],[{"Literal":{"Value":"'Rosh Hashana 5823'"}}],[{"Literal":{"Value":"'Rosh Hashana 5824'"}}],[{"Literal":{"Value":"'Rosh Hashana 5825'"}}],[{"Literal":{"Value":"'Rosh Hashana 5826'"}}],[{"Literal":{"Value":"'Rosh Hashana 5827'"}}],[{"Literal":{"Value":"'Rosh Hashana 5828'"}}],[{"Literal":{"Value":"'Rosh Hashana 5829'"}}],[{"Literal":{"Value":"'Rosh Hashana 5830'"}}],[{"Literal":{"Value":"'Rosh Hashana 5831'"}}],[{"Literal":{"Value":"'Rosh Hashana 5832'"}}],[{"Literal":{"Value":"'Rosh Hashana 5833'"}}],[{"Literal":{"Value":"'Rosh Hashana 5834'"}}],[{"Literal":{"Value":"'Rosh Hashana 5835'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Major Holiday","ObjectType":4},"LinkType":"UsedInGroup"},{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Holiday Part","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'Major Holiday' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Major Holiday Days]),
+				"(Blank)",
+				'Hebcal'[Major Holiday Days] IN {"Chanukah: 1 Candle",
+					"Chanukah: 2 Candles",
+					"Chanukah: 3 Candles",
+					"Chanukah: 4 Candles",
+					"Chanukah: 5 Candles",
+					"Chanukah: 6 Candles",
+					"Chanukah: 7 Candles",
+					"Chanukah: 8 Candles"},
+				"Chanukah",
+				'Hebcal'[Major Holiday Days] IN {"Erev Pesach",
+					"Pesach I",
+					"Pesach II",
+					"Pesach III (CH’’M)",
+					"Pesach IV (CH’’M)",
+					"Pesach V (CH’’M)",
+					"Pesach VI (CH’’M)",
+					"Pesach VII",
+					"Pesach VIII"},
+				"Pesach",
+				'Hebcal'[Major Holiday Days] IN {"Erev Purim",
+					"Purim"},
+				"Purim",
+				'Hebcal'[Major Holiday Days] IN {"Erev Rosh Hashana",
+					"Rosh Hashana I",
+					"Rosh Hashana II"},
+				"Rosh Hashanah",
+				'Hebcal'[Major Holiday Days] IN {"Erev Shavuos",
+					"Shavuos I",
+					"Shavuos II"},
+				"Shavuos",
+				'Hebcal'[Major Holiday Days] IN {"Shemini Atzeres",
+					"Simchas Torah"},
+				"Shemini Atzeres & Simchas Torah",
+				'Hebcal'[Major Holiday Days] IN {"Erev Succos",
+					"Succos I",
+					"Succos II",
+					"Succos III (CH’’M)",
+					"Succos IV (CH’’M)",
+					"Succos V (CH’’M)",
+					"Succos VI (CH’’M)",
+					"Succos VII (Hoshana Raba)"},
+				"Succos",
+				'Hebcal'[Major Holiday Days] IN {"Erev Tisha B’Av",
+					"Tisha B’Av",
+					"Tisha B’Av (observed)"},
+				"Tisha B'Av",
+				'Hebcal'[Major Holiday Days] IN {"Erev Yom Kippur",
+					"Yom Kippur"},
+				"Yom Kippur",
+				'Hebcal'[Major Holiday Days]
+			)
+		lineageTag: 0927a1e9-40e6-41ce-9d81-ede9007ca169
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Major Holiday Days"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Chanukah","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Chanukah: 1 Candle'"}}],[{"Literal":{"Value":"'Chanukah: 2 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 3 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 4 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 5 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 6 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 7 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 8 Candles'"}}]]}}},{"DisplayName":"Pesach","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Pesach'"}}],[{"Literal":{"Value":"'Pesach I'"}}],[{"Literal":{"Value":"'Pesach II'"}}],[{"Literal":{"Value":"'Pesach III (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach IV (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach V (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach VI (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach VII'"}}],[{"Literal":{"Value":"'Pesach VIII'"}}]]}}},{"DisplayName":"Purim","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Purim'"}}],[{"Literal":{"Value":"'Purim'"}}]]}}},{"DisplayName":"Rosh Hashanah","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Rosh Hashana'"}}],[{"Literal":{"Value":"'Rosh Hashana I'"}}],[{"Literal":{"Value":"'Rosh Hashana II'"}}]]}}},{"DisplayName":"Shavuos","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Shavuos'"}}],[{"Literal":{"Value":"'Shavuos I'"}}],[{"Literal":{"Value":"'Shavuos II'"}}]]}}},{"DisplayName":"Shemini Atzeres & Simchas Torah","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Shemini Atzeres'"}}],[{"Literal":{"Value":"'Simchas Torah'"}}]]}}},{"DisplayName":"Succos","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Succos'"}}],[{"Literal":{"Value":"'Succos I'"}}],[{"Literal":{"Value":"'Succos II'"}}],[{"Literal":{"Value":"'Succos III (CH’’M)'"}}],[{"Literal":{"Value":"'Succos IV (CH’’M)'"}}],[{"Literal":{"Value":"'Succos V (CH’’M)'"}}],[{"Literal":{"Value":"'Succos VI (CH’’M)'"}}],[{"Literal":{"Value":"'Succos VII (Hoshana Raba)'"}}]]}}},{"DisplayName":"Tisha B'Av","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Tisha B’Av'"}}],[{"Literal":{"Value":"'Tisha B’Av'"}}],[{"Literal":{"Value":"'Tisha B’Av (observed)'"}}]]}}},{"DisplayName":"Yom Kippur","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Yom Kippur'"}}],[{"Literal":{"Value":"'Yom Kippur'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Festivals","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Festivals =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Major Holiday]),
+				"(Blank)",
+				'Hebcal'[Major Holiday] IN {"Rosh Hashanah",
+					"Yom Kippur"},
+				"High Holidays",
+				'Hebcal'[Major Holiday] IN {"Pesach",
+					"Shavuos",
+					"Shemini Atzeres & Simchas Torah",
+					"Succos"},
+				"Shalosh Regalim",
+				'Hebcal'[Major Holiday]
+			)
+		lineageTag: 2ef69aa8-9c15-4067-94fe-6bd3935ba9cb
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Major Holiday"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"High Holidays","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday"}}],"Values":[[{"Literal":{"Value":"'Rosh Hashanah'"}}],[{"Literal":{"Value":"'Yom Kippur'"}}]]}}},{"DisplayName":"Shalosh Regalim","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday"}}],"Values":[[{"Literal":{"Value":"'Pesach'"}}],[{"Literal":{"Value":"'Shavuos'"}}],[{"Literal":{"Value":"'Shemini Atzeres & Simchas Torah'"}}],[{"Literal":{"Value":"'Succos'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Biblical Festival","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'Biblical Festival' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Festivals]),
+				"(Blank)",
+				'Hebcal'[Festivals] IN {"High Holidays",
+					"Shalosh Regalim"},
+				"Biblical",
+				'Hebcal'[Festivals] IN {"Chanukah",
+					"Purim",
+					"Tisha B'Av"},
+				"Rabbinic",
+				'Hebcal'[Festivals]
+			)
+		lineageTag: da6f027b-df08-4940-bc23-f7f92923b8a6
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Festivals"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Festivals"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Biblical","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Festivals"}}],"Values":[[{"Literal":{"Value":"'High Holidays'"}}],[{"Literal":{"Value":"'Shalosh Regalim'"}}]]}}},{"DisplayName":"Rabbinic","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Festivals"}}],"Values":[[{"Literal":{"Value":"'Chanukah'"}}],[{"Literal":{"Value":"'Purim'"}}],[{"Literal":{"Value":"'Tisha B''Av'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Holiday Part' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Major Holiday Days]),
+				"(Blank)",
+				'Hebcal'[Major Holiday Days] IN {"Chanukah: 1 Candle",
+					"Chanukah: 2 Candles",
+					"Chanukah: 3 Candles",
+					"Chanukah: 4 Candles",
+					"Chanukah: 5 Candles",
+					"Chanukah: 6 Candles",
+					"Chanukah: 7 Candles",
+					"Chanukah: 8 Candles"},
+				"Chanukah",
+				'Hebcal'[Major Holiday Days] IN {"Pesach III (CH’’M)",
+					"Pesach IV (CH’’M)",
+					"Pesach V (CH’’M)",
+					"Pesach VI (CH’’M)",
+					"Succos III (CH’’M)",
+					"Succos IV (CH’’M)",
+					"Succos V (CH’’M)",
+					"Succos VI (CH’’M)",
+					"Succos VII (Hoshana Raba)"},
+				"Chol Hamoed",
+				'Hebcal'[Major Holiday Days] IN {"Erev Pesach",
+					"Erev Purim",
+					"Erev Rosh Hashana",
+					"Erev Shavuos",
+					"Erev Succos",
+					"Erev Tisha B’Av",
+					"Erev Yom Kippur"},
+				"Erev",
+				'Hebcal'[Major Holiday Days] IN {"Pesach I",
+					"Pesach II",
+					"Pesach VII",
+					"Pesach VIII",
+					"Rosh Hashana I",
+					"Rosh Hashana II",
+					"Shavuos I",
+					"Shavuos II",
+					"Shemini Atzeres",
+					"Simchas Torah",
+					"Succos I",
+					"Succos II",
+					"Yom Kippur"},
+				"Yom Tov",
+				'Hebcal'[Major Holiday Days]
+			)
+		lineageTag: f762e38e-ff8f-4eb8-aa83-b57807a54f49
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Major Holiday Days"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Chanukah","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Chanukah: 1 Candle'"}}],[{"Literal":{"Value":"'Chanukah: 2 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 3 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 4 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 5 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 6 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 7 Candles'"}}],[{"Literal":{"Value":"'Chanukah: 8 Candles'"}}]]}}},{"DisplayName":"Chol Hamoed","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Pesach III (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach IV (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach V (CH’’M)'"}}],[{"Literal":{"Value":"'Pesach VI (CH’’M)'"}}],[{"Literal":{"Value":"'Succos III (CH’’M)'"}}],[{"Literal":{"Value":"'Succos IV (CH’’M)'"}}],[{"Literal":{"Value":"'Succos V (CH’’M)'"}}],[{"Literal":{"Value":"'Succos VI (CH’’M)'"}}],[{"Literal":{"Value":"'Succos VII (Hoshana Raba)'"}}]]}}},{"DisplayName":"Erev","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Erev Pesach'"}}],[{"Literal":{"Value":"'Erev Purim'"}}],[{"Literal":{"Value":"'Erev Rosh Hashana'"}}],[{"Literal":{"Value":"'Erev Shavuos'"}}],[{"Literal":{"Value":"'Erev Succos'"}}],[{"Literal":{"Value":"'Erev Tisha B’Av'"}}],[{"Literal":{"Value":"'Erev Yom Kippur'"}}]]}}},{"DisplayName":"Yom Tov","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Major Holiday Days"}}],"Values":[[{"Literal":{"Value":"'Pesach I'"}}],[{"Literal":{"Value":"'Pesach II'"}}],[{"Literal":{"Value":"'Pesach VII'"}}],[{"Literal":{"Value":"'Pesach VIII'"}}],[{"Literal":{"Value":"'Rosh Hashana I'"}}],[{"Literal":{"Value":"'Rosh Hashana II'"}}],[{"Literal":{"Value":"'Shavuos I'"}}],[{"Literal":{"Value":"'Shavuos II'"}}],[{"Literal":{"Value":"'Shemini Atzeres'"}}],[{"Literal":{"Value":"'Simchas Torah'"}}],[{"Literal":{"Value":"'Succos I'"}}],[{"Literal":{"Value":"'Succos II'"}}],[{"Literal":{"Value":"'Yom Kippur'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Erev Rosh Chodesh' = ```
+			
+			VAR CurrentDate = Hebcal[Date]
+			
+			VAR NextDate =
+			    CALCULATE(
+			        MIN(Hebcal[Date]),
+			        FILTER(ALL(Hebcal), Hebcal[Date] > CurrentDate)
+			    )
+			
+			VAR CurrentHebrewDay =
+			    Hebcal[Hebrew Day of Month]
+			
+			VAR NextHebrewDay =
+			    CALCULATE(
+			        MAX(Hebcal[Hebrew Day of Month]),
+			        FILTER(ALL(Hebcal), Hebcal[Date] = NextDate)
+			    )
+			
+			VAR NextRoshChodeshMonth =
+			    CALCULATE(
+			        MAX(Hebcal[Rosh Chodesh]),
+			        FILTER(ALL(Hebcal), Hebcal[Date] = NextDate)
+			    )
+			
+			VAR IsTomorrowRoshChodesh = NOT(ISBLANK(NextRoshChodeshMonth))
+			
+			RETURN
+			IF(
+			    IsTomorrowRoshChodesh &&
+			    (
+			        (NextHebrewDay = 1 && CurrentHebrewDay <> 30) ||  // one-day Rosh Chodesh
+			        (NextHebrewDay = 30 && CurrentHebrewDay = 29)     // two-day Rosh Chodesh
+			    ),
+			    NextRoshChodeshMonth,
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 0aa5dbbc-ca77-4158-b5fa-b7cd67a0ec2b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Doubled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e0fca8bb-7622-41f3-964a-2226c668c37a
+		summarizeBy: none
+		sourceColumn: Doubled
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shema_Time_MGA = ```
+			
+			VAR ShemaTime = 'Hebcal'[sofZmanShmaMGA16Point1]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemaTime, SECOND)
+			VAR Hours = TotalSeconds / 3600
+			VAR Minutes = MOD(TotalSeconds, 3600) / 60
+			VAR Seconds = MOD(TotalSeconds, 60) // Calculate remaining seconds
+			RETURN
+			IF(
+			    NOT ISBLANK(Midnight) && NOT ISBLANK(ShemaTime),
+			    FORMAT(FLOOR(Hours, 1), "0") & ":" &
+			    FORMAT(FLOOR(Minutes, 1), "00") & ":" & // Use FLOOR instead of ROUND to ensure whole minutes
+			    FORMAT(Seconds, "00") & " AM", // Add seconds to the output
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 397b82f7-922f-4fc0-a698-602684cdaa52
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shema_Time_MGA_Sec =
+			
+			VAR ShemaTime = 'Hebcal'[sofZmanShmaMGA16Point1]
+			VAR Midnight = CONVERT('Hebcal'[Date], DATETIME)
+			VAR TotalSeconds = DATEDIFF(Midnight, ShemaTime, SECOND)
+			RETURN TotalSeconds
+		formatString: 0
+		lineageTag: 0c8e434f-b6f5-4f59-a579-5ed73896a639
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Haftarah Reason Display' = IF(AND(Hebcal[Haftarah Reason]="",NOT(Hebcal[Haftarah]="")),"Regular Haftarah",Hebcal[Haftarah Reason])
+		lineageTag: 63387043-0fa6-4f72-89ef-bc1c8718507c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Holiday Display' = IF(Hebcal[Major Holiday Days]="(Blank)","",Hebcal[Major Holiday Days])
+		lineageTag: 95a9c145-2e83-4c24-9327-3acc2e13d54c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Jewish Holidays'
+		dataType: string
+		lineageTag: ee0bba86-f024-4723-8388-6abe56dcaed0
+		summarizeBy: none
+		sourceColumn: Jewish Holidays
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maftir Reason Display' = IF(AND(Hebcal[Maftir Reason]="",NOT(Hebcal[Maftir]="")),"Regular Maftir",Hebcal[Maftir Reason])
+		lineageTag: 86975127-5261-4cb1-bf82-e549afccbecf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Torah Reading Display' = IF(Hebcal[Torah Reading M-Th]="",Hebcal[Torah Reading],Hebcal[Torah Reading M-Th])
+		lineageTag: 25c8d2f7-96fa-42c9-b5e2-9d815862e167
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha Display' = IF(Hebcal[Parasha]="",Hebcal[Major Holiday],Hebcal[Parasha])
+		lineageTag: 9b3deaad-0be5-4332-8f96-14c3ef199bd6
+		summarizeBy: none
+		sortByColumn: Index_Parasha
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Hebcal","TableItemName":"Parasha Display (groups)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'Sifrei Torah Main Reading' = ```
+			
+			VAR TorahReadingBlank =
+			    ISBLANK ( 'Hebcal'[Torah Reading Display] ) || 'Hebcal'[Torah Reading Display] = ""
+			VAR RoshChodeshNotBlank =
+			    NOT ( ISBLANK ( 'Hebcal'[Rosh Chodesh] ) || 'Hebcal'[Rosh Chodesh] = "" )
+			VAR SpecialShabbosBlank =
+			    ISBLANK ( 'Hebcal'[Special Shabbos] ) || 'Hebcal'[Special Shabbos] = ""
+			VAR SpecialShabbosNotBlank =
+			    NOT SpecialShabbosBlank
+			VAR MajorHoliday =
+			    'Hebcal'[Holiday Display]
+			VAR MajorHolidayGroup =
+			    Hebcal[Major Holiday]
+			VAR HolidayPart =
+			    'Hebcal'[Holiday Part]
+			VAR DayName =
+			    'Hebcal'[Day Name]
+			VAR IsErev =
+			    LEFT ( MajorHoliday, 5 ) = "Erev "
+			RETURN
+			SWITCH (
+			    TRUE (),
+			
+			    -- No Torah reading
+			    TorahReadingBlank, 0,
+			
+			    -- 3 scrolls: Rosh Chodesh + Shabbos + Special Shabbos OR Chanukah
+			    RoshChodeshNotBlank && DayName = "Saturday" &&
+			        ( SpecialShabbosNotBlank || MajorHolidayGroup = "Chanukah" ), 3,
+			
+			    -- Major Holidays always 2 scrolls (not Erev)
+			    NOT IsErev && MajorHolidayGroup IN { "Rosh Hashanah", "Yom Kippur", "Shavuos" }, 2,
+			
+			    -- Pesach or Succos (Yom Tov) - not Erev
+			    (NOT IsErev && MajorHolidayGroup IN { "Pesach", "Succos" } && HolidayPart = "Yom Tov"), 2,
+			
+			    -- Pesach or Succos on Saturday - not Erev
+			    (NOT IsErev && MajorHoliday IN { "Pesach", "Succos" } && DayName = "Saturday"), 2,
+			
+			    -- Chanukah special case (not Erev)
+			    (NOT IsErev && MajorHolidayGroup = "Chanukah" && DayName = "Saturday"), 2,
+			    (NOT IsErev && MajorHolidayGroup = "Chanukah" && DayName <> "Saturday"), 1,
+			
+			    -- Chol Hamoed cases
+			    (HolidayPart = "Chol Hamoed" && DayName = "Saturday"), 2,
+			    (HolidayPart = "Chol Hamoed" && DayName <> "Saturday"), 1,
+			
+			    -- Rosh Chodesh not Saturday
+			    RoshChodeshNotBlank && DayName <> "Saturday", 1,
+			
+			    -- Rosh Chodesh on Saturday without Special Shabbos
+			    RoshChodeshNotBlank && DayName = "Saturday" && SpecialShabbosBlank, 2,
+			
+			    -- Otherwise: Torah reading present = at least 1
+			    NOT TorahReadingBlank, 1,
+			
+			    -- Default
+			    BLANK ()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 9c15105d-5773-448e-9ad7-fb8a642879cc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha Display (groups)' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Hebcal'[Parasha Display]),
+				"(Blank)",
+				'Hebcal'[Parasha Display] IN {"Rosh Hashana",
+					"Rosh Hashanah"},
+				"Rosh Hashanah",
+				'Hebcal'[Parasha Display] IN {"Shavuos",
+					"Shavuot"},
+				"Shavuos",
+				'Hebcal'[Parasha Display]
+			)
+		lineageTag: 475519d7-2aa6-46d5-8881-8a4dd5c28c38
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Hebcal"
+				          }
+				        },
+				        "Property": "Parasha Display"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"h","Entity":"Hebcal"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Parasha Display"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Rosh Hashanah","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Parasha Display"}}],"Values":[[{"Literal":{"Value":"'Rosh Hashana'"}}],[{"Literal":{"Value":"'Rosh Hashanah'"}}]]}}},{"DisplayName":"Shavuos","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"h"}},"Property":"Parasha Display"}}],"Values":[[{"Literal":{"Value":"'Shavuos'"}}],[{"Literal":{"Value":"'Shavuot'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sifrei Torah Total' = ```
+			
+			VAR MainReading =
+			    'Hebcal'[Sifrei Torah Main Reading]
+			VAR DayName =
+			    'Hebcal'[Day Name]
+			VAR MajorHoliday =
+			    'Hebcal'[Major Holiday]
+			VAR FastDayNotBlank =
+			    NOT ( ISBLANK ( 'Hebcal'[Fast] ) || 'Hebcal'[Fast] = "" )
+			
+			VAR AddShabbosMincha =
+			    IF ( DayName = "Saturday", 1, 0 )
+			
+			VAR AddFastDay =
+			    IF ( FastDayNotBlank, 1, 0 )
+			
+			VAR AddYomKippurMincha =
+			    IF ( MajorHoliday = "Yom Kippur" && DayName <> "Saturday", 1, 0 )
+			
+			RETURN
+			MainReading + AddShabbosMincha + AddFastDay + AddYomKippurMincha
+			
+			```
+		formatString: 0
+		lineageTag: dc5e4ecb-cf93-4922-a408-49f10aba6445
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column HebrewYear_Position = ```
+			
+			VAR TodayDate = TODAY()
+			VAR CurrentHebrewYear =
+			    CALCULATE (
+			        MAX ( Hebcal[Hebrew Year] ),
+			        FILTER ( ALL ( Hebcal ), Hebcal[Date] <= TodayDate )
+			    )
+			VAR Y = Hebcal[Hebrew Year]
+			RETURN
+			SWITCH (
+			    TRUE(),
+			        Y <= CurrentHebrewYear - 2, "Past",
+			        Y =  CurrentHebrewYear - 1, "Last",
+			        Y =  CurrentHebrewYear,     "Current",
+			        Y =  CurrentHebrewYear + 1, "Next",
+			        "Future"
+			)
+			
+			```
+		lineageTag: d0017bb2-44e1-4dff-a247-e3128990f393
+		summarizeBy: none
+		sortByColumn: HebrewYear_Position_Order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column HebrewYear_Position_Order = ```
+			
+			VAR TodayDate = TODAY()
+			VAR CurrentHebrewYear =
+			    CALCULATE (
+			        MAX ( Hebcal[Hebrew Year] ),
+			        FILTER ( ALL ( Hebcal ), Hebcal[Date] <= TodayDate )
+			    )
+			VAR Y = Hebcal[Hebrew Year]
+			RETURN
+			SWITCH (
+			    TRUE(),
+			        Y <= CurrentHebrewYear - 2, 1,   // Past
+			        Y =  CurrentHebrewYear - 1, 2,   // Last
+			        Y =  CurrentHebrewYear,     3,   // Current
+			        Y =  CurrentHebrewYear + 1, 4,   // Next
+			        5                              // Future
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 334a23df-34f6-4fe4-83f9-64b486511aa0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year in Machzor Major' = ```
+			
+			VAR Year = 'Hebcal'[Hebrew Year]
+			RETURN
+			MOD ( Year - 1, 28 ) + 1
+			
+			```
+		formatString: 0
+		lineageTag: 30b0404f-1dcd-438a-bda7-044c353debd6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shabbos Date' = ```
+			
+			VAR ThisDate = 'Hebcal'[date]
+			VAR DayNum = WEEKDAY(ThisDate, 1)   // Sunday = 1, Saturday = 7
+			RETURN
+			    ThisDate + (7 - DayNum)
+			
+			```
+		formatString: ddd, MMM d, yyyy
+		lineageTag: f1214481-f303-4a01-bfa7-b844a08a5fbe
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: f7857183-bfc4-4ccb-9f37-644a9079741f
+			defaultHierarchy: LocalDateTable_d1b3aa27-1419-439c-b2a9-b147bbeeef8c.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'In Current Cycle' = ```
+			
+			VAR CurrentDate =
+			    TODAY()
+			
+			-- What Hebrew year are we in today?
+			VAR CurrentHebrewYear =
+			    CALCULATE(
+			        MAX ( 'Hebcal'[Hebrew Year] ),
+			        FILTER (
+			            ALL ( 'Hebcal' ),
+			            'Hebcal'[date] = CurrentDate
+			        )
+			    )
+			
+			-- Bereshis of the current Hebrew year
+			VAR ThisYearBereshisDate =
+			    CALCULATE(
+			        MIN ( 'Hebcal'[date] ),
+			        FILTER (
+			            ALL ( 'Hebcal' ),
+			            'Hebcal'[Hebrew Year] = CurrentHebrewYear
+			                && 'Hebcal'[Parasha] = "Bereishis"
+			        )
+			    )
+			
+			-- Bereshis of the next Hebrew year
+			VAR NextYearBereshisDate =
+			    CALCULATE(
+			        MIN ( 'Hebcal'[date] ),
+			        FILTER (
+			            ALL ( 'Hebcal' ),
+			            'Hebcal'[Hebrew Year] = CurrentHebrewYear + 1
+			                && 'Hebcal'[Parasha] = "Bereishis"
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    NOT ISBLANK ( ThisYearBereshisDate )
+			        && NOT ISBLANK ( NextYearBereshisDate )
+			        && 'Hebcal'[date] >= ThisYearBereshisDate
+			        && 'Hebcal'[date] < NextYearBereshisDate,
+			    TRUE (),
+			    FALSE ()
+			)
+			
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e6efa7cd-c708-40f0-9af9-05375a46ff9b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shabbos Upcoming' = IF('Hebcal'[Shabbos Date]>=TODAY(),"Upcoming","Past")
+		lineageTag: 0a0e215a-375f-48b2-b999-aaedcf19fd69
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Hebrew Year Hierarchy'
+		lineageTag: 768e078e-e54e-4d96-ba2e-95a80d4a5d8f
+
+		level 'Hebrew Year'
+			lineageTag: 2fdf5fec-977b-45ee-9772-8bbe8b337ce2
+			column: 'Hebrew Year'
+
+		level 'Hebrew Month'
+			lineageTag: 48943b94-0906-40eb-b95e-740f9953dc34
+			column: 'Hebrew Month'
+
+		level 'Hebrew Day of Month'
+			lineageTag: ba413dfc-580d-4615-9e87-8f593fdac676
+			column: 'Hebrew Day of Month'
+
+	partition Hebcal = m
+		mode: import
+		queryGroup: Hebcal
+		source =
+				let
+				    // Your original steps
+				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Calendar.xlsx"), null, true),
+				    Hebcal_Table = Source{[Item="Hebcal",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Hebcal_Table,{{"Title", type text}, {"Date", type date}, {"Hebrew Date", type text}, {"Category", type text}, {"Hebrew Title", type text}, {"Subcategory", type text}, {"Link", type text}, {"Description", type text}, {"Yom Tov?", type logical}, {"Omer Count", type text}, {"Sefira Transliteration", type text}, {"Sefira English", type text}, {"Torah Reading", type text}, {"Haftarah", type text}, {"Maftir", type text}, {"First Aliyah", type text}, {"Second Aliyah", type text}, {"Third Aliyah", type text}, {"Fourth Aliyah", type text}, {"Fifth Aliyah", type text}, {"Sixth Aliyah", type text}, {"Seventh Aliyah", type text}, {"Haftarah Sephardim", type text}, {"Occasion", type text}, {"Haftarah Reason", type text}, {"Maftir Reason", type text}, {"Hebrew Day of Month", Int64.Type}, {"Hebrew Month Year", type text}, {"Hebrew Month", type text}, {"Hebrew Year", Int64.Type}, {"Day Name", type text}, {"Hebrew Month Number", Int64.Type}, {"Day of the Omer", Int64.Type}, {"Days in Hebrew Month", Int64.Type}, {"Hebrew Month Number Tishrei Start", Int64.Type}, {"Parasha M-Th", type text}, {"Torah Reading M-Th", type text}, {"First Aliyah M-Th", type text}, {"Second Aliyah M-Th", type text}, {"Third Aliyah M-Th", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","’","'",Replacer.ReplaceText,{"Occasion"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Replaced Value", {"Date"}, Dates, {"Date"}, "Dates", JoinKind.LeftOuter),
+				    #"Expanded Dates" = Table.ExpandTableColumn(#"Merged Queries", "Dates", {"Parasha"}, {"Parasha"}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Expanded Dates", {"Parasha"}, #"Parashiyos", {"Parasha"}, "Parashiyos", JoinKind.LeftOuter),
+				    #"Expanded Parashiyos" = Table.ExpandTableColumn(#"Merged Queries1", "Parashiyos", {"Sefer", "Book", "Index_Parasha"}, {"Sefer", "Book", "Index_Parasha"}),
+				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Expanded Parashiyos", "Hebrew Month Day", each Text.BeforeDelimiter([Hebrew Date], " 5"), type text),
+				    #"Added Custom" = Table.AddColumn(#"Inserted Text Before Delimiter", "Hebrew Month Year Order", each Text.From([Hebrew Year]) & "-" & Text.PadStart(Text.From([Hebrew Month Number Tishrei Start]), 2, "0"), type text),
+				    #"Merged Queries2" = Table.NestedJoin(#"Added Custom", {"Hebrew Month Day"}, #"Leap Year Index", {"Hebrew Month Day"}, "Leap Year Index", JoinKind.LeftOuter),
+				    #"Expanded Leap Year Index" = Table.ExpandTableColumn(#"Merged Queries2", "Leap Year Index", {"Hebrew Day Index"}, {"Index_Leap"}),
+				    #"Merged Queries3" = Table.NestedJoin(#"Expanded Leap Year Index", {"Hebrew Month Day"}, #"Common Year Index", {"Hebrew Month Day"}, "Common Year Index", JoinKind.LeftOuter),
+				    #"Expanded Common Year Index" = Table.ExpandTableColumn(#"Merged Queries3", "Common Year Index", {"Hebrew Day Index"}, {"Index_Common"}),
+				    #"Sorted Rows" = Table.Sort(#"Expanded Common Year Index",{{"Date", Order.Ascending}}),
+				    #"Merged Queries4" = Table.NestedJoin(#"Sorted Rows", {"Haftarah"}, Haftaros, {"Haftarah"}, "Haftaros", JoinKind.LeftOuter),
+				    #"Expanded Haftaros" = Table.ExpandTableColumn(#"Merged Queries4", "Haftaros", {"Haftarah.1", "Haftarah.2", "Haftarah.3", "Index_Haftarah"}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Expanded Haftaros", "Title", "Title - Copy"),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Duplicated Column",null,"Other",Replacer.ReplaceValue,{"Subcategory"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Replaced Value3"),
+				    #"Pivoted Column" = Table.Pivot(#"Removed Duplicates", List.Distinct(#"Removed Duplicates"[Subcategory]), "Subcategory", "Title"),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Pivoted Column",{{"Title - Copy", "Title"}}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Renamed Columns1","; "," · ",Replacer.ReplaceText,{"Haftarah"}),
+				    // COLLAPSING STEP BEGINS HERE
+				    ColumnNames = List.RemoveItems(Table.ColumnNames(#"Replaced Value4"), {"Date"}),
+				
+				    Grouped = Table.Group(
+				        #"Replaced Value4",
+				        {"Date"},
+				        List.Transform(ColumnNames, each {
+				            _,
+				            (tbl) => Text.Combine(List.Transform(List.Distinct(List.RemoveNulls(Table.Column(tbl, _))), Text.From), "; "),
+				            type text
+				        })
+				    ),
+				    #"Replaced Value1" = Table.ReplaceValue(Grouped,"Hebrew Date; ","",Replacer.ReplaceText,{"Category"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Hebrew Date","",Replacer.ReplaceText,{"Category"}),
+				    #"Extracted Text After Delimiter" = Table.TransformColumns(#"Replaced Value2", {{"Title", each Text.AfterDelimiter(_, "; "), type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Extracted Text After Delimiter",{{"Title", "Jewish Holidays"}}),
+				        // Define the mapping table
+				        Mapping = #table(
+				            {"Find", "Replace"},
+				            {
+				                {"Ha'azinu", "Haazinu"},
+				                {"Ha’azinu", "Haazinu"},
+				                {"Vezos Haberachah", "Vezos Heberachah"},
+				                {"Bereishis", "Bereishis"},
+				                {"Noach", "Noach"},
+				                {"Lech Lecha", "Lech Lecha"},
+				                {"Vayeira", "Vayeira"},
+				                {"Chayei Sarah", "Chayei Sarah"},
+				                {"Toldos", "Toldos"},
+				                {"Vayeitzei", "Vayeitzei"},
+				                {"Vayishlach", "Vayishlach"},
+				                {"Vayeishev", "Vayeishev"},
+				                {"Mikeitz", "Mikeitz"},
+				                {"Vayigash", "Vayigash"},
+				                {"Vayechi", "Vayechi"},
+				                {"Shemos", "Shemos"},
+				                {"Va'eira", "Va'eira"},
+				                {"Va’eira", "Va'eira"},
+				                {"Bo", "Bo"},
+				                {"Beshalach", "Beshalach"},
+				                {"Yisro", "Yisro"},
+				                {"Mishpatim", "Mishpatim"},
+				                {"Tazria", "Tazria"},
+				                {"Metzora", "Metzora"},
+				                {"Pesach", "Pesach"},
+				                {"Acharei Mos", "Acharei"},
+				                {"Kedoshim", "Kedoshim"},
+				                {"Terumah", "Terumah"},
+				                {"Tetzaveh", "Tetzaveh"},
+				                {"Ki Sisa", "Ki Sisa"},
+				                {"Vayakhel", "Vayakhel"},
+				                {"Pekudei", "Pekudei"},
+				                {"Vayikra", "Vayikra"},
+				                {"Tzav", "Tzav"},
+				                {"Shemini", "Shemini"},
+				                {"Emor", "Emor"},
+				                {"Behar", "Behar"},
+				                {"Bechukosai", "Bechukosai"},
+				                {"Bamidbar", "Bamidbar"},
+				                {"Nasso", "Naso"},
+				                {"Beha'aloscha", "Beha'aloscha"},
+				                {"Beha’aloscha", "Beha'aloscha"},
+				                {"Shelach", "Shelach"},
+				                {"Korach", "Korach"},
+				                {"Chukas", "Chukas"},
+				                {"Balak", "Balak"},
+				                {"Pinchas", "Pinchas"},
+				                {"Matos", "Mattos"},
+				                {"Matos-Masei", "Mattos-Masei"},
+				                {"Devarim", "Devarim"},
+				                {"Va'eschanan", "Va'eschanan"},
+				                {"Va’eschanan", "Va'eschanan"},
+				                {"Eikev", "Eikev"},
+				                {"Re'eh", "Re'eh"},
+				                {"Re’eh", "Re'eh"},
+				                {"Shoftim", "Shoftim"},
+				                {"Ki Seitzei", "Ki Seitzei"},
+				                {"Ki Savo", "Ki Savo"},
+				                {"Nitzavim-Vayeilech", "Nitzavim-Vayeilech"},
+				                {"Tazria-Metzora", "Tazria-Metzora"},
+				                {"Acharei Mos-Kedoshim", "Acharei-Kedoshim"},
+				                {"Behar-Bechukosai", "Behar-Bechukosai"},
+				                {"Nitzavim", "Nitzavim"},
+				                {"Vayeilech", "Vayeilech"},
+				                {"Vayakhel-Pekudei", "Vayakhel-Pekudei"}
+				            }
+				        ),
+				
+				        ApplyReplacements = List.Accumulate(
+				            {"Parasha", "Occasion", "Jewish Holidays"},
+				            #"Renamed Columns",
+				            (state, col) => List.Accumulate(
+				                Table.ToRows(Mapping),
+				                state,
+				                (innerState, row) =>
+				                    Table.ReplaceValue(innerState, row{0}, row{1}, Replacer.ReplaceText, {col})
+				            )
+				        ),
+				    #"Merged Queries5" = Table.NestedJoin(ApplyReplacements, {"Date"}, #"Zmanim Last Year/Current Year", {"date"}, "Zmanim Last Year/Current Year", JoinKind.LeftOuter),
+				    #"Expanded Zmanim Last Year/Current Year" = Table.ExpandTableColumn(#"Merged Queries5", "Zmanim Last Year/Current Year", {"city", "tzid", "latitude", "longitude", "chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}, {"city", "tzid", "latitude", "longitude", "chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}),
+				    #"Extracted Text After Delimiter1" = Table.TransformColumns(#"Expanded Zmanim Last Year/Current Year", {{"Haftarah", each Text.AfterDelimiter(_, "; "), type text}, {"Maftir", each Text.AfterDelimiter(_, "; "), type text}, {"Maftir Reason", each Text.AfterDelimiter(_, "; "), type text}, {"Haftarah Reason", each Text.AfterDelimiter(_, "; "), type text}}),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Extracted Text After Delimiter1", "Other", "Other - Copy"),
+				    #"Extracted Text After Delimiter2" = Table.TransformColumns(#"Duplicated Column1", {{"Other - Copy", each Text.AfterDelimiter(_, "; "), type text}}),
+				    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Extracted Text After Delimiter2", "Shabbos Mevorchim", each Text.BetweenDelimiters([#"Other - Copy"], "Mevorchim", ";"), type text),
+				    #"Inserted Text Between Delimiters1" = Table.AddColumn(#"Inserted Text Between Delimiters", "Rosh Chodesh", each Text.BetweenDelimiters([#"Other - Copy"], "Rosh Chodesh", ";"), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Text Between Delimiters1",{"Other - Copy"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns",{{"Hebrew Day of Month", Int64.Type}, {"Hebrew Year", Int64.Type}, {"Hebrew Month Number", Int64.Type}, {"Day of the Omer", Int64.Type}, {"Days in Hebrew Month", Int64.Type}, {"Hebrew Month Number Tishrei Start", Int64.Type}, {"Index_Parasha", Int64.Type}, {"Index_Leap", Int64.Type}, {"Index_Common", Int64.Type}, {"Index_Haftarah", type text}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type1",{"Index_Parasha"}),
+				    #"Merged Queries6" = Table.NestedJoin(#"Removed Columns1", {"Parasha"}, Parashiyos, {"Parasha"}, "Parashiyos", JoinKind.LeftOuter),
+				    #"Expanded Parashiyos1" = Table.ExpandTableColumn(#"Merged Queries6", "Parashiyos", {"Doubled", "Index_Parasha"}, {"Doubled", "Index_Parasha"}),
+				    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Expanded Parashiyos1", {{"Haftarah", each Text.BeforeDelimiter(_, ";"), type text}}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Extracted Text Before Delimiter"," · ","; ",Replacer.ReplaceText,{"Haftarah"})
+				in
+				    #"Replaced Value5"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "dcd91035e5a4067e5d55",
+  "displayName": "Unique Torah Readings",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "pageBinding": {
+    "name": "ec9493e5f33771349154",
+    "type": "Default",
+    "parameters": []
+  }
+}

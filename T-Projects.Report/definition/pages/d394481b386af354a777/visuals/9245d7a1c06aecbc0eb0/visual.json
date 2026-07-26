@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "9245d7a1c06aecbc0eb0",
+  "position": {
+    "x": 703,
+    "y": 0,
+    "z": 1000,
+    "height": 720,
+    "width": 577,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "GroupRef": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Major Holiday",
+                  "GroupedColumns": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Hebcal"
+                          }
+                        },
+                        "Property": "Major Holiday Days"
+                      }
+                    }
+                  ]
+                }
+              },
+              "queryRef": "Hebcal.Major Holiday",
+              "nativeQueryRef": "Major Holiday"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "f1822c82081a9664cba2",
+  "position": {
+    "x": 9.98266897746967,
+    "y": 0,
+    "z": 0,
+    "height": 720,
+    "width": 406.1698440207972,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Month Year"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Month Year",
+              "nativeQueryRef": "Hebrew Month Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Days in Hebrew Month"
+                }
+              },
+              "queryRef": "Sum(Hebcal.Days in Hebrew Month)",
+              "nativeQueryRef": "Days in Hebrew Month"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "93e8ba3a83dcf7fe568e",
+  "position": {
+    "x": 9.98266897746967,
+    "y": 0,
+    "z": 0,
+    "height": 280.13864818024263,
+    "width": 450.46793760831889,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Month Day"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Month Day",
+              "nativeQueryRef": "Hebrew Month Day"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Index_Common"
+                }
+              },
+              "queryRef": "Hebcal.Index_Common",
+              "nativeQueryRef": "Index_Common"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Index_Leap"
+                }
+              },
+              "queryRef": "Hebcal.Index_Leap",
+              "nativeQueryRef": "Index_Leap"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Hebcal"
+                  }
+                },
+                "Property": "Index_Leap"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

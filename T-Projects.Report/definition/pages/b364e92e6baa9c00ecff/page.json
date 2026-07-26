@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "b364e92e6baa9c00ecff",
+  "displayName": "Year Types w/ Torah Count",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

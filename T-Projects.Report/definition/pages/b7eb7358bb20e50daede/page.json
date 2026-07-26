@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "b7eb7358bb20e50daede",
+  "displayName": "Day Length - Full",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920
+}

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "ce3ea649f478e7bc02af",
+  "position": {
+    "x": 527.83362218370883,
+    "y": 194.66204506065856,
+    "z": 8000,
+    "height": 249.56672443674177,
+    "width": 331.2998266897747,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Hierarchy": "Hebrew Year Hierarchy"
+                    }
+                  },
+                  "Level": "Hebrew Year"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Year Hierarchy.Hebrew Year",
+              "nativeQueryRef": "Hebrew Year Hierarchy Hebrew Year",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Hierarchy": "Hebrew Year Hierarchy"
+                    }
+                  },
+                  "Level": "Hebrew Month"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Year Hierarchy.Hebrew Month",
+              "nativeQueryRef": "Hebrew Year Hierarchy Hebrew Month",
+              "active": false
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Hebcal"
+                        }
+                      },
+                      "Hierarchy": "Hebrew Year Hierarchy"
+                    }
+                  },
+                  "Level": "Hebrew Day of Month"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Year Hierarchy.Hebrew Day of Month",
+              "nativeQueryRef": "Hebrew Year Hierarchy Hebrew Day of Month",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Values"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Hebcal.Hebrew Year Hierarchy.Hebrew Year"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Year"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Hebrew Year Hierarchy.Hebrew Month"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Month"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Hebcal.Hebrew Year Hierarchy.Hebrew Day of Month"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

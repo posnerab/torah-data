@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "44c4e2980bf52922bcb0",
+  "position": {
+    "x": 1732.3050259965339,
+    "y": 416.46447140381287,
+    "z": 7000,
+    "height": 654.17677642980937,
+    "width": 827.313691507799,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parasha-Mitzvos"
+                        }
+                      },
+                      "Property": "Sefer"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Parasha-Mitzvos.Sefer)",
+              "nativeQueryRef": "First Sefer",
+              "displayName": "Sefer"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parasha-Mitzvos"
+                        }
+                      },
+                      "Property": "Parasha"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Parasha-Mitzvos.Parasha)",
+              "nativeQueryRef": "Parasha",
+              "displayName": "Parasha"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parasha-Mitzvos"
+                        }
+                      },
+                      "Property": "Mitzvah"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Min(Parasha-Mitzvos.Mitzvah)",
+              "nativeQueryRef": "Mitzvos",
+              "displayName": "Mitzvos"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "textWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "36D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "maxTiles": {
+              "expr": {
+                "Literal": {
+                  "Value": "4L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

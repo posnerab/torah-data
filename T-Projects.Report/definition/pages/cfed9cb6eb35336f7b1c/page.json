@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "cfed9cb6eb35336f7b1c",
+  "displayName": "Year Types",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

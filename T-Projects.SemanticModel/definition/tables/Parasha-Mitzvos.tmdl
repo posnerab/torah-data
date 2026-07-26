@@ -1,0 +1,326 @@
+table Parasha-Mitzvos
+	excludeFromModelRefresh
+	lineageTag: f17483e1-ab91-4ec0-b9cb-ce2b1e708857
+
+	column Link
+		dataType: string
+		lineageTag: 5a8cb68d-d1f8-42a5-8821-0c412cf82d5b
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mitzvah
+		dataType: string
+		lineageTag: fa28c6e6-ceff-459b-9cea-9ee9c65aa577
+		summarizeBy: none
+		sourceColumn: Mitzvah
+
+		annotation SummarizationSetBy = Automatic
+
+	column URL
+		dataType: string
+		lineageTag: f506bb4f-d17c-44dc-b808-72c6cb18357c
+		summarizeBy: none
+		sourceColumn: URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Book
+		dataType: string
+		lineageTag: 17bb3176-f4fd-48df-8d4f-90818867c22b
+		summarizeBy: none
+		sourceColumn: Book
+		sortByColumn: Index_Book
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sefer
+		dataType: string
+		lineageTag: 87c6a2cf-fc03-43f6-a664-b516298c37a1
+		summarizeBy: none
+		sourceColumn: Sefer
+		sortByColumn: Index_Book
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_BookChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ea35947-c8e7-4d73-90a5-f9583690ce2d
+		summarizeBy: none
+		sourceColumn: Index_BookChapter
+
+		annotation SummarizationSetBy = User
+
+	column Index_ChapterVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: bf86bf1c-bdd2-4184-bb68-173648831402
+		summarizeBy: none
+		sourceColumn: Index_ChapterVerse
+
+		annotation SummarizationSetBy = User
+
+	column Parek
+		dataType: string
+		lineageTag: fea0d8dc-0a4b-49ca-afc9-180a56441c08
+		summarizeBy: none
+		sourceColumn: Parek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pasuk
+		dataType: string
+		lineageTag: 73f648dc-00ca-46f0-8571-367b45ed4bdd
+		summarizeBy: none
+		sourceColumn: Pasuk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_BookVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: d1790563-bc4a-4e4f-8c56-79a7dcc4eddd
+		summarizeBy: none
+		sourceColumn: Index_BookVerse
+
+		annotation SummarizationSetBy = User
+
+	column Index_Book
+		dataType: int64
+		formatString: 0
+		lineageTag: fca2a845-28b2-4b92-93a4-1515414cddad
+		summarizeBy: none
+		sourceColumn: Index_Book
+
+		annotation SummarizationSetBy = User
+
+	column Index_Verse
+		dataType: int64
+		formatString: 0
+		lineageTag: 39656a0c-a65b-4af6-853d-618d176219f8
+		summarizeBy: none
+		sourceColumn: Index_Verse
+
+		annotation SummarizationSetBy = User
+
+	column Index_ParashaVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: a29fde91-25d3-4c23-a38e-1254bd234363
+		summarizeBy: none
+		sourceColumn: Index_ParashaVerse
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.Start'
+		dataType: string
+		lineageTag: 10d5925a-84f8-4945-a053-dcda7073d64c
+		summarizeBy: none
+		sourceColumn: Parasha.Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha.End'
+		dataType: string
+		lineageTag: ab9b1a09-5c0f-417b-a2e4-fa70085a0d16
+		summarizeBy: none
+		sourceColumn: Parasha.End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha.StartChapter'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b448b91-7724-4829-8fc3-0e4ad0903547
+		summarizeBy: none
+		sourceColumn: Parasha.StartChapter
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.StartVerse'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d64adc5-a920-4dd7-af77-9f9292e185bd
+		summarizeBy: none
+		sourceColumn: Parasha.StartVerse
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.EndChapter'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a2fb2a5-6d40-447c-b052-a6f2cc6dff9d
+		summarizeBy: none
+		sourceColumn: Parasha.EndChapter
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.EndVerse'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a683795-3e06-46e4-ad53-3409d77adae0
+		summarizeBy: none
+		sourceColumn: Parasha.EndVerse
+
+		annotation SummarizationSetBy = User
+
+	column Index_Chapter
+		dataType: int64
+		formatString: 0
+		lineageTag: 1db93245-45ac-4662-a2eb-58c454652dd4
+		summarizeBy: none
+		sourceColumn: Index_Chapter
+
+		annotation SummarizationSetBy = User
+
+	column Reference
+		dataType: string
+		lineageTag: 2d0f3761-096f-45d2-801c-0df1950a537b
+		summarizeBy: none
+		sourceColumn: Reference
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parasha
+		dataType: string
+		lineageTag: 30e3d0d5-1c1d-4ceb-8ddc-a036b379260c
+		summarizeBy: none
+		sourceColumn: Parasha
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: 38f140e0-aba4-490c-8994-2a8bca0fd4cb
+		summarizeBy: none
+		sourceColumn: StartChapter
+
+		annotation SummarizationSetBy = User
+
+	column StartVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 05d06c64-7575-4ff1-b3b1-6bc242a82218
+		summarizeBy: none
+		sourceColumn: StartVerse
+
+		annotation SummarizationSetBy = User
+
+	column EndChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: bcc8e2fb-12b8-4627-a572-d5b04cde786b
+		summarizeBy: none
+		sourceColumn: EndChapter
+
+		annotation SummarizationSetBy = User
+
+	column EndVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 78008629-02e9-472b-948c-985a6dc1e20a
+		summarizeBy: none
+		sourceColumn: EndVerse
+
+		annotation SummarizationSetBy = User
+
+	column Index_Mitzvah
+		dataType: int64
+		formatString: 0
+		lineageTag: 10ee9c2e-a3a3-4eb6-9ca2-eb27b195dd35
+		summarizeBy: none
+		sourceColumn: Index_Mitzvah
+
+		annotation SummarizationSetBy = User
+
+	column Citation_Transliteration = 'Parasha-Mitzvos'[Sefer] & " " & 'Parasha-Mitzvos'[Index_BookChapter] & ":" & 'Parasha-Mitzvos'[Index_ChapterVerse]
+		lineageTag: fc4b70df-98a4-41b5-9753-e8f52d99c677
+		summarizeBy: none
+		sortByColumn: Index_Verse
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Doubled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 44c2e226-271a-4e97-a11f-b396837e46fb
+		summarizeBy: none
+		sourceColumn: Doubled
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_Parasha
+		dataType: int64
+		formatString: 0
+		lineageTag: 1896a6b3-83b3-4a3f-8fbd-7fc1cf2c5fec
+		summarizeBy: none
+		sourceColumn: Index_Parasha
+
+		annotation SummarizationSetBy = User
+
+	partition Parasha-Mitzvos = m
+		mode: import
+		queryGroup: Chumash
+		source =
+				let
+				    // Reference existing queries instead of external sources
+				    Mitzvos = Mitzvos,
+				    Parashiyos = Parashiyos,
+				
+				    // Attach all matching parashiyos for each mitzvah
+				    Mapped = Table.AddColumn(
+				        Mitzvos,
+				        "ParashaMatches",
+				        (m) =>
+				            Table.SelectRows(Parashiyos, (p) =>
+				                m[Book] = p[Book] and
+				                (
+				                    // Case 1: exact chapter and verse range
+				                    (m[Index_BookChapter] = p[StartChapter] and m[Index_ChapterVerse] >= p[StartVerse] and
+				                     m[Index_BookChapter] = p[EndChapter] and m[Index_ChapterVerse] <= p[EndVerse]) or
+				
+				                    // Case 2: starts in this chapter, ends after
+				                    (m[Index_BookChapter] = p[StartChapter] and m[Index_ChapterVerse] >= p[StartVerse] and
+				                     m[Index_BookChapter] < p[EndChapter]) or
+				
+				                    // Case 3: ends in this chapter, starts earlier
+				                    (m[Index_BookChapter] = p[EndChapter] and m[Index_ChapterVerse] <= p[EndVerse] and
+				                     m[Index_BookChapter] > p[StartChapter]) or
+				
+				                    // Case 4: chapter in between
+				                    (m[Index_BookChapter] > p[StartChapter] and m[Index_BookChapter] < p[EndChapter])
+				                )
+				            )
+				    ),
+				    #"Removed Columns" = Table.RemoveColumns(Mapped,{"Parasha"}),
+				
+				    // Flatten: one row per mitzvah-parasha match
+				    Expanded = Table.ExpandTableColumn(
+				        #"Removed Columns",
+				        "ParashaMatches",
+				        {"Parasha", "StartChapter", "StartVerse", "EndChapter", "EndVerse"}
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Expanded,{{"Link", type text}, {"Mitzvah", type text}, {"URL", type text}, {"Book", type text}, {"Sefer", type text}, {"Index_BookChapter", Int64.Type}, {"Index_ChapterVerse", Int64.Type}, {"Parek", type text}, {"Pasuk", type text}, {"Index_BookVerse", Int64.Type}, {"Index_Book", Int64.Type}, {"Index_Verse", Int64.Type}, {"Index_ParashaVerse", Int64.Type}, {"Parasha.Start", type text}, {"Parasha.End", type text}, {"Parasha.StartChapter", Int64.Type}, {"Parasha.StartVerse", Int64.Type}, {"Parasha.EndChapter", Int64.Type}, {"Parasha.EndVerse", Int64.Type}, {"Index_Parasha", Int64.Type}, {"Index_Chapter", Int64.Type}, {"Reference", type text}, {"Parasha", type text}, {"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [Mitzvah] <> null and [Mitzvah] <> ""),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"Index_Verse", Order.Ascending}, {"Link", Order.Ascending}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Index_Mitzvah"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Index_Parasha"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Columns1", {"Parasha"}, Parashiyos, {"Parasha"}, "Parashiyos", JoinKind.LeftOuter),
+				    #"Expanded Parashiyos" = Table.ExpandTableColumn(#"Merged Queries", "Parashiyos", {"Doubled", "Index_Parasha"}, {"Doubled", "Index_Parasha"})
+				in
+				    #"Expanded Parashiyos"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

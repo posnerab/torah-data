@@ -1,0 +1,146 @@
+table Parashiyos
+	excludeFromModelRefresh
+	lineageTag: c19d6d93-efea-406d-b99d-085f8bae3303
+
+	column Sefer
+		dataType: string
+		lineageTag: db7b3b18-f3f2-4cc3-a197-1d2bd426900f
+		summarizeBy: none
+		sourceColumn: Sefer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Book
+		dataType: string
+		lineageTag: 1631e0e2-ceb9-412d-936b-551638bfc4a7
+		summarizeBy: none
+		sourceColumn: Book
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parasha
+		dataType: string
+		lineageTag: 89acad91-dd3a-4432-94e5-142c00d9b3c8
+		summarizeBy: none
+		sourceColumn: Parasha
+		sortByColumn: Index_Parasha
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start
+		dataType: string
+		lineageTag: 3f4f90bd-4c28-485e-88e6-b4f371d5e789
+		summarizeBy: none
+		sourceColumn: Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column End
+		dataType: string
+		lineageTag: b70ce547-d02b-4a87-8a2b-6029ebd4b0b8
+		summarizeBy: none
+		sourceColumn: End
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: 62602fde-0877-4b4b-8577-1a200f560ee1
+		summarizeBy: none
+		sourceColumn: StartChapter
+
+		annotation SummarizationSetBy = User
+
+	column StartVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 40d64ac4-a401-470d-ab38-c7a826d2b124
+		summarizeBy: none
+		sourceColumn: StartVerse
+
+		annotation SummarizationSetBy = User
+
+	column EndChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: fd38bad8-641e-4b4e-8394-dcf3470a4030
+		summarizeBy: none
+		sourceColumn: EndChapter
+
+		annotation SummarizationSetBy = User
+
+	column EndVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 0288d05e-94f1-4fca-9113-8fff70ce84bc
+		summarizeBy: none
+		sourceColumn: EndVerse
+
+		annotation SummarizationSetBy = User
+
+	column Verses
+		dataType: int64
+		formatString: 0
+		lineageTag: 92e3a102-51a7-40f0-9c44-e5c202513d0c
+		summarizeBy: none
+		sourceColumn: Verses
+
+		annotation SummarizationSetBy = User
+
+	column Index_BookParasha
+		dataType: int64
+		formatString: 0
+		lineageTag: b6912ed5-25e2-4e81-b44d-c978855801b0
+		summarizeBy: none
+		sourceColumn: Index_BookParasha
+
+		annotation SummarizationSetBy = User
+
+	column Index_Parasha
+		dataType: int64
+		formatString: 0
+		lineageTag: d7fad80c-ddad-4004-bbf9-48515719e2bf
+		summarizeBy: none
+		sourceColumn: Index_Parasha
+
+		annotation SummarizationSetBy = User
+
+	column Doubled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1c29ad07-9fbf-462e-9d32-5f8749408f29
+		summarizeBy: none
+		sourceColumn: Doubled
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parashiyos = m
+		mode: import
+		queryGroup: Chumash
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
+				    Sheet = Source{[Item="Parashiyos",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Sefer", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}, {"Verses", Int64.Type}}),
+				
+				    // Group by Book and add an index column within each group
+				    #"Grouped and Added Index" = Table.AddColumn(
+				        Table.Group(#"Changed Type", {"Sefer"}, {{"GroupedData", each Table.AddIndexColumn(_, "Index_BookParasha", 1, 1, Int64.Type)}}),
+				        "Expanded", each [GroupedData]
+				    ),
+				    #"Removed Columns" = Table.RemoveColumns(#"Grouped and Added Index",{"GroupedData"}),
+				    #"Expanded Expanded" = Table.ExpandTableColumn(#"Removed Columns", "Expanded", {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}, {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Expanded",{{"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}, {"Verses", Int64.Type}, {"Index_BookParasha", Int64.Type}, {"Book", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"Doubled", type logical}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Index_Parasha"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

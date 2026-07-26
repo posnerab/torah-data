@@ -1,0 +1,330 @@
+table Pasukim
+	excludeFromModelRefresh
+	lineageTag: 5383b2ff-274d-4eef-a830-10d23194df88
+
+	column Book
+		dataType: string
+		lineageTag: 480ee0a7-9e60-4c4e-9c0c-c4dd934fd72f
+		summarizeBy: none
+		sourceColumn: Book
+		sortByColumn: Index_Book
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parasha
+		dataType: string
+		lineageTag: 2499fe9b-668b-4023-bbfc-38857bcf41bf
+		summarizeBy: none
+		sourceColumn: Parasha
+		sortByColumn: Index_Parasha
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sefer
+		dataType: string
+		lineageTag: a39a2e84-a248-4d4f-8660-09f2bd7a7342
+		summarizeBy: none
+		sourceColumn: Sefer
+		sortByColumn: Index_Book
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_BookChapter
+		dataType: int64
+		formatString: 0
+		lineageTag: b5bf88ea-71ba-4ffe-a4e7-9d3910cee3c1
+		summarizeBy: none
+		sourceColumn: Index_BookChapter
+
+		annotation SummarizationSetBy = User
+
+	column Index_ChapterVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 628c12ec-2e8e-48f2-bdb9-82fd22751a8c
+		summarizeBy: none
+		sourceColumn: Index_ChapterVerse
+
+		annotation SummarizationSetBy = User
+
+	column Parek
+		dataType: string
+		lineageTag: 92c4ec52-cf38-471c-90dc-cde7e2da8819
+		summarizeBy: none
+		sourceColumn: Parek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pasuk
+		dataType: string
+		lineageTag: 0e82e4e0-91db-43f9-86eb-e72134638939
+		summarizeBy: none
+		sourceColumn: Pasuk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_BookVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: cba7e2bf-f26c-4718-8b02-5830b89f8af1
+		summarizeBy: none
+		sourceColumn: Index_BookVerse
+
+		annotation SummarizationSetBy = User
+
+	column Index_Book
+		dataType: int64
+		formatString: 0
+		lineageTag: acd54e71-46cc-4b0e-9ac1-2082338c13d9
+		summarizeBy: none
+		sourceColumn: Index_Book
+
+		annotation SummarizationSetBy = User
+
+	column Index_Verse
+		dataType: int64
+		formatString: 0
+		lineageTag: ade8e67b-428e-4842-81e0-e8cc062f6f80
+		summarizeBy: none
+		sourceColumn: Index_Verse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_ParashaVerse
+		dataType: int64
+		formatString: 0
+		lineageTag: 0aa9fc7a-9986-45bc-91e4-0a6378dc0fb1
+		summarizeBy: none
+		sourceColumn: Index_ParashaVerse
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.Start'
+		dataType: string
+		lineageTag: 2f012f67-b346-4784-a11d-57e7d8f40003
+		summarizeBy: none
+		sourceColumn: Parasha.Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha.End'
+		dataType: string
+		lineageTag: 07329ef4-d571-4eda-8734-607fb4b8bd71
+		summarizeBy: none
+		sourceColumn: Parasha.End
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parasha.StartChapter'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8736f22c-7b72-49b3-b837-251fb7c07814
+		summarizeBy: none
+		sourceColumn: Parasha.StartChapter
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.StartVerse'
+		dataType: int64
+		formatString: 0
+		lineageTag: 68b8b405-63d9-47a4-8b4b-96eaa42353fc
+		summarizeBy: none
+		sourceColumn: Parasha.StartVerse
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.EndChapter'
+		dataType: int64
+		formatString: 0
+		lineageTag: 55e74169-d224-40f6-9f3e-f11e7234f8dd
+		summarizeBy: none
+		sourceColumn: Parasha.EndChapter
+
+		annotation SummarizationSetBy = User
+
+	column 'Parasha.EndVerse'
+		dataType: int64
+		formatString: 0
+		lineageTag: edbed531-8659-4d51-bacb-b8560b1ee150
+		summarizeBy: none
+		sourceColumn: Parasha.EndVerse
+
+		annotation SummarizationSetBy = User
+
+	column Index_Chapter
+		dataType: int64
+		formatString: 0
+		lineageTag: f217e468-5eeb-450f-ac3f-32ef75e01dd7
+		summarizeBy: none
+		sourceColumn: Index_Chapter
+
+		annotation SummarizationSetBy = User
+
+	column Reference
+		dataType: string
+		lineageTag: 2f430c36-35ba-449f-b540-9e81e28de154
+		summarizeBy: none
+		sourceColumn: Reference
+		sortByColumn: Index_Verse
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hebrew_Text
+		dataType: string
+		lineageTag: 4f10b6d8-3b64-487d-b98c-f5049f3a73c1
+		summarizeBy: none
+		sourceColumn: Hebrew_Text
+
+		annotation SummarizationSetBy = Automatic
+
+	column English_Text
+		dataType: string
+		lineageTag: f198b88b-1402-4d63-974b-0857f2efa0c4
+		summarizeBy: none
+		sourceColumn: English_Text
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index_Parasha
+		dataType: int64
+		formatString: 0
+		lineageTag: d0fc9f64-fff9-4ce9-bf15-d60c704da94b
+		summarizeBy: none
+		sourceColumn: Index_Parasha
+
+		annotation SummarizationSetBy = User
+
+	column Citation_Translation = Pasukim[Book] & " " & Pasukim[Index_BookChapter] & ":" & Pasukim[Index_ChapterVerse]
+		lineageTag: dcc9e41b-38e2-4d09-bfdd-56fa1d3e4037
+		summarizeBy: none
+		sortByColumn: Index_Verse
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Citation_Transliteration = Pasukim[Sefer] & " " & Pasukim[Index_BookChapter] & ":" & Pasukim[Index_ChapterVerse]
+		lineageTag: 6f78e0c5-a1ff-4ab1-86ef-3a7d7dba2967
+		summarizeBy: none
+		sortByColumn: Index_Verse
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Citation_Transliteration_Gematria = Pasukim[Sefer] & " Parek " & Pasukim[Parek] & ", Pasuk " & Pasukim[Pasuk]
+		lineageTag: 89297bbb-a0ea-4410-b5f8-b5012fbd7ca5
+		summarizeBy: none
+		sortByColumn: Index_Verse
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Pasukim = m
+		mode: import
+		queryGroup: Chumash
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
+				    Sheet = Source{[Item="Pasukim",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Book", type text}, {"Parasha", type text}, {"Sefer", type text}, {"Index_BookChapter", Int64.Type}, {"Index_ChapterVerse", Int64.Type}, {"Parek", type text}, {"Pasuk", type text}, {"Index_BookVerse", Int64.Type}, {"Index_Book", Int64.Type}, {"Index_Verse", Int64.Type}, {"Index_ParashaVerse", Int64.Type}, {"Parasha.Start", type text}, {"Parasha.End", type text}, {"Parasha.StartChapter", Int64.Type}, {"Parasha.StartVerse", Int64.Type}, {"Parasha.EndChapter", Int64.Type}, {"Parasha.EndVerse", Int64.Type}, {"Index_Parasha", Int64.Type}, {"Index_Chapter", Int64.Type}, {"Reference", type text}, {"Hebrew_Text", type text}, {"English_Text", type text}}),
+				            // Define the mapping table
+				        Mapping = #table(
+				            {"Find", "Replace"},
+				            {
+				                {"Ha'azinu", "Haazinu"},
+				                {"Ha’azinu", "Haazinu"},
+				                {"V'Zos Habracha", "Vezos Heberachah"},
+				                {"Vezos Haberachah", "Vezos Heberachah"},
+				                {"Bereishis", "Bereishis"},
+				                {"Noach", "Noach"},
+				                {"Lech Lecha", "Lech Lecha"},
+				                {"Vayeira", "Vayeira"},
+				                {"Chayei Sarah", "Chayei Sarah"},
+				                {"Toldos", "Toldos"},
+				                {"Vayeitzei", "Vayeitzei"},
+				                {"Vayishlach", "Vayishlach"},
+				                {"Vayeishev", "Vayeishev"},
+				                {"Mikeitz", "Mikeitz"},
+				                {"Vayigash", "Vayigash"},
+				                {"Vayechi", "Vayechi"},
+				                {"Shemos", "Shemos"},
+				                {"Va'eira", "Va'eira"},
+				                {"Va’eira", "Va'eira"},
+				                {"Bo", "Bo"},
+				                {"Beshalach", "Beshalach"},
+				                {"Yisro", "Yisro"},
+				                {"Mishpatim", "Mishpatim"},
+				                {"Tazria", "Tazria"},
+				                {"Metzora", "Metzora"},
+				                {"Pesach", "Pesach"},
+				                {"Acharei Mos", "Acharei"},
+				                {"Kedoshim", "Kedoshim"},
+				                {"Terumah", "Terumah"},
+				                {"Tetzaveh", "Tetzaveh"},
+				                {"Ki Sisa", "Ki Sisa"},
+				                {"Vayakhel", "Vayakhel"},
+				                {"Pekudei", "Pekudei"},
+				                {"Vayikra", "Vayikra"},
+				                {"Tzav", "Tzav"},
+				                {"Shemini", "Shemini"},
+				                {"Emor", "Emor"},
+				                {"Behar", "Behar"},
+				                {"Bechukosai", "Bechukosai"},
+				                {"Bamidbar", "Bamidbar"},
+				                {"Nasso", "Naso"},
+				                {"Beha'aloscha", "Beha'aloscha"},
+				                {"Beha’aloscha", "Beha'aloscha"},
+				                {"Shelach", "Shelach"},
+				                {"Korach", "Korach"},
+				                {"Chukas", "Chukas"},
+				                {"Balak", "Balak"},
+				                {"Pinchas", "Pinchas"},
+				                {"Matos-Masei", "Mattos-Masei"},
+				                {"Matos", "Mattos"},
+				                {"Devarim", "Devarim"},
+				                {"Va'eschanan", "Va'eschanan"},
+				                {"Va’eschanan", "Va'eschanan"},
+				                {"Eikev", "Eikev"},
+				                {"Re'eh", "Re'eh"},
+				                {"Re’eh", "Re'eh"},
+				                {"Shoftim", "Shoftim"},
+				                {"Ki Seitzei", "Ki Seitzei"},
+				                {"Ki Savo", "Ki Savo"},
+				                {"Nitzavim-Vayeilech", "Nitzavim-Vayeilech"},
+				                {"Tazria-Metzora", "Tazria-Metzora"},
+				                {"Acharei Mos-Kedoshim", "Acharei-Kedoshim"},
+				                {"Behar-Bechukosai", "Behar-Bechukosai"},
+				                {"Nitzavim", "Nitzavim"},
+				                {"Vayeilech", "Vayeilech"},
+				                {"Vayakhel-Pekudei", "Vayakhel-Pekudei"}
+				            }
+				        ),
+				
+				        ApplyReplacements = List.Accumulate(
+				            {"Parasha"},
+				            #"Changed Type",
+				            (state, col) => List.Accumulate(
+				                Table.ToRows(Mapping),
+				                state,
+				                (innerState, row) =>
+				                    Table.ReplaceValue(innerState, row{0}, row{1}, Replacer.ReplaceText, {col})
+				            )
+				        )
+				in
+				    ApplyReplacements
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

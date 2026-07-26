@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "94b30ebf97f3e8e48c88",
+  "position": {
+    "x": 980.17331022530323,
+    "y": 0,
+    "z": 0,
+    "height": 116.67244367417678,
+    "width": 300.10398613518197,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parasha-Mitzvos"
+                        }
+                      },
+                      "Property": "Mitzvah"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Min(Parasha-Mitzvos.Mitzvah)",
+              "nativeQueryRef": "Mitzvos",
+              "displayName": "Mitzvos"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Parasha-Mitzvos"
+                      }
+                    },
+                    "Property": "Mitzvah"
+                  }
+                },
+                "Function": 2
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "8541af35ecb6f99b2c4c",
+  "position": {
+    "x": 0,
+    "y": 286.37781629116114,
+    "z": 1000,
+    "height": 433.6221837088388,
+    "width": 1280.2772963604853,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pasukim"
+                    }
+                  },
+                  "Property": "Citation_Transliteration"
+                }
+              },
+              "queryRef": "Pasukim.Citation_Transliteration",
+              "nativeQueryRef": "Verse",
+              "displayName": "Verse"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pasukim"
+                    }
+                  },
+                  "Property": "Hebrew_Text"
+                }
+              },
+              "queryRef": "Pasukim.Hebrew_Text",
+              "nativeQueryRef": "Hebrew_Text"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pasukim"
+                    }
+                  },
+                  "Property": "English_Text"
+                }
+              },
+              "queryRef": "Pasukim.English_Text",
+              "nativeQueryRef": "English_Text"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Pasukim"
+                  }
+                },
+                "Property": "Citation_Transliteration"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "551.2400449556717D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Pasukim.Hebrew_Text"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "612.619369567975D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Pasukim.English_Text"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

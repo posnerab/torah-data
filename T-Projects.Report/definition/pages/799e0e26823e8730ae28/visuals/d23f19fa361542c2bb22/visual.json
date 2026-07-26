@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "d23f19fa361542c2bb22",
+  "position": {
+    "x": 783.32755632582325,
+    "y": 38.370883882149052,
+    "z": 1000,
+    "height": 371.54246100519936,
+    "width": 1137.0883882149049,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Hebrew Month Day"
+                }
+              },
+              "queryRef": "Hebcal.Hebrew Month Day",
+              "nativeQueryRef": "Hebrew Month Day"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Haftarah"
+                }
+              },
+              "queryRef": "Hebcal.Haftarah",
+              "nativeQueryRef": "Haftarah"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Haftarah Reason"
+                }
+              },
+              "queryRef": "Hebcal.Haftarah Reason",
+              "nativeQueryRef": "Haftarah Reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Maftir"
+                }
+              },
+              "queryRef": "Hebcal.Maftir",
+              "nativeQueryRef": "Maftir"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal"
+                    }
+                  },
+                  "Property": "Maftir Reason"
+                }
+              },
+              "queryRef": "Hebcal.Maftir Reason",
+              "nativeQueryRef": "Maftir Reason"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
