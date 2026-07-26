@@ -27,6 +27,7 @@ GENERATOR_PATH = SCRIPT_DIR / "generate_corpus.mjs"
 IMMUTABLE_SOURCE_PATHS = (
     CONTRACT_PATH,
     GENERATOR_PATH,
+    SCRIPT_DIR / "proleptic_hebcal.mjs",
     Path(__file__).resolve(),
     SCRIPT_DIR / "package.json",
     SCRIPT_DIR / "package-lock.json",

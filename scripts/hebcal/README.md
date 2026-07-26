@@ -71,6 +71,10 @@ not be regenerated or overwritten.
 
 The REST helper is for focused verification. Full population uses pinned local
 Hebcal packages so it does not depend on thousands of web requests.
+`proleptic_hebcal.mjs` supplies two version-pinned compatibility corrections
+for negative absolute dates: normalized `dayOnOrBefore` arithmetic and
+Shabbat-aware leyning lookup. Tests require exact parity with upstream leyning
+through a modern positive year and cover BCE boundary cases separately.
 
 Install the pinned one-time population dependencies:
 

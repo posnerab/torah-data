@@ -5,4 +5,4 @@
 *.duckdb.wal
 scripts/powerbi/node_modules/
 scripts/hebcal/node_modules/
-data/hebcal/.staging-*/
+data/hebcal/**/.staging-*/

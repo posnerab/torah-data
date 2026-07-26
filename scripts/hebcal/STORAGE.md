@@ -53,6 +53,7 @@ scripts/
   hebcal/
     corpus-v1.json       # immutable scope and version contract
     generate_corpus.mjs  # pinned local Hebcal generator
+    proleptic_hebcal.mjs # negative-absolute-day compatibility layer
     build_corpus.py      # one-time DuckDB population
     hebcal_api.py        # REST sampling and verification helper
     sql/                 # derived transformations

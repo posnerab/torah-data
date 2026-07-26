@@ -8,7 +8,7 @@ import {fileURLToPath} from 'node:url';
 import {once} from 'node:events';
 
 import {HDate, HebrewCalendar, ParshaEvent, months} from '@hebcal/core';
-import {getLeyningOnDate} from '@hebcal/leyning';
+import {getProlepticLeyningOnDate} from './proleptic_hebcal.mjs';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CONTRACT = JSON.parse(
@@ -284,7 +284,7 @@ function leyningRows(hdate, schedule) {
   const byLocale = Object.fromEntries(
     CONTRACT.locales.map((locale) => [
       locale,
-      getLeyningOnDate(hdate, israel, true, locale),
+      getProlepticLeyningOnDate(hdate, israel, true, locale),
     ]),
   );
   const readings = byLocale.en;
