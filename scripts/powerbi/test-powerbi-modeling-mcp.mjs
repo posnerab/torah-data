@@ -192,11 +192,20 @@ function parseToolPayload(result, operation) {
 const windowTitle = getArgument("--window-title", "T-Projects");
 const requestedMode = getArgument("--mode", "readonly");
 const refreshAll = process.argv.includes("--refresh-all");
+const refreshTable = getArgument("--refresh-table");
+const calculateModel = process.argv.includes("--calculate-model");
+const refreshRequested = refreshAll || refreshTable != null;
 if (!["readonly", "readwrite"].includes(requestedMode)) {
   throw new Error('--mode must be either "readonly" or "readwrite"');
 }
-if (refreshAll && requestedMode !== "readwrite") {
-  throw new Error("--refresh-all requires --mode readwrite");
+if (refreshAll && refreshTable) {
+  throw new Error("--refresh-all and --refresh-table are mutually exclusive");
+}
+if (refreshRequested && requestedMode !== "readwrite") {
+  throw new Error("Refresh operations require --mode readwrite");
+}
+if (calculateModel && !refreshRequested) {
+  throw new Error("--calculate-model requires a refresh operation");
 }
 const modelingMcpArgs = [
   "-y",
@@ -223,6 +232,7 @@ try {
     "database_operations",
     "table_operations",
     "partition_operations",
+    ...(calculateModel ? ["model_operations"] : []),
   ];
   for (const tool of requiredTools) {
     if (!tools.some((candidate) => candidate.name === tool)) {
@@ -278,13 +288,14 @@ try {
     .sort((left, right) => left.localeCompare(right));
 
   let partitionSummary;
-  if (refreshAll) {
+  if (refreshRequested) {
     const beforePayload = parseToolPayload(
       await client.callTool("partition_operations", {
         request: {
           operation: "List",
           connectionName,
           filter: {
+            ...(refreshTable ? { tableName: refreshTable } : {}),
             maxResults: 1_000,
           },
         },
@@ -299,7 +310,21 @@ try {
       })),
     );
     if (refreshDefinitions.length === 0) {
-      throw new Error("No partitions were returned for refresh");
+      throw new Error(
+        refreshTable
+          ? `No partitions were returned for table ${JSON.stringify(refreshTable)}`
+          : "No partitions were returned for refresh",
+      );
+    }
+    if (
+      refreshTable &&
+      refreshDefinitions.some(
+        (definition) => definition.tableName !== refreshTable,
+      )
+    ) {
+      throw new Error(
+        `Partition discovery returned a table other than ${JSON.stringify(refreshTable)}`,
+      );
     }
 
     parseToolPayload(
@@ -318,8 +343,27 @@ try {
         },
         20 * 60_000,
       ),
-      "Refresh all partitions",
+      refreshTable
+        ? `Refresh ${refreshTable} partitions`
+        : "Refresh all partitions",
     );
+
+    if (calculateModel) {
+      parseToolPayload(
+        await client.callTool(
+          "model_operations",
+          {
+            request: {
+              operation: "RefreshWithXMLA",
+              connectionName,
+              refreshType: "Calculate",
+            },
+          },
+          20 * 60_000,
+        ),
+        "Calculate model after targeted refresh",
+      );
+    }
 
     const afterPayload = parseToolPayload(
       await client.callTool("partition_operations", {
@@ -327,6 +371,7 @@ try {
           operation: "List",
           connectionName,
           filter: {
+            ...(refreshTable ? { tableName: refreshTable } : {}),
             maxResults: 1_000,
           },
         },
@@ -345,17 +390,25 @@ try {
       );
     }
     partitionSummary = {
-      refreshedCount: refreshedPartitions.length,
+      refreshedCount: refreshDefinitions.length,
       readyCount: refreshedPartitions.length - notReady.length,
+      ...(refreshTable ? { tableName: refreshTable } : {}),
+      calculatedModel: calculateModel,
     };
   }
+
+  const operationsPerformed = refreshAll
+    ? "full partition refresh"
+    : refreshTable
+      ? `targeted partition refresh: ${refreshTable}${calculateModel ? " plus model calculation" : ""}`
+      : "read-only";
 
   process.stdout.write(
     `${JSON.stringify(
       {
         status: "ok",
         serverMode: requestedMode,
-        operationsPerformed: refreshAll ? "full partition refresh" : "read-only",
+        operationsPerformed,
         advertisedToolCount: tools.length,
         instance: {
           processId: instance.processId,

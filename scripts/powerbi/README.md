@@ -79,19 +79,31 @@ itself exercise a write-time path. During initial setup, a temporary hidden
 measure was created, queried, saved, deleted, and saved again through the live
 Desktop XMLA endpoint to verify unattended writes and persistence.
 
-Refresh every live Desktop partition and verify that each one returns to the
-`Ready` state:
+Refresh only the live `Zmanim` partition, then run an XMLA calculation pass so
+its dependent calculated objects and the small `TODAY()` projections are
+current:
 
 ```powershell
 npm --prefix .\scripts\powerbi run refresh:model
 ```
 
-The refresh command uses a single transactional
-`partition_operations/RefreshWithXMLA` request and allows up to 20 minutes for
-Desktop processing. It requires the web-source credentials and privacy levels
-to have been saved once in the Desktop profile. This machine now has
-Anonymous/Public settings saved for `raw.githubusercontent.com` and
-`www.hebcal.com`, so later runs do not open credential or privacy prompts.
+The routine command uses a targeted
+`partition_operations/RefreshWithXMLA` request followed by
+`model_operations/RefreshWithXMLA` with refresh type `Calculate`. It never
+submits the 20 immutable tables for data refresh. It requires the Zmanim
+web-source credentials and privacy levels to have been saved once in the
+Desktop profile. This machine now has Anonymous/Public settings saved for
+`raw.githubusercontent.com` and `www.hebcal.com`.
+
+Only migration and recovery validation should deliberately full-refresh every
+partition:
+
+```powershell
+npm --prefix .\scripts\powerbi run refresh:model:full-migration
+```
+
+That command bypasses `excludeFromModelRefresh` by explicitly enumerating every
+partition. Do not use it for routine or scheduled Zmanim updates.
 
 Use the registered MCP for semantic-model changes so changes apply to the live
 Desktop model. The report-authoring bridge does not replace Modeling MCP for

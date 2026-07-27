@@ -9,6 +9,7 @@
   "scripts": {
     "test:modeling-mcp": "node ./test-powerbi-modeling-mcp.mjs",
     "test:modeling-mcp:unattended": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite",
-    "refresh:model": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite --refresh-all"
+    "refresh:model": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite --refresh-table Zmanim --calculate-model",
+    "refresh:model:full-migration": "node ./test-powerbi-modeling-mcp.mjs --mode readwrite --refresh-all"
   }
 }
