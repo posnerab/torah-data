@@ -123,39 +123,27 @@ table Parashiyos
 		queryGroup: Chumash
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
-				    ParashiyosTable = Source{[Item="Parashiyos",Kind="Table"]}[Data],
-				    BaseColumns = Table.RemoveColumns(
-				        ParashiyosTable,
-				        {"StartChapter", "StartVerse", "EndChapter", "EndVerse"},
-				        MissingField.Ignore
-				    ),
-				    TypedBase = Table.TransformColumnTypes(
-				        BaseColumns,
-				        {{"Sefer", type text}, {"Book", type text}, {"Parasha", type text}, {"Start", type text}, {"End", type text}, {"Verses", Int64.Type}, {"Doubled", type logical}}
-				    ),
-				    WithStartChapter = Table.AddColumn(TypedBase, "StartChapter", each Int64.From(Number.FromText(Text.BeforeDelimiter([Start], ":"))), Int64.Type),
-				    WithStartVerse = Table.AddColumn(WithStartChapter, "StartVerse", each Int64.From(Number.FromText(Text.AfterDelimiter([Start], ":"))), Int64.Type),
-				    WithEndChapter = Table.AddColumn(WithStartVerse, "EndChapter", each Int64.From(Number.FromText(Text.BeforeDelimiter([End], ":"))), Int64.Type),
-				    WithEndVerse = Table.AddColumn(WithEndChapter, "EndVerse", each Int64.From(Number.FromText(Text.AfterDelimiter([End], ":"))), Int64.Type),
-				    Grouped = Table.Group(
-				        WithEndVerse,
-				        {"Sefer"},
-				        {{"Rows", each Table.AddIndexColumn(_, "Index_BookParasha", 1, 1, Int64.Type), type table}}
-				    ),
-				    Expanded = Table.ExpandTableColumn(
-				        Grouped,
-				        "Rows",
-				        {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"},
-				        {"Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Doubled", "Index_BookParasha"}
-				    ),
-				    WithParashaIndex = Table.AddIndexColumn(Expanded, "Index_Parasha", 1, 1, Int64.Type),
-				    Reordered = Table.ReorderColumns(
-				        WithParashaIndex,
-				        {"Sefer", "Book", "Parasha", "Start", "End", "StartChapter", "StartVerse", "EndChapter", "EndVerse", "Verses", "Index_BookParasha", "Index_Parasha", "Doubled"}
+				    Source = Parquet.Document(File.Contents(#"Power BI Static Path" & "\parashiyos.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Sefer", type text},
+				            {"Book", type text},
+				            {"Parasha", type text},
+				            {"Start", type text},
+				            {"End", type text},
+				            {"StartChapter", Int64.Type},
+				            {"StartVerse", Int64.Type},
+				            {"EndChapter", Int64.Type},
+				            {"EndVerse", Int64.Type},
+				            {"Verses", Int64.Type},
+				            {"Index_BookParasha", Int64.Type},
+				            {"Index_Parasha", Int64.Type},
+				            {"Doubled", type logical}
+				        }
 				    )
 				in
-				    Reordered
+				    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

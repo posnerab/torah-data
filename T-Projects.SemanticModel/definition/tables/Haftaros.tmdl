@@ -146,11 +146,30 @@ table Haftaros
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Calendar.xlsx"), null, true),
-				    Haftaros_1_Table = Source{[Item="Haftaros_1",Kind="Table"]}[Data],
-				    #"Changed Type" = Table.TransformColumnTypes(Haftaros_1_Table,{{"Date", type date}, {"Hebrew Date", type text}, {"Haftarah", type text}, {"Haftarah.1", type text}, {"Haftarah.2", type text}, {"Haftarah.3", type text}, {"Year", Int64.Type}, {"Hebrew Year", Int64.Type}, {"Hebrew Month Day", type text}, {"Day Name", type text}, {"Sefer.1", type text}, {"Sefer.2", type text}, {"Sefer.3", type text}, {"Sefarim", type text}, {"Hebrew Day Index", Int64.Type}, {"Index_Haftarah", Int64.Type}})
+				    Source = Parquet.Document(File.Contents(#"Power BI Static Path" & "\haftaros.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Date", type datetime},
+				            {"Hebrew Date", type text},
+				            {"Haftarah", type text},
+				            {"Haftarah.1", type text},
+				            {"Haftarah.2", type text},
+				            {"Haftarah.3", type text},
+				            {"Year", Int64.Type},
+				            {"Hebrew Year", Int64.Type},
+				            {"Hebrew Month Day", type text},
+				            {"Day Name", type text},
+				            {"Sefer.1", type text},
+				            {"Sefer.2", type text},
+				            {"Sefer.3", type text},
+				            {"Sefarim", type text},
+				            {"Hebrew Day Index", Int64.Type},
+				            {"Index_Haftarah", Int64.Type}
+				        }
+				    )
 				in
-				    #"Changed Type"
+				    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

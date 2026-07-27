@@ -49,60 +49,6 @@ expression 'Zmanim Definitions' =
 
 	annotation PBI_ResultType = Table
 
-expression 'Zmanim Today' =
-		let
-		    Source = Json.Document(Web.Contents("https://www.hebcal.com/zmanim?cfg=json&zip=53216&sec=1")),
-		    #"Converted to Table" = Table.FromRecords({Source}),
-		    #"Expanded location" = Table.ExpandRecordColumn(#"Converted to Table", "location", {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}, {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}),
-		    #"Expanded times" = Table.ExpandRecordColumn(#"Expanded location", "times", {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}, {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Expanded times",{{"date", type date}, {"title", type text}, {"city", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number}, {"cc", type text}, {"country", type text}, {"admin1", type text}, {"asciiname", type text}, {"geo", type text}, {"geonameid", Int64.Type}, {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}}),
-		    #"Added Custom" = Table.AddColumn(#"Changed Type", "Type", each "Today"),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Type", type text}}),
-		    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"version"})
-		in
-		    #"Removed Columns"
-	lineageTag: bb343bdb-05d7-4fc3-8e28-c9cc9cba48c9
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Zmanim Last Week' =
-		let
-		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
-		    Current_Year_Table = Source{[Item="Last_Current_Next",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Current_Year_Table,{{"date", type date}, {"title", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number},{"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each Date.IsInPreviousNDays([date], 7)),
-		    #"Kept First Rows" = Table.FirstN(#"Filtered Rows1",1),
-		    #"Added Custom" = Table.AddColumn(#"Kept First Rows", "Type", each "Last Week"),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Type", type text}, {"city", type text}, {"country", type text}, {"admin1", type text}, {"geo", type text}})
-		in
-		    #"Changed Type1"
-	lineageTag: 35cf1cf7-dc72-4993-911b-c6f1875a1bb5
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-expression 'Zmanim Yesterday' =
-		let
-		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
-		    Current_Year_Table = Source{[Item="Last_Current_Next",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Current_Year_Table,{{"date", type date}, {"title", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number}, {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each Date.IsInPreviousDay([date])),
-		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Type", each "Yesterday"),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"city", type text}, {"cc", type text}, {"country", type text}, {"admin1", type text}, {"geo", type text}, {"Type", type text}})
-		in
-		    #"Changed Type1"
-	lineageTag: d880b1c0-2a01-42af-8457-da05657bd2ee
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 expression 'Zmanim Last Week Unpivoted' =
 		let
 		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
@@ -140,28 +86,6 @@ expression 'Zmanim Yesterday Unpivoted' =
 
 	annotation PBI_ResultType = Table
 
-expression Mitzvos =
-		let
-		    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
-		    Sheet = Source{[Item="Mitzvos",Kind="Sheet"]}[Data],
-		    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
-		    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Link", type text}, {"Mitzvah", type text}, {"Reference", type text}, {"Verse", Int64.Type}, {"URL", type text}}),
-		    #"Merged Queries1" = Table.NestedJoin(#"Changed Type1", {"Reference"}, Pasukim, {"Reference"}, "Pasukim", JoinKind.Inner),
-		    #"Expanded Pasukim1" = Table.ExpandTableColumn(#"Merged Queries1", "Pasukim", {"Book", "Parasha", "Sefer", "Index_BookChapter", "Index_ChapterVerse", "Parek", "Pasuk", "Index_BookVerse", "Index_Book", "Index_Verse", "Index_ParashaVerse", "Parasha.Start", "Parasha.End", "Parasha.StartChapter", "Parasha.StartVerse", "Parasha.EndChapter", "Parasha.EndVerse", "Index_Parasha", "Index_Chapter"}, {"Book", "Parasha", "Sefer", "Index_BookChapter", "Index_ChapterVerse", "Parek", "Pasuk", "Index_BookVerse", "Index_Book", "Index_Verse", "Index_ParashaVerse", "Parasha.Start", "Parasha.End", "Parasha.StartChapter", "Parasha.StartVerse", "Parasha.EndChapter", "Parasha.EndVerse", "Index_Parasha", "Index_Chapter"}),
-		    #"Merged Queries" = Table.NestedJoin(#"Expanded Pasukim1", {"Reference"}, Pasukim, {"Reference"}, "Pasukim", JoinKind.RightOuter),
-		    #"Expanded Pasukim" = Table.ExpandTableColumn(#"Merged Queries", "Pasukim", {"Book", "Parasha", "Sefer", "Index_BookChapter", "Index_ChapterVerse", "Parek", "Pasuk", "Index_BookVerse", "Index_Book", "Index_Verse", "Index_ParashaVerse", "Parasha.Start", "Parasha.End", "Parasha.StartChapter", "Parasha.StartVerse", "Parasha.EndChapter", "Parasha.EndVerse", "Index_Parasha", "Index_Chapter", "Reference"}, {"Book.1", "Parasha.1", "Sefer.1", "Index_BookChapter.1", "Index_ChapterVerse.1", "Parek.1", "Pasuk.1", "Index_BookVerse.1", "Index_Book.1", "Index_Verse.1", "Index_ParashaVerse.1", "Parasha.Start.1", "Parasha.End.1", "Parasha.StartChapter.1", "Parasha.StartVerse.1", "Parasha.EndChapter.1", "Parasha.EndVerse.1", "Index_Parasha.1", "Index_Chapter.1", "Reference.1"}),
-		    #"Removed Columns" = Table.RemoveColumns(#"Expanded Pasukim",{"Reference", "Book", "Parasha", "Sefer", "Index_BookChapter", "Index_ChapterVerse", "Parek", "Pasuk", "Index_BookVerse", "Index_Book", "Index_Verse", "Index_ParashaVerse", "Parasha.Start", "Parasha.End", "Parasha.StartChapter", "Parasha.StartVerse", "Parasha.EndChapter", "Parasha.EndVerse", "Index_Parasha", "Index_Chapter", "Verse"}),
-		    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Reference.1", "Reference"}, {"Index_Chapter.1", "Index_Chapter"}, {"Index_Parasha.1", "Index_Parasha"}, {"Parasha.EndVerse.1", "Parasha.EndVerse"}, {"Parasha.EndChapter.1", "Parasha.EndChapter"}, {"Parasha.StartVerse.1", "Parasha.StartVerse"}, {"Parasha.StartChapter.1", "Parasha.StartChapter"}, {"Parasha.End.1", "Parasha.End"}, {"Parasha.Start.1", "Parasha.Start"}, {"Index_ParashaVerse.1", "Index_ParashaVerse"}, {"Index_Verse.1", "Index_Verse"}, {"Index_Book.1", "Index_Book"}, {"Index_BookVerse.1", "Index_BookVerse"}, {"Pasuk.1", "Pasuk"}, {"Parek.1", "Parek"}, {"Index_ChapterVerse.1", "Index_ChapterVerse"}, {"Index_BookChapter.1", "Index_BookChapter"}, {"Sefer.1", "Sefer"}, {"Parasha.1", "Parasha"}, {"Book.1", "Book"}}),
-		    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Column6"})
-		in
-		    #"Removed Columns1"
-	lineageTag: 96466e88-353b-4a3d-a73e-87af0c8e8826
-	queryGroup: Chumash
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 /// Local path to the finalized immutable Hebcal corpus v1 Parquet partitions. Change only when relocating the corpus; core data is not regenerated.
 expression 'Hebcal Corpus Path' = "G:\Projects\torah-data\data\hebcal\corpus-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 68d66809-1897-47fa-938c-cba1952fad3c
@@ -189,4 +113,8 @@ expression 'Hebcal Compatibility Path' = "G:\Projects\torah-data\data\hebcal\pow
 	queryGroup: Hebcal
 
 	annotation PBI_ResultType = Text
+
+/// Local path to the immutable exact static semantic-table compatibility v1 Parquet files. Relocate only; these tables are loaded once and excluded from model refresh.
+expression 'Power BI Static Path' = "G:\Projects\torah-data\data\powerbi-static-v1\tables" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: c8e86a9a-4e6a-46bb-8f41-fa9872ba05d7
 

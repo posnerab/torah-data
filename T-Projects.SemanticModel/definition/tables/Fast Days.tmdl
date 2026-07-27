@@ -63,11 +63,21 @@ table 'Fast Days'
 		mode: import
 		source =
 				let
-				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("vZTLCsIwEEV/Zei6i75EXVYQEaGKZCPqYtRAAtqUjHXh15s01meX0U3KZO49NzRD1usgjoBJEprLIAxW6gQzWVW1tgUnszKlUZhvoT77cbANjb8PDE/11Uqvpt0Wzr3QqhL8TC0gJ9QIo00dRUmf8QunEBrbhB/wKFHcy5aSuozB7zPSl9/wpvack/0px9xrfrEZJu3hbna6U751ScMZ+sHEMeQHtGPD0DWxlARjOguuW/MSdzv5RHUKs1ccTKfeiKnfA6beD5hAIQnLT9mI74XSir6I7oLmd0jPQTIfEPNk2DHsnE2fY7y9AQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Hebrew Month Day" = _t, Name = _t, Biblical = _t, Source = _t, #"Firstborn Only" = _t, Category = _t, #"Category Rank" = _t]),
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Hebrew Month Day", type text}, {"Name", type text}, {"Biblical", type text}, {"Source", type text}, {"Firstborn Only", type text}, {"Category", type text}, {"Category Rank", Int64.Type}}),
-				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Category Rank", Order.Ascending}, {"Name", Order.Ascending}, {"Hebrew Month Day", Order.Ascending}})
+				    Source = Parquet.Document(File.Contents(#"Power BI Static Path" & "\fast_days.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Hebrew Month Day", type text},
+				            {"Name", type text},
+				            {"Biblical", type text},
+				            {"Source", type text},
+				            {"Firstborn Only", type text},
+				            {"Category", type text},
+				            {"Category Rank", Int64.Type}
+				        }
+				    )
 				in
-				    #"Sorted Rows"
+				    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

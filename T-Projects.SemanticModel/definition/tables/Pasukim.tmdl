@@ -234,95 +234,36 @@ table Pasukim
 		queryGroup: Chumash
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Torah.xlsx"), null, true),
-				    Sheet = Source{[Item="Pasukim",Kind="Sheet"]}[Data],
-				    #"Promoted Headers" = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Book", type text}, {"Parasha", type text}, {"Sefer", type text}, {"Index_BookChapter", Int64.Type}, {"Index_ChapterVerse", Int64.Type}, {"Parek", type text}, {"Pasuk", type text}, {"Index_BookVerse", Int64.Type}, {"Index_Book", Int64.Type}, {"Index_Verse", Int64.Type}, {"Index_ParashaVerse", Int64.Type}, {"Parasha.Start", type text}, {"Parasha.End", type text}, {"Parasha.StartChapter", Int64.Type}, {"Parasha.StartVerse", Int64.Type}, {"Parasha.EndChapter", Int64.Type}, {"Parasha.EndVerse", Int64.Type}, {"Index_Parasha", Int64.Type}, {"Index_Chapter", Int64.Type}, {"Reference", type text}, {"Hebrew_Text", type text}, {"English_Text", type text}}),
-				            // Define the mapping table
-				        Mapping = #table(
-				            {"Find", "Replace"},
-				            {
-				                {"Ha'azinu", "Haazinu"},
-				                {"Ha’azinu", "Haazinu"},
-				                {"V'Zos Habracha", "Vezos Heberachah"},
-				                {"Vezos Haberachah", "Vezos Heberachah"},
-				                {"Bereishis", "Bereishis"},
-				                {"Noach", "Noach"},
-				                {"Lech Lecha", "Lech Lecha"},
-				                {"Vayeira", "Vayeira"},
-				                {"Chayei Sarah", "Chayei Sarah"},
-				                {"Toldos", "Toldos"},
-				                {"Vayeitzei", "Vayeitzei"},
-				                {"Vayishlach", "Vayishlach"},
-				                {"Vayeishev", "Vayeishev"},
-				                {"Mikeitz", "Mikeitz"},
-				                {"Vayigash", "Vayigash"},
-				                {"Vayechi", "Vayechi"},
-				                {"Shemos", "Shemos"},
-				                {"Va'eira", "Va'eira"},
-				                {"Va’eira", "Va'eira"},
-				                {"Bo", "Bo"},
-				                {"Beshalach", "Beshalach"},
-				                {"Yisro", "Yisro"},
-				                {"Mishpatim", "Mishpatim"},
-				                {"Tazria", "Tazria"},
-				                {"Metzora", "Metzora"},
-				                {"Pesach", "Pesach"},
-				                {"Acharei Mos", "Acharei"},
-				                {"Kedoshim", "Kedoshim"},
-				                {"Terumah", "Terumah"},
-				                {"Tetzaveh", "Tetzaveh"},
-				                {"Ki Sisa", "Ki Sisa"},
-				                {"Vayakhel", "Vayakhel"},
-				                {"Pekudei", "Pekudei"},
-				                {"Vayikra", "Vayikra"},
-				                {"Tzav", "Tzav"},
-				                {"Shemini", "Shemini"},
-				                {"Emor", "Emor"},
-				                {"Behar", "Behar"},
-				                {"Bechukosai", "Bechukosai"},
-				                {"Bamidbar", "Bamidbar"},
-				                {"Nasso", "Naso"},
-				                {"Beha'aloscha", "Beha'aloscha"},
-				                {"Beha’aloscha", "Beha'aloscha"},
-				                {"Shelach", "Shelach"},
-				                {"Korach", "Korach"},
-				                {"Chukas", "Chukas"},
-				                {"Balak", "Balak"},
-				                {"Pinchas", "Pinchas"},
-				                {"Matos-Masei", "Mattos-Masei"},
-				                {"Matos", "Mattos"},
-				                {"Devarim", "Devarim"},
-				                {"Va'eschanan", "Va'eschanan"},
-				                {"Va’eschanan", "Va'eschanan"},
-				                {"Eikev", "Eikev"},
-				                {"Re'eh", "Re'eh"},
-				                {"Re’eh", "Re'eh"},
-				                {"Shoftim", "Shoftim"},
-				                {"Ki Seitzei", "Ki Seitzei"},
-				                {"Ki Savo", "Ki Savo"},
-				                {"Nitzavim-Vayeilech", "Nitzavim-Vayeilech"},
-				                {"Tazria-Metzora", "Tazria-Metzora"},
-				                {"Acharei Mos-Kedoshim", "Acharei-Kedoshim"},
-				                {"Behar-Bechukosai", "Behar-Bechukosai"},
-				                {"Nitzavim", "Nitzavim"},
-				                {"Vayeilech", "Vayeilech"},
-				                {"Vayakhel-Pekudei", "Vayakhel-Pekudei"}
-				            }
-				        ),
-				
-				        ApplyReplacements = List.Accumulate(
-				            {"Parasha"},
-				            #"Changed Type",
-				            (state, col) => List.Accumulate(
-				                Table.ToRows(Mapping),
-				                state,
-				                (innerState, row) =>
-				                    Table.ReplaceValue(innerState, row{0}, row{1}, Replacer.ReplaceText, {col})
-				            )
-				        )
+				    Source = Parquet.Document(File.Contents(#"Power BI Static Path" & "\pasukim.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Book", type text},
+				            {"Parasha", type text},
+				            {"Sefer", type text},
+				            {"Index_BookChapter", Int64.Type},
+				            {"Index_ChapterVerse", Int64.Type},
+				            {"Parek", type text},
+				            {"Pasuk", type text},
+				            {"Index_BookVerse", Int64.Type},
+				            {"Index_Book", Int64.Type},
+				            {"Index_Verse", Int64.Type},
+				            {"Index_ParashaVerse", Int64.Type},
+				            {"Parasha.Start", type text},
+				            {"Parasha.End", type text},
+				            {"Parasha.StartChapter", Int64.Type},
+				            {"Parasha.StartVerse", Int64.Type},
+				            {"Parasha.EndChapter", Int64.Type},
+				            {"Parasha.EndVerse", Int64.Type},
+				            {"Index_Chapter", Int64.Type},
+				            {"Reference", type text},
+				            {"Hebrew_Text", type text},
+				            {"English_Text", type text},
+				            {"Index_Parasha", Int64.Type}
+				        }
+				    )
 				in
-				    ApplyReplacements
+				    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 

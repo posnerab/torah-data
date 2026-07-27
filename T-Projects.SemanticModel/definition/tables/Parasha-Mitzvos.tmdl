@@ -272,53 +272,43 @@ table Parasha-Mitzvos
 		queryGroup: Chumash
 		source =
 				let
-				    // Reference existing queries instead of external sources
-				    Mitzvos = Mitzvos,
-				    Parashiyos = Parashiyos,
-				
-				    // Attach all matching parashiyos for each mitzvah
-				    Mapped = Table.AddColumn(
-				        Mitzvos,
-				        "ParashaMatches",
-				        (m) =>
-				            Table.SelectRows(Parashiyos, (p) =>
-				                m[Book] = p[Book] and
-				                (
-				                    // Case 1: exact chapter and verse range
-				                    (m[Index_BookChapter] = p[StartChapter] and m[Index_ChapterVerse] >= p[StartVerse] and
-				                     m[Index_BookChapter] = p[EndChapter] and m[Index_ChapterVerse] <= p[EndVerse]) or
-				
-				                    // Case 2: starts in this chapter, ends after
-				                    (m[Index_BookChapter] = p[StartChapter] and m[Index_ChapterVerse] >= p[StartVerse] and
-				                     m[Index_BookChapter] < p[EndChapter]) or
-				
-				                    // Case 3: ends in this chapter, starts earlier
-				                    (m[Index_BookChapter] = p[EndChapter] and m[Index_ChapterVerse] <= p[EndVerse] and
-				                     m[Index_BookChapter] > p[StartChapter]) or
-				
-				                    // Case 4: chapter in between
-				                    (m[Index_BookChapter] > p[StartChapter] and m[Index_BookChapter] < p[EndChapter])
-				                )
-				            )
-				    ),
-				    #"Removed Columns" = Table.RemoveColumns(Mapped,{"Parasha"}),
-				
-				    // Flatten: one row per mitzvah-parasha match
-				    Expanded = Table.ExpandTableColumn(
-				        #"Removed Columns",
-				        "ParashaMatches",
-				        {"Parasha", "StartChapter", "StartVerse", "EndChapter", "EndVerse"}
-				    ),
-				    #"Changed Type" = Table.TransformColumnTypes(Expanded,{{"Link", type text}, {"Mitzvah", type text}, {"URL", type text}, {"Book", type text}, {"Sefer", type text}, {"Index_BookChapter", Int64.Type}, {"Index_ChapterVerse", Int64.Type}, {"Parek", type text}, {"Pasuk", type text}, {"Index_BookVerse", Int64.Type}, {"Index_Book", Int64.Type}, {"Index_Verse", Int64.Type}, {"Index_ParashaVerse", Int64.Type}, {"Parasha.Start", type text}, {"Parasha.End", type text}, {"Parasha.StartChapter", Int64.Type}, {"Parasha.StartVerse", Int64.Type}, {"Parasha.EndChapter", Int64.Type}, {"Parasha.EndVerse", Int64.Type}, {"Index_Parasha", Int64.Type}, {"Index_Chapter", Int64.Type}, {"Reference", type text}, {"Parasha", type text}, {"StartChapter", Int64.Type}, {"StartVerse", Int64.Type}, {"EndChapter", Int64.Type}, {"EndVerse", Int64.Type}}),
-				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [Mitzvah] <> null and [Mitzvah] <> ""),
-				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"Index_Verse", Order.Ascending}, {"Link", Order.Ascending}}),
-				    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type),
-				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Index_Mitzvah"}}),
-				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Index_Parasha"}),
-				    #"Merged Queries" = Table.NestedJoin(#"Removed Columns1", {"Parasha"}, Parashiyos, {"Parasha"}, "Parashiyos", JoinKind.LeftOuter),
-				    #"Expanded Parashiyos" = Table.ExpandTableColumn(#"Merged Queries", "Parashiyos", {"Doubled", "Index_Parasha"}, {"Doubled", "Index_Parasha"})
+				    Source = Parquet.Document(File.Contents(#"Power BI Static Path" & "\parasha_mitzvos.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Link", type text},
+				            {"Mitzvah", type text},
+				            {"URL", type text},
+				            {"Book", type text},
+				            {"Sefer", type text},
+				            {"Index_BookChapter", Int64.Type},
+				            {"Index_ChapterVerse", Int64.Type},
+				            {"Parek", type text},
+				            {"Pasuk", type text},
+				            {"Index_BookVerse", Int64.Type},
+				            {"Index_Book", Int64.Type},
+				            {"Index_Verse", Int64.Type},
+				            {"Index_ParashaVerse", Int64.Type},
+				            {"Parasha.Start", type text},
+				            {"Parasha.End", type text},
+				            {"Parasha.StartChapter", Int64.Type},
+				            {"Parasha.StartVerse", Int64.Type},
+				            {"Parasha.EndChapter", Int64.Type},
+				            {"Parasha.EndVerse", Int64.Type},
+				            {"Index_Chapter", Int64.Type},
+				            {"Reference", type text},
+				            {"Parasha", type text},
+				            {"StartChapter", Int64.Type},
+				            {"StartVerse", Int64.Type},
+				            {"EndChapter", Int64.Type},
+				            {"EndVerse", Int64.Type},
+				            {"Index_Mitzvah", Int64.Type},
+				            {"Doubled", type logical},
+				            {"Index_Parasha", Int64.Type}
+				        }
+				    )
 				in
-				    #"Expanded Parashiyos"
+				    Typed
 
 	annotation PBI_NavigationStepName = Navigation
 
