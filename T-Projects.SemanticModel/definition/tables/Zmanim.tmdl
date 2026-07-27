@@ -697,6 +697,7 @@ table Zmanim
 		queryGroup: Zmanim
 		source =
 				let
+				    CurrentDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
 				    Source = Table.NestedJoin(#"Zmanim Definitions", {"Variable"}, #"Zmanim Today Unpivoted", {"Attribute"}, "Today_Unpivot", JoinKind.LeftOuter),
 				    #"Merged Queries" = Table.NestedJoin(Source, {"Variable"}, #"Zmanim Today Unpivoted Elevation", {"Attribute"}, "Today_Unpivot_Elevation", JoinKind.LeftOuter),
 				    #"Merged Queries1" = Table.NestedJoin(#"Merged Queries", {"Variable"}, #"Zmanim Yesterday Unpivoted", {"Attribute"}, "Zmanim Yesterday Unpivoted", JoinKind.LeftOuter),
@@ -705,8 +706,8 @@ table Zmanim
 				    #"Expanded Today_Unpivot_Elevation" = Table.ExpandTableColumn(#"Expanded Today_Unpivot", "Today_Unpivot_Elevation", {"Value_Elevation"}, {"Value_Elevation"}),
 				    #"Expanded Zmanim Yesterday Unpivoted" = Table.ExpandTableColumn(#"Expanded Today_Unpivot_Elevation", "Zmanim Yesterday Unpivoted", {"Value_Yesterday"}, {"Value_Yesterday"}),
 				    #"Expanded Zmanim Last Week Unpivoted" = Table.ExpandTableColumn(#"Expanded Zmanim Yesterday Unpivoted", "Zmanim Last Week Unpivoted", {"Value_OneWeekAgo"}, {"Value_OneWeekAgo"}),
-				    #"Added Custom" = Table.AddColumn(#"Expanded Zmanim Last Week Unpivoted", "Date", each Date.From(DateTime.LocalNow())),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Date", type date}, {"Value", type datetimezone}, {"Value_Elevation", type datetimezone}, {"Value_Yesterday", type datetimezone}, {"Value_OneWeekAgo", type datetimezone}})
+				    #"Added Custom" = Table.AddColumn(#"Expanded Zmanim Last Week Unpivoted", "Date", each CurrentDate, type date),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom", {{"Value", type datetimezone}, {"Value_Elevation", type datetimezone}, {"Value_Yesterday", type datetimezone}, {"Value_OneWeekAgo", type datetimezone}})
 				in
 				    #"Changed Type"
 

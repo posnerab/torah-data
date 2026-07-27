@@ -1,14 +1,23 @@
+/// Gets the location-authoritative current Milwaukee date from Hebcal and returns only variables in the static definition contract.
 expression 'Zmanim Today Unpivoted' =
 		let
-		    Source = Json.Document(Web.Contents("https://www.hebcal.com/zmanim?cfg=json&zip=53216&sec=1")),
-		    #"Converted to Table" = Table.FromRecords({Source}),
-		    #"Expanded location" = Table.ExpandRecordColumn(#"Converted to Table", "location", {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}, {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}),
-		    #"Expanded times" = Table.ExpandRecordColumn(#"Expanded location", "times", {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}, {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}),
-		    #"Removed Columns" = Table.RemoveColumns(#"Expanded times",{"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid", "sofZmanTfillaMGA16Point1", "date", "version"}),
-		    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Columns", {}, "Attribute", "Value"),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Unpivoted Columns",{{"Value", type datetimezone}})
+		    Source = Json.Document(
+		        Web.Contents(
+		            "https://www.hebcal.com",
+		            [
+		                RelativePath = "zmanim",
+		                Query = [cfg = "json", zip = "53216", sec = "1"]
+		            ]
+		        )
+		    ),
+		    ApiDate = Date.FromText(Source[date]),
+		    Times = Record.ToTable(Source[times]),
+		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value"}}),
+		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
+		    WithDate = Table.AddColumn(Filtered, "ApiDate", each ApiDate, type date),
+		    Typed = Table.TransformColumnTypes(WithDate, {{"Attribute", type text}, {"Value", type datetimezone}})
 		in
-		    #"Changed Type"
+		    Typed
 	lineageTag: 7307c1dc-a09e-429d-9c40-c761fb7a32fe
 	queryGroup: Zmanim
 
@@ -16,18 +25,31 @@ expression 'Zmanim Today Unpivoted' =
 
 	annotation PBI_ResultType = Table
 
+/// Gets elevation-adjusted Milwaukee zmanim for the exact date returned by the authoritative current response.
 expression 'Zmanim Today Unpivoted Elevation' =
 		let
-		    Source = Json.Document(Web.Contents("https://www.hebcal.com/zmanim?cfg=json&zip=53216&sec=1&ue=on")),
-		    #"Converted to Table" = Table.FromRecords({Source}),
-		    #"Expanded location" = Table.ExpandRecordColumn(#"Converted to Table", "location", {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}, {"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid"}),
-		    #"Expanded times" = Table.ExpandRecordColumn(#"Expanded location", "times", {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}, {"chatzotNight", "alotHaShachar", "misheyakir", "misheyakirMachmir", "dawn", "sunrise", "sofZmanShmaMGA16Point1", "sofZmanShmaMGA", "sofZmanShma", "sofZmanTfillaMGA16Point1", "sofZmanTfillaMGA", "sofZmanTfilla", "chatzot", "minchaGedola", "minchaKetana", "plagHaMincha", "sunset", "beinHaShmashos", "dusk", "tzeit7083deg", "tzeit85deg", "tzeit42min", "tzeit50min", "tzeit72min"}),
-		    #"Removed Columns" = Table.RemoveColumns(#"Expanded times",{"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "asciiname", "geo", "geonameid", "sofZmanTfillaMGA16Point1", "date", "version"}),
-		    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Columns", {}, "Attribute", "Value"),
-		    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Columns",{{"Value", "Value_Elevation"}}),
-		    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Value_Elevation", type datetimezone}})
+		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
+		    Source = Json.Document(
+		        Web.Contents(
+		            "https://www.hebcal.com",
+		            [
+		                RelativePath = "zmanim",
+		                Query = [
+		                    cfg = "json",
+		                    zip = "53216",
+		                    sec = "1",
+		                    ue = "on",
+		                    date = Date.ToText(ApiDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
+		                ]
+		            ]
+		        )
+		    ),
+		    Times = Record.ToTable(Source[times]),
+		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_Elevation"}}),
+		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
+		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_Elevation", type datetimezone}})
 		in
-		    #"Changed Type"
+		    Typed
 	lineageTag: 881ce347-03bc-47bc-a10a-6e92063660ae
 	queryGroup: Zmanim
 
@@ -35,13 +57,41 @@ expression 'Zmanim Today Unpivoted Elevation' =
 
 	annotation PBI_ResultType = Table
 
+/// Static 25-row semantic definition table. Edit this inline contract directly; it has no external refresh source.
 expression 'Zmanim Definitions' =
 		let
-		    Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/zmanim.xlsx"), null, true),
-		    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"Variable", type text}, {"Definition", type text}, {"Name", type text}, {"Description", type text}})
+		    Source = #table(
+		        type table [Variable = text, Definition = text, Name = text, Description = text],
+		        {
+		            {"alotHaShachar", "Dawn", "Alos HaShachar", "Sun is 16.1° below the horizon in the morning"},
+		            {"beinHaShmashos", "Twilight", "Bein HaShmashos", "13.5 minutes prior to tzeis (nightfall) when the sun is 7.083° below horizon"},
+		            {"chatzot", "Midday", "Chatzos Hayom", "Sunrise plus 6 halachic hours"},
+		            {"chatzotNight", "Midnight", "Chatzos HaLailah", "Sunset plus 6 halachic hours"},
+		            {"dawn", "Civil dawn", "Civil dawn", "Sun is 6° below the horizon in the morning"},
+		            {"dayLength", "Day Length", "Halachic Day", "Length of the day from sunrise to sunset, according to the Gra"},
+		            {"dusk", "Civil dusk", "Civil dusk", "Sun is 6° below the horizon in the evening"},
+		            {"minchaGedola", "Earliest Mincha", "Mincha Gedolah", "Sunrise plus 6.5 halachic hours"},
+		            {"minchaKetana", "Ideal earliest time to recite Mincha", "Mincha Ketana", "Sunrise plus 9.5 halachic hours"},
+		            {"misheyakir", "Earliest tallis & tefillin", "Misheyakir", "Sun is 11.5° below the horizon in the morning"},
+		            {"misheyakirMachmir", "Earliest tallis & tefillin", "Misheyakir Machmir", "Sun is 10.2° below the horizon in the morning"},
+		            {"plagHaMincha", "Half of Mincha", "Plag HaMincha", "Sunrise plus 10.75 halachic hours"},
+		            {"shaahZmanis", "Proportional Hour", "Shaah Zmanis", "Halachic hour, one-twelfth of the period from the beginning of the day (sunrise) until its conclusion (sunset)"},
+		            {"sofZmanShma", "Latest Shema (Gra)", "Sof Z’man Kriyas Shema (Gra)", "Sunrise plus 3 halachic hours, according to the Gra"},
+		            {"sofZmanShmaMGA", "Latest Shema (MGA Gra-36)", "Sof Z’man Kriyas Shema (MGA Gra-36 min.)", "Sunrise plus 3 halachic hours, according to Magen Avraham"},
+		            {"sofZmanShmaMGA16Point1", "Latest Shema (MGA 16.1°)", "Sof Z’man Kriyas Shema (MGA 16.1°)", "Alos HaShachar plus 3 halachic hours, according to Magen Avraham"},
+		            {"sofZmanTfilla", "Latest Shacharis (Gra)", "Sof Z’man Tefillah (Gra)", "Sunrise plus 4 halachic hours, according to the Gra"},
+		            {"sofZmanTfillaMGA", "Latest Shacharis (MGA)", "Sof Z’man Tefillah (MGA)", "Alos HaShachar plus 4 halachic hours, according to Magen Avraham"},
+		            {"sunrise", "Sunrise", "Hanetz HaChama", "Upper edge of the sun appears over the eastern horizon in the morning (0.833° above horizon)"},
+		            {"sunset", "Sunset", "Shkiah", "When the upper edge of the sun disappears below the horizon (0.833° below horizon)"},
+		            {"tzeit42min", "Nightfall (3 medium stars)", "Tzeis Hakochavim (42 min.)", "When 3 medium stars are observable in the night sky with the naked eye (fixed 42 minutes after sunset)"},
+		            {"tzeit50min", "Nightfall (3 small stars)", "Tzeis Hakochavim (50 min.)", "When 3 small stars are observable in the night sky with the naked eye (fixed 50 minutes after sunset)"},
+		            {"tzeit7083deg", "Nightfall (3 medium stars)", "Tzeis Hakochavim (7.083°)", "When 3 medium stars are observable in the night sky with the naked eye (sun 7.083° below the horizon)"},
+		            {"tzeit72min", "Nightfall (Rabbeinu Tam)", "Tzeis Hakochavim (72 min.)", "When 3 small stars are observable in the night sky with the naked eye (fixed 72 minutes after sunset)"},
+		            {"tzeit85deg", "Nightfall (3 small stars)", "Tzeis Hakochavim (8.5°)", "When 3 small stars are observable in the night sky with the naked eye (sun 8.5° below the horizon)"}
+		        }
+		    )
 		in
-		    #"Changed Type"
+		    Source
 	lineageTag: e1bc547b-6ead-41af-9265-e0256b180b6f
 	queryGroup: Zmanim
 
@@ -49,18 +99,31 @@ expression 'Zmanim Definitions' =
 
 	annotation PBI_ResultType = Table
 
+/// Gets Milwaukee zmanim for exactly seven days before the date returned by the authoritative current response.
 expression 'Zmanim Last Week Unpivoted' =
 		let
-		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
-		    Current_Year_Table = Source{[Item="Last_Current_Next",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Current_Year_Table,{{"date", type date}, {"title", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number}, {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}}),
-		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each Date.IsInPreviousNDays([date], 7)),
-		    #"Kept First Rows" = Table.FirstN(#"Filtered Rows1",1),
-		        Custom1 = Table.RemoveColumns(#"Kept First Rows",{"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "geo", "sofZmanTfillaMGA16Point1", "date"}),
-		    Custom2 = Table.UnpivotOtherColumns(#"Custom1", {}, "Attribute", "Value"),
-		    #"Renamed Columns" = Table.RenameColumns(Custom2,{{"Value", "Value_OneWeekAgo"}})
+		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
+		    TargetDate = Date.AddDays(ApiDate, -7),
+		    Source = Json.Document(
+		        Web.Contents(
+		            "https://www.hebcal.com",
+		            [
+		                RelativePath = "zmanim",
+		                Query = [
+		                    cfg = "json",
+		                    zip = "53216",
+		                    sec = "1",
+		                    date = Date.ToText(TargetDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
+		                ]
+		            ]
+		        )
+		    ),
+		    Times = Record.ToTable(Source[times]),
+		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_OneWeekAgo"}}),
+		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
+		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_OneWeekAgo", type datetimezone}})
 		in
-		    #"Renamed Columns"
+		    Typed
 	lineageTag: 95a36789-0487-4dd2-9abe-cf5a3a74c7a9
 	queryGroup: Zmanim
 
@@ -68,17 +131,31 @@ expression 'Zmanim Last Week Unpivoted' =
 
 	annotation PBI_ResultType = Table
 
+/// Gets Milwaukee zmanim for exactly one day before the date returned by the authoritative current response.
 expression 'Zmanim Yesterday Unpivoted' =
 		let
-		        Source = Excel.Workbook(Web.Contents("https://raw.githubusercontent.com/posnerab/torah-data/main/Zmanim_Last_Current_Year_Milwaukee.xlsx"), null, true),
-		    Current_Year_Table = Source{[Item="Last_Current_Next",Kind="Table"]}[Data],
-		    #"Changed Type" = Table.TransformColumnTypes(Current_Year_Table,{{"date", type date}, {"title", type text}, {"tzid", type text}, {"latitude", type number}, {"longitude", type number}, {"chatzotNight", type datetimezone}, {"alotHaShachar", type datetimezone}, {"misheyakir", type datetimezone}, {"misheyakirMachmir", type datetimezone}, {"dawn", type datetimezone}, {"sunrise", type datetimezone}, {"sofZmanShmaMGA16Point1", type datetimezone}, {"sofZmanShmaMGA", type datetimezone}, {"sofZmanShma", type datetimezone}, {"sofZmanTfillaMGA16Point1", type datetimezone}, {"sofZmanTfillaMGA", type datetimezone}, {"sofZmanTfilla", type datetimezone}, {"chatzot", type datetimezone}, {"minchaGedola", type datetimezone}, {"minchaKetana", type datetimezone}, {"plagHaMincha", type datetimezone}, {"sunset", type datetimezone}, {"beinHaShmashos", type datetimezone}, {"dusk", type datetimezone}, {"tzeit7083deg", type datetimezone}, {"tzeit85deg", type datetimezone}, {"tzeit42min", type datetimezone}, {"tzeit50min", type datetimezone}, {"tzeit72min", type datetimezone}}),
-		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each Date.IsInPreviousDay([date])),
-		    Custom1 = Table.RemoveColumns(#"Filtered Rows",{"title", "city", "tzid", "latitude", "longitude", "cc", "country", "admin1", "geo", "sofZmanTfillaMGA16Point1", "date"}),
-		    Custom2 = Table.UnpivotOtherColumns(#"Custom1", {}, "Attribute", "Value"),
-		    #"Renamed Columns" = Table.RenameColumns(Custom2,{{"Value", "Value_Yesterday"}})
+		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
+		    TargetDate = Date.AddDays(ApiDate, -1),
+		    Source = Json.Document(
+		        Web.Contents(
+		            "https://www.hebcal.com",
+		            [
+		                RelativePath = "zmanim",
+		                Query = [
+		                    cfg = "json",
+		                    zip = "53216",
+		                    sec = "1",
+		                    date = Date.ToText(TargetDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
+		                ]
+		            ]
+		        )
+		    ),
+		    Times = Record.ToTable(Source[times]),
+		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_Yesterday"}}),
+		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
+		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_Yesterday", type datetimezone}})
 		in
-		    #"Renamed Columns"
+		    Typed
 	lineageTag: d51ef750-dbe4-45cd-b01e-9ad9a5c3bf63
 	queryGroup: Zmanim
 
