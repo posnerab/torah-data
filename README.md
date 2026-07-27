@@ -18,8 +18,8 @@ Open `T-Projects.pbip` in Power BI Desktop. The report is stored as PBIR under
 `T-Projects.Report`, and the semantic model is stored as TMDL under
 `T-Projects.SemanticModel`.
 
-The repository retains these tracked source workbooks for lineage and the
-remaining migration boundary:
+The repository retains these tracked source workbooks for historical lineage
+only:
 
 - `Calendar.xlsx`
 - `Holidays.xlsx`
@@ -27,10 +27,12 @@ remaining migration boundary:
 - `zmanim.xlsx`
 - `Zmanim_Last_Current_Year_Milwaukee.xlsx`
 
-After the static partition cutovers, only the small, current-date `Zmanim`
-surface should read the workbooks during routine model refresh. Historical and
-curated tables load once from the committed Parquet artifacts and remain
-excluded from Refresh All.
+No current semantic-model partition or named expression reads these workbooks.
+Historical and curated tables load once from committed Parquet artifacts and
+remain excluded from Refresh All. The only dynamic import surface is the small
+`Zmanim` table, which reads the Hebcal API directly for the API-reported
+current Milwaukee date, that date with elevation enabled, one day earlier,
+and seven days earlier.
 
 See [scripts/powerbi/README.md](scripts/powerbi/README.md) for the supported
 local Power BI modeling, report-authoring, Desktop reload, screenshot, and
