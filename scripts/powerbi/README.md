@@ -3,6 +3,11 @@
 This folder provides the supported local workflow for the `T-Projects.pbip`
 Power BI Desktop project.
 
+For querying data baked into `.pbi/cache.abf` with Power BI Desktop closed,
+see [cache-engine/README.md](cache-engine/README.md). That workflow converts
+the Desktop cache into a standard backup and restores it into a normal SQL
+Server 2025 Analysis Services instance.
+
 ## Architecture
 
 The Microsoft tooling has three separate layers:

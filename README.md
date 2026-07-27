@@ -38,5 +38,10 @@ See [scripts/powerbi/README.md](scripts/powerbi/README.md) for the supported
 local Power BI modeling, report-authoring, Desktop reload, screenshot, and
 data-source credential workflow.
 
+See
+[scripts/powerbi/cache-engine/README.md](scripts/powerbi/cache-engine/README.md)
+for importing a local `.pbi/cache.abf` into SQL Server 2025 Analysis Services
+and running DAX while Power BI Desktop is closed.
+
 See [scripts/hebcal/README.md](scripts/hebcal/README.md) for the immutable
 corpus contract, population, validation, and migration workflow.
