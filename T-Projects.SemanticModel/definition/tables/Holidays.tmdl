@@ -33,8 +33,6 @@ table Holidays
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 		annotation PBI_FormatHint = {"isCustom":true}
 
 	column 'Day of Week'
@@ -141,8 +139,6 @@ table Holidays
 			defaultHierarchy: LocalDateTable_633cb0f0-6690-4259-8387-a030210fc104.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column Upcoming = IF(Holidays[Start Date]>=TODAY(),"Yes","No")
 		lineageTag: 4eadaf51-9460-408a-ab99-59aeaa6fe3ca

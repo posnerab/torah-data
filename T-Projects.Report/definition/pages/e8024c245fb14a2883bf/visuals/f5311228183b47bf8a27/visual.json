@@ -1,0 +1,296 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "f5311228183b47bf8a27",
+  "position": {
+    "x": 40,
+    "y": 125,
+    "z": 2000,
+    "height": 915,
+    "width": 1840,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Book English"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Book English",
+              "nativeQueryRef": "Book English",
+              "displayName": "Book"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Begin Reference English"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Begin Reference English",
+              "nativeQueryRef": "Begin Reference English",
+              "displayName": "From"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "End Reference English"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.End Reference English",
+              "nativeQueryRef": "End Reference English",
+              "displayName": "Through"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Last Haftarah Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Last Haftarah Date",
+              "nativeQueryRef": "Last Haftarah Date",
+              "displayName": "Last Read"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Last Haftarah Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Last Haftarah Hebrew Date",
+              "nativeQueryRef": "Last Haftarah Hebrew Date",
+              "displayName": "Last Hebrew Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Next Haftarah Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Next Haftarah Date",
+              "nativeQueryRef": "Next Haftarah Date",
+              "displayName": "Next Read"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Next Haftarah Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Next Haftarah Hebrew Date",
+              "nativeQueryRef": "Next Haftarah Hebrew Date",
+              "displayName": "Next Hebrew Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Passage"
+                    }
+                  },
+                  "Property": "Haftarah Read Spread Days"
+                }
+              },
+              "queryRef": "Hebcal Reading Passage.Haftarah Read Spread Days",
+              "nativeQueryRef": "Haftarah Read Spread Days",
+              "displayName": "Days Between"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Hebcal Reading Passage"
+                  }
+                },
+                "Property": "Haftarah Read Spread Days"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filtera29d33be95f04a38beade1df",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Hebcal Reading Passage"
+              }
+            },
+            "Property": "Passage Kind"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "h",
+              "Entity": "Hebcal Reading Passage",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "h"
+                          }
+                        },
+                        "Property": "Passage Kind"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'haft'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "isLockedInViewMode": true
+      }
+    ]
+  }
+}

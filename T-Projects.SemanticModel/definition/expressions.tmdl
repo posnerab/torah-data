@@ -195,3 +195,5 @@ expression 'Hebcal Compatibility Path' = "G:\Projects\torah-data\data\hebcal\pow
 expression 'Power BI Static Path' = "G:\Projects\torah-data\data\powerbi-static-v1\tables" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: c8e86a9a-4e6a-46bb-8f41-fa9872ba05d7
 
+	annotation PBI_ResultType = Text
+

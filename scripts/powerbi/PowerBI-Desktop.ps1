@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)]
-    [ValidateSet('Doctor', 'Validate', 'Open', 'Status', 'Manifest', 'Reload', 'Screenshot', 'ScreenshotAll')]
+    [ValidateSet('Doctor', 'Validate', 'Open', 'Status', 'Manifest', 'Save', 'Reload', 'Screenshot', 'ScreenshotAll')]
     [string]$Action,
 
     [int]$ProcessId,
@@ -89,6 +89,18 @@ switch ($Action) {
             throw '-ProcessId is required for Manifest.'
         }
         & powerbi-desktop manifest --pid $ProcessId
+        exit $LASTEXITCODE
+    }
+    'Save' {
+        if ($ProcessId -le 0) {
+            throw '-ProcessId is required for Save.'
+        }
+
+        & (Join-Path $PSScriptRoot 'ui_automation\Save-PowerBIDesktop.ps1') `
+            -Action Save `
+            -ProcessId $ProcessId `
+            -ExpectedProjectPath $projectPath `
+            -WaitSeconds ([Math]::Min($WaitSeconds, 60))
         exit $LASTEXITCODE
     }
     'Reload' {

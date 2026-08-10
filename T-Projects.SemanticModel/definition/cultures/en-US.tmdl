@@ -22241,6 +22241,552 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
+			    },
+			    "hebcal_reading_passage.book_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Book English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Book": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.begin_reference_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Begin Reference English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "From": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.end_reference_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "End Reference English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Through": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.last_haftarah_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Last Haftarah Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last Read": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.last_haftarah_hebrew_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Last Haftarah Hebrew Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last Hebrew Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.next_haftarah_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Next Haftarah Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next Read": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.next_haftarah_hebrew_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Next Haftarah Hebrew Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next Hebrew Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_passage.haftarah_read_spread_days": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Passage",
+			          "ConceptualProperty": "Haftarah Read Spread Days"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Days Between": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.reading_type": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Reading Type"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Type": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.name_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Name English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reading": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.summary_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Summary English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Torah Reading": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.last_torah_reading_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Last Torah Reading Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last Read": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.last_torah_reading_hebrew_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Last Torah Reading Hebrew Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last Hebrew Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.next_torah_reading_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Next Torah Reading Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next Read": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.next_torah_reading_hebrew_date": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Next Torah Reading Hebrew Date"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next Hebrew Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.torah_reading_spread_days": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Torah Reading Spread Days"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Days Between": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.combined_reading_names": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Combined Reading Names"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reading": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hebcal_reading_definition.haftarah_reading_english": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hebcal Reading Definition",
+			          "ConceptualProperty": "Haftarah Reading English"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Haftarah Reading": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.rosh_hashanah_iii": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Rosh Hashanah I–II"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rosh Hashanah I–II": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.shemini_atzeretsimchat_torah": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Shemini Atzeret–Simchat Torah"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Shemini Atzeret–Simchat Torah": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_year_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Year Count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Year Count": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_last_hebrew_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Last Hebrew Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last Hebrew Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_last_gregorian_start_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Last Gregorian Start Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last English Start Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_next_hebrew_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Next Hebrew Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next Hebrew Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_next_gregorian_start_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Next Gregorian Start Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Next English Start Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "holiday_weekday_year_pattern.holiday_pattern_example_years": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Holiday Weekday Year Pattern",
+			          "ConceptualProperty": "Holiday Pattern Example Years"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Example Years": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {

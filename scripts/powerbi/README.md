@@ -187,6 +187,10 @@ Refresh All does not reprocess immutable data.
 .\scripts\powerbi\PowerBI-Desktop.ps1 -Action Open
 .\scripts\powerbi\PowerBI-Desktop.ps1 -Action Status
 
+# Invoke the exact PBIP instance's accessible Save control and verify the
+# Desktop Bridge clears its unsaved flag.
+.\scripts\powerbi\PowerBI-Desktop.ps1 -Action Save -ProcessId <PID>
+
 # After each logical PBIR edit batch.
 .\scripts\powerbi\PowerBI-Desktop.ps1 -Action Validate
 
@@ -204,24 +208,32 @@ The wrapper detects the Microsoft Store executable and sets
 `PBI_DESKTOP_PATH` for the bridge CLI. Screenshots default to the workspace
 evidence folder `..\tmp\powerbi-bridge`, outside this repository.
 
+The Save action is implemented by
+[`ui_automation/Save-PowerBIDesktop.ps1`](ui_automation/Save-PowerBIDesktop.ps1).
+It finds the accessible Save button by AutomationId and invokes its Windows UI
+Automation pattern. It does not use coordinate clicks, SendKeys, or window
+activation. See [`ui_automation/README.md`](ui_automation/README.md) for the
+guarded flow.
+
 Before reload, the wrapper checks `hasUnsavedChanges`. It refuses to reload
 when Desktop has unsaved UI changes because the bridge has no save operation
-and a reload could discard them. Save or discard those changes in Desktop,
-rerun `Status`, then reload.
+and a reload could discard them. Run the guarded `Save` action above (or
+discard the changes intentionally), rerun `Status`, then reload.
 
 The current report's initial validator baseline is not clean: with
-`@microsoft/powerbi-report-authoring-cli` 0.1.4 it reports 12 errors and 32
+`@microsoft/powerbi-report-authoring-cli` 0.1.4 it reports 12 errors and 33
 warnings. Treat that as pre-existing report debt; compare future validation
 results to the baseline and fix it in a dedicated report-cleanup change.
 
-## GitHub data-source authentication
+## GitHub source and credential audit
 
 `T-Projects.SemanticModel` does not contain a GitHub connector or embedded
-GitHub authentication. It uses generic Power Query `Web.Contents` calls to
-`raw.githubusercontent.com` in the public `posnerab/torah-data` repository.
-The five distinct files currently return HTTP 200 without authentication.
+GitHub authentication. The current model has no `raw.githubusercontent.com`
+sources because the static inputs have been migrated to committed Parquet.
 
-Run the non-secret audit again with:
+Run the non-secret audit to confirm that state. If a future model revision adds
+GitHub sources, the same script requires every discovered URL to return HTTP
+200 anonymously:
 
 ```powershell
 .\scripts\powerbi\Test-GitHubWebSources.ps1
@@ -238,14 +250,15 @@ The current profile archive contains Power BI's opaque
 is profile-wide, so the presence of that blob cannot identify its source or
 prove which authentication kind it contains. The audit script reports the
 archive entry but does not attempt to decrypt or identify its contents. The
-GitHub sources were verified separately in Desktop as Anonymous/Public.
+audit reports zero sources for the current model and still checks that no
+credential-like text was embedded in TMDL.
 
 Directly injecting a token into `User.zip` is not a supported Power BI API or
 file format and is unsafe: credential records are proprietary, encrypted,
 version-sensitive, and can be corrupted or leaked through archive backups.
 
-Keep the public sources on Anonymous authentication. If the repository becomes
-private:
+If GitHub web sources are added again, keep public sources on Anonymous
+authentication. If the repository becomes private:
 
 1. Create a dedicated fine-grained PAT restricted to this repository with
    **Contents: read** and an expiry. Do not reuse the broader `gh` CLI OAuth

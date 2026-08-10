@@ -174,25 +174,27 @@ After each PBIR edit batch:
    incorrect navigation, and rendering errors.
 5. Iterate until the intended state is visible.
 
-The current report has a pre-existing validator baseline of 12 errors and 32
+The current report has a pre-existing validator baseline of 12 errors and 33
 warnings with report-authoring CLI 0.1.4. The known errors are a missing schema
 in `definition.pbir` and existing slicer role-cardinality diagnostics. Do not
 claim clean validation and do not silently repair this unrelated debt during a
 focused report edit. Require the counts not to worsen and reserve cleanup for
 a dedicated change.
 
-## GitHub web-source authentication
+## GitHub source and credential audit
 
 The semantic model does not contain a GitHub connector or embedded GitHub
-credential. It uses generic `Web.Contents` calls to five public files on
-`raw.githubusercontent.com`. Audit them without revealing secrets:
+credential. The current static inputs load from committed Parquet, so there are
+no `raw.githubusercontent.com` sources. Audit that state without revealing
+secrets:
 
 ```powershell
 .\scripts\powerbi\Test-GitHubWebSources.ps1
 ```
 
-The audit must find at least one GitHub URL, require HTTP 200 anonymously for
-all distinct URLs, and report only metadata. It may list entries inside:
+The audit reports zero GitHub sources for the current model, scans TMDL for
+credential-like text, and requires HTTP 200 anonymously if future GitHub URLs
+are introduced. It may list entries inside:
 
 ```text
 %USERPROFILE%\Microsoft\Power BI Desktop Store App\User.zip
@@ -203,9 +205,8 @@ BI store. The presence of `Credentials/Credentials.bin` does not identify a
 GitHub credential or authentication kind. Never decrypt, rewrite, inject a
 PAT into, copy, log, or commit this archive.
 
-Keep the current public sources Anonymous with Public privacy levels for
-`raw.githubusercontent.com` and `www.hebcal.com`. These settings were saved in
-Desktop and a subsequent all-partition refresh completed without prompts.
+Keep `www.hebcal.com` Anonymous with a Public privacy level. If GitHub web
+sources are introduced again, keep public URLs Anonymous/Public as well.
 
 If the repository becomes private, do not reuse the broad `gh` CLI OAuth token.
 Use a dedicated expiring fine-grained PAT with repository Contents read-only,

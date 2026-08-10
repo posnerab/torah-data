@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "56214eb37fe9419d9e5d",
+  "displayName": "Torah Last & Next",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920
+}

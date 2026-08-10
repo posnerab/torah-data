@@ -4,6 +4,89 @@ table 'Hebcal Reading Passage'
 	excludeFromModelRefresh
 	lineageTag: e7d12aec-0e59-4078-a5bc-f4ef98ae0f9e
 
+	/// Most recent Gregorian date before today on which the selected unique haftarah passage was read in the Diaspora schedule.
+	measure 'Last Haftarah Date' =
+			VAR _definitionKeys =
+			    CALCULATETABLE(
+			        VALUES('Hebcal Reading Passage'[Reading Definition Key]),
+			        KEEPFILTERS('Hebcal Reading Passage'[Passage Kind] = "haft")
+			    )
+			VAR _occurrences =
+			    CALCULATETABLE(
+			        'Hebcal Reading Occurrence',
+			        REMOVEFILTERS('Hebcal Reading Occurrence'),
+			        TREATAS(_definitionKeys, 'Hebcal Reading Occurrence'[Reading Definition Key]),
+			        'Hebcal Reading Occurrence'[Schedule Key] = 0
+			    )
+			RETURN
+			    MAXX(
+			        FILTER(_occurrences, RELATED('Hebrew Date'[Date]) < TODAY()),
+			        RELATED('Hebrew Date'[Date])
+			    )
+		formatString: Long Date
+		displayFolder: Haftarah Schedule
+		lineageTag: 9e59958f-c432-4dad-b0e1-8084d9c34177
+
+	/// Next Gregorian date on or after today on which the selected unique haftarah passage is read in the Diaspora schedule.
+	measure 'Next Haftarah Date' =
+			VAR _definitionKeys =
+			    CALCULATETABLE(
+			        VALUES('Hebcal Reading Passage'[Reading Definition Key]),
+			        KEEPFILTERS('Hebcal Reading Passage'[Passage Kind] = "haft")
+			    )
+			VAR _occurrences =
+			    CALCULATETABLE(
+			        'Hebcal Reading Occurrence',
+			        REMOVEFILTERS('Hebcal Reading Occurrence'),
+			        TREATAS(_definitionKeys, 'Hebcal Reading Occurrence'[Reading Definition Key]),
+			        'Hebcal Reading Occurrence'[Schedule Key] = 0
+			    )
+			RETURN
+			    MINX(
+			        FILTER(_occurrences, RELATED('Hebrew Date'[Date]) >= TODAY()),
+			        RELATED('Hebrew Date'[Date])
+			    )
+		formatString: Long Date
+		displayFolder: Haftarah Schedule
+		lineageTag: 537aafa7-e55e-4642-b0a3-71edb79c8e74
+
+	/// Hebrew date corresponding to Last Haftarah Date.
+	measure 'Last Haftarah Hebrew Date' =
+			VAR _date = [Last Haftarah Date]
+			RETURN
+			    CALCULATE(
+			        SELECTEDVALUE('Hebrew Date'[Hebrew Date English]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Date] = _date
+			    )
+		displayFolder: Haftarah Schedule
+		lineageTag: bd826d5f-c803-4ed7-af18-67bb55157bd8
+
+	/// Hebrew date corresponding to Next Haftarah Date.
+	measure 'Next Haftarah Hebrew Date' =
+			VAR _date = [Next Haftarah Date]
+			RETURN
+			    CALCULATE(
+			        SELECTEDVALUE('Hebrew Date'[Hebrew Date English]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Date] = _date
+			    )
+		displayFolder: Haftarah Schedule
+		lineageTag: 3a241e76-8694-45fa-ac6c-bfddaa86dd43
+
+	/// Number of calendar days between the selected unique haftarah passage's most recent and next Diaspora readings.
+	measure 'Haftarah Read Spread Days' =
+			VAR _lastDate = [Last Haftarah Date]
+			VAR _nextDate = [Next Haftarah Date]
+			RETURN
+			    IF(
+			        NOT ISBLANK(_lastDate) && NOT ISBLANK(_nextDate),
+			        DATEDIFF(_lastDate, _nextDate, DAY)
+			    )
+		formatString: #,##0
+		displayFolder: Haftarah Schedule
+		lineageTag: 6e9da0eb-3a71-4997-a756-d2439707673f
+
 	/// Foreign key to Hebcal Reading Definition.
 	column 'Reading Definition Key'
 		dataType: int64

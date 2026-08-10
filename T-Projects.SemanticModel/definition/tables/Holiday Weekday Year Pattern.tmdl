@@ -1,0 +1,220 @@
+/// One row per Hebrew year from 1 through 6000, with Diaspora major-holiday weekday pairs derived from the immutable Hebrew calendar corpus.
+table 'Holiday Weekday Year Pattern'
+	lineageTag: 7bd3ab2f-2b6b-413e-889c-39dc15fd6e83
+
+	/// Number of Hebrew years from 1 through 6000 that share the selected major-holiday weekday combination.
+	measure 'Holiday Pattern Year Count' = DISTINCTCOUNT('Holiday Weekday Year Pattern'[Hebrew Year])
+		formatString: #,##0
+		displayFolder: Pattern Summary
+		lineageTag: 4569c82c-f518-49ec-830b-f3e0fc9358c2
+
+	/// First twelve Hebrew years in the selected holiday weekday combination; an ellipsis indicates additional matching years.
+	measure 'Holiday Pattern Example Years' =
+			VAR _years =
+			    VALUES('Holiday Weekday Year Pattern'[Hebrew Year])
+			VAR _sampleYears =
+			    TOPN(
+			        12,
+			        _years,
+			        'Holiday Weekday Year Pattern'[Hebrew Year],
+			        ASC
+			    )
+			VAR _sampleText =
+			    CONCATENATEX(
+			        _sampleYears,
+			        FORMAT('Holiday Weekday Year Pattern'[Hebrew Year], "0"),
+			        ", ",
+			        'Holiday Weekday Year Pattern'[Hebrew Year],
+			        ASC
+			    )
+			RETURN
+			    _sampleText &
+			    IF(
+			        COUNTROWS(_years) > 12,
+			        ", …"
+			    )
+		displayFolder: Pattern Summary
+		lineageTag: c2b16cd9-33a9-4610-b9f3-15e184ab1768
+
+	/// Most recent Hebrew year before the current Hebrew year that shares the selected major-holiday weekday pattern.
+	measure 'Holiday Pattern Last Hebrew Year' =
+			VAR _currentHebrewYear =
+			    CALCULATE(
+			        MAX('Hebrew Date'[Hebrew Year]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Date] = TODAY()
+			    )
+			VAR _patternSort =
+			    SELECTEDVALUE('Holiday Weekday Year Pattern'[Pattern Sort])
+			RETURN
+			    MAXX(
+			        FILTER(
+			            ALL('Holiday Weekday Year Pattern'),
+			            'Holiday Weekday Year Pattern'[Pattern Sort] = _patternSort
+			                && 'Holiday Weekday Year Pattern'[Hebrew Year] < _currentHebrewYear
+			        ),
+			        'Holiday Weekday Year Pattern'[Hebrew Year]
+			    )
+		formatString: 0
+		displayFolder: Pattern Occurrence
+		lineageTag: 0a77c6a3-ef71-4b27-9bd7-79d8a2678123
+
+	/// Gregorian year containing 1 Tishrei of the most recent prior Hebrew year with the selected holiday weekday pattern.
+	measure 'Holiday Pattern Last Gregorian Start Year' =
+			VAR _targetHebrewYear = [Holiday Pattern Last Hebrew Year]
+			RETURN
+			    CALCULATE(
+			        MIN('Hebrew Date'[Gregorian Year Signed]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Hebrew Year] = _targetHebrewYear,
+			        'Hebrew Date'[Hebrew Month] = "Tishrei",
+			        'Hebrew Date'[Hebrew Day] = 1
+			    )
+		formatString: 0
+		displayFolder: Pattern Occurrence
+		lineageTag: 7838e83e-1ab0-4542-9d23-adc37e24c01b
+
+	/// First Hebrew year on or after the current Hebrew year that shares the selected major-holiday weekday pattern.
+	measure 'Holiday Pattern Next Hebrew Year' =
+			VAR _currentHebrewYear =
+			    CALCULATE(
+			        MAX('Hebrew Date'[Hebrew Year]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Date] = TODAY()
+			    )
+			VAR _patternSort =
+			    SELECTEDVALUE('Holiday Weekday Year Pattern'[Pattern Sort])
+			RETURN
+			    MINX(
+			        FILTER(
+			            ALL('Holiday Weekday Year Pattern'),
+			            'Holiday Weekday Year Pattern'[Pattern Sort] = _patternSort
+			                && 'Holiday Weekday Year Pattern'[Hebrew Year] >= _currentHebrewYear
+			        ),
+			        'Holiday Weekday Year Pattern'[Hebrew Year]
+			    )
+		formatString: 0
+		displayFolder: Pattern Occurrence
+		lineageTag: 09033790-7446-48cf-9bb8-8731d5c91ebb
+
+	/// Gregorian year containing 1 Tishrei of the next Hebrew year with the selected holiday weekday pattern.
+	measure 'Holiday Pattern Next Gregorian Start Year' =
+			VAR _targetHebrewYear = [Holiday Pattern Next Hebrew Year]
+			RETURN
+			    CALCULATE(
+			        MIN('Hebrew Date'[Gregorian Year Signed]),
+			        REMOVEFILTERS('Hebrew Date'),
+			        'Hebrew Date'[Hebrew Year] = _targetHebrewYear,
+			        'Hebrew Date'[Hebrew Month] = "Tishrei",
+			        'Hebrew Date'[Hebrew Day] = 1
+			    )
+		formatString: 0
+		displayFolder: Pattern Occurrence
+		lineageTag: 12908a0c-25d0-4e7e-95fc-f4c2da7d7da4
+
+	/// Hebrew year represented by this holiday weekday pattern row.
+	column 'Hebrew Year'
+		lineageTag: 6c36a778-479d-4388-bb08-acb6c205d450
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Hebrew Year]
+
+	/// Weekdays for the two Diaspora days of Rosh Hashanah.
+	column 'Rosh Hashanah I–II'
+		lineageTag: 6adaa952-2f49-4356-90d3-a3186563b1a0
+		isNameInferred
+		sourceColumn: [Rosh Hashanah I–II]
+
+	/// Weekday on which Yom Kippur falls.
+	column 'Yom Kippur'
+		lineageTag: f26f6bbd-042c-4969-8214-d2ce899895a8
+		isNameInferred
+		sourceColumn: [Yom Kippur]
+
+	/// Weekdays for the first two Diaspora days of Sukkot.
+	column 'Sukkot I–II'
+		lineageTag: 06fc9499-51c8-44d3-aaa5-629f4342a84d
+		isNameInferred
+		sourceColumn: [Sukkot I–II]
+
+	/// Weekdays for Shemini Atzeret and Simchat Torah in the Diaspora.
+	column 'Shemini Atzeret–Simchat Torah'
+		lineageTag: 0c8380fa-6ff6-4e2b-8b38-e556332938e7
+		isNameInferred
+		sourceColumn: [Shemini Atzeret–Simchat Torah]
+
+	/// Weekdays for the first two Diaspora days of Pesach.
+	column 'Pesach I–II'
+		lineageTag: 2d958da5-e658-4caa-b831-2984209e80e3
+		isNameInferred
+		sourceColumn: [Pesach I–II]
+
+	/// Weekdays for the final two Diaspora days of Pesach.
+	column 'Pesach VII–VIII'
+		lineageTag: 74c3c50a-356a-4274-bc6a-0e96af6e016d
+		isNameInferred
+		sourceColumn: [Pesach VII–VIII]
+
+	/// Weekdays for the two Diaspora days of Shavuot.
+	column 'Shavuot I–II'
+		lineageTag: 3a6b985e-8a51-4c5b-a591-295d05161d31
+		isNameInferred
+		sourceColumn: [Shavuot I–II]
+
+	/// Numeric sort key built from the Rosh Hashanah, Pesach I, and Shavuot I weekday numbers.
+	column 'Pattern Sort'
+		isHidden
+		lineageTag: 8315f075-34d5-46c0-a7c3-4e64ceed1690
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Pattern Sort]
+
+	partition 'Holiday Weekday Year Pattern' = calculated
+		mode: import
+		source =
+				VAR _sourceYears =
+				    ADDCOLUMNS(
+				        'Hebrew Year',
+				        "__PesachWeekday",
+				            CALCULATE(
+				                MIN('Hebrew Date'[Weekday Number]),
+				                'Hebrew Date'[Hebrew Month] = "Nisan",
+				                'Hebrew Date'[Hebrew Day] = 15
+				            ),
+				        "__ShavuotWeekday",
+				            CALCULATE(
+				                MIN('Hebrew Date'[Weekday Number]),
+				                'Hebrew Date'[Hebrew Month] = "Sivan",
+				                'Hebrew Date'[Hebrew Day] = 6
+				            )
+				    )
+				RETURN
+				    SELECTCOLUMNS(
+				        _sourceYears,
+				        "Hebrew Year", 'Hebrew Year'[Hebrew Year],
+				        "Rosh Hashanah I–II",
+				            VAR _weekday = 'Hebrew Year'[Rosh Hashanah Weekday]
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Yom Kippur",
+				            VAR _weekday = MOD('Hebrew Year'[Rosh Hashanah Weekday] + 2, 7)
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Sukkot I–II",
+				            VAR _weekday = 'Hebrew Year'[Rosh Hashanah Weekday]
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Shemini Atzeret–Simchat Torah",
+				            VAR _weekday = 'Hebrew Year'[Rosh Hashanah Weekday]
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Pesach I–II",
+				            VAR _weekday = [__PesachWeekday]
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Pesach VII–VIII",
+				            VAR _weekday = MOD([__PesachWeekday] + 6, 7)
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Shavuot I–II",
+				            VAR _weekday = [__ShavuotWeekday]
+				            RETURN SWITCH(_weekday, 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat") & "–" & SWITCH(MOD(_weekday + 1, 7), 0, "Sunday", 1, "Monday", 2, "Tuesday", 3, "Wednesday", 4, "Thursday", 5, "Friday", 6, "Shabbat"),
+				        "Pattern Sort",
+				            'Hebrew Year'[Rosh Hashanah Weekday] * 100
+				                + [__PesachWeekday] * 10
+				                + [__ShavuotWeekday]
+				    )

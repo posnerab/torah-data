@@ -18,10 +18,6 @@ $embeddedCredentialHints = @(
     $tmdlFiles | Select-String -Pattern $credentialHintPattern
 )
 
-if (@($urls).Count -eq 0) {
-    throw "No raw.githubusercontent.com sources were found under $semanticModelPath."
-}
-
 $sourceResults = foreach ($url in $urls) {
     try {
         $response = Invoke-WebRequest `

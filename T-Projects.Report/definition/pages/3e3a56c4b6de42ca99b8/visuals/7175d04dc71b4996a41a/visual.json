@@ -1,0 +1,405 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "7175d04dc71b4996a41a",
+  "position": {
+    "x": 40,
+    "y": 125,
+    "z": 2000,
+    "height": 915,
+    "width": 1840,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Combined Reading Names"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Combined Reading Names",
+              "nativeQueryRef": "Combined Reading Names",
+              "displayName": "Reading"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Summary English"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Summary English",
+              "nativeQueryRef": "Summary English",
+              "displayName": "Torah Reading"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Haftarah Reading English"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Haftarah Reading English",
+              "nativeQueryRef": "Haftarah Reading English",
+              "displayName": "Haftarah Reading"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Last Torah Reading Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Last Torah Reading Date",
+              "nativeQueryRef": "Last Torah Reading Date",
+              "displayName": "Last Read"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Last Torah Reading Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Last Torah Reading Hebrew Date",
+              "nativeQueryRef": "Last Torah Reading Hebrew Date",
+              "displayName": "Last Hebrew Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Next Torah Reading Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Next Torah Reading Date",
+              "nativeQueryRef": "Next Torah Reading Date",
+              "displayName": "Next Read"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Next Torah Reading Hebrew Date"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Next Torah Reading Hebrew Date",
+              "nativeQueryRef": "Next Torah Reading Hebrew Date",
+              "displayName": "Next Hebrew Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Hebcal Reading Definition"
+                    }
+                  },
+                  "Property": "Torah Reading Spread Days"
+                }
+              },
+              "queryRef": "Hebcal Reading Definition.Torah Reading Spread Days",
+              "nativeQueryRef": "Torah Reading Spread Days",
+              "displayName": "Days Between"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Hebcal Reading Definition"
+                  }
+                },
+                "Property": "Torah Reading Spread Days"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fitToContent'"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "220D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Combined Reading Names"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "270D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Summary English"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "250D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Haftarah Reading English"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "180D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Last Torah Reading Date"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "170D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Last Torah Reading Hebrew Date"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "180D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Next Torah Reading Date"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "170D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Next Torah Reading Hebrew Date"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "140D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Hebcal Reading Definition.Torah Reading Spread Days"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3342c19623f74903ba65",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Hebcal Reading Definition"
+              }
+            },
+            "Property": "Combined Reading Pair Complete"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "h",
+              "Entity": "Hebcal Reading Definition",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 1,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "h"
+                        }
+                      },
+                      "Property": "Combined Reading Pair Complete"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "0L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "isLockedInViewMode": true
+      }
+    ]
+  }
+}

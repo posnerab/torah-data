@@ -52,6 +52,7 @@ ref table 'Hebcal Reading Definition'
 ref table 'Hebcal Reading Parasha'
 ref table 'Hebcal Reading Passage'
 ref table 'Hebcal Reading Occurrence'
+ref table 'Holiday Weekday Year Pattern'
 
 ref cultureInfo en-US
 

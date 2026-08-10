@@ -16,8 +16,6 @@ table Haftaros
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column 'Hebrew Date'
 		dataType: string
 		lineageTag: ae1dde6f-91ed-4d02-a71f-d0b8cc7dd53b

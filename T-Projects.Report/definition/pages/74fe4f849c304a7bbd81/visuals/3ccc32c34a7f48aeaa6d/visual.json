@@ -1,0 +1,677 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "3ccc32c34a7f48aeaa6d",
+  "position": {
+    "x": 40,
+    "y": 125,
+    "z": 2000,
+    "height": 915,
+    "width": 1840,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Rosh Hashanah I–II"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Rosh Hashanah I–II",
+              "nativeQueryRef": "Rosh Hashanah I–II",
+              "displayName": "Rosh Hashanah I–II"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Yom Kippur"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Yom Kippur",
+              "nativeQueryRef": "Yom Kippur"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Sukkot I–II"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Sukkot I–II",
+              "nativeQueryRef": "Sukkot I–II"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Shemini Atzeret–Simchat Torah"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Shemini Atzeret–Simchat Torah",
+              "nativeQueryRef": "Shemini Atzeret–Simchat Torah",
+              "displayName": "Shemini Atzeret–Simchat Torah"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Pesach I–II"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Pesach I–II",
+              "nativeQueryRef": "Pesach I–II"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Pesach VII–VIII"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Pesach VII–VIII",
+              "nativeQueryRef": "Pesach VII–VIII"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Shavuot I–II"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Shavuot I–II",
+              "nativeQueryRef": "Shavuot I–II"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Year Count"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Year Count",
+              "nativeQueryRef": "Holiday Pattern Year Count",
+              "displayName": "Year Count"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Last Hebrew Year"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Last Hebrew Year",
+              "nativeQueryRef": "Holiday Pattern Last Hebrew Year",
+              "displayName": "Last Hebrew Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Last Gregorian Start Year"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Last Gregorian Start Year",
+              "nativeQueryRef": "Holiday Pattern Last Gregorian Start Year",
+              "displayName": "Last English Start Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Next Hebrew Year"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Next Hebrew Year",
+              "nativeQueryRef": "Holiday Pattern Next Hebrew Year",
+              "displayName": "Next Hebrew Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Next Gregorian Start Year"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Next Gregorian Start Year",
+              "nativeQueryRef": "Holiday Pattern Next Gregorian Start Year",
+              "displayName": "Next English Start Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Holiday Weekday Year Pattern"
+                    }
+                  },
+                  "Property": "Holiday Pattern Example Years"
+                }
+              },
+              "queryRef": "Holiday Weekday Year Pattern.Holiday Pattern Example Years",
+              "nativeQueryRef": "Holiday Pattern Example Years",
+              "displayName": "Example Years"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Holiday Weekday Year Pattern"
+                  }
+                },
+                "Property": "Holiday Pattern Year Count"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fitToContent'"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "155D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Rosh Hashanah I–II"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "95D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Yom Kippur"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Sukkot I–II"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "180D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Shemini Atzeret–Simchat Torah"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Pesach I–II"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Pesach VII–VIII"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Shavuot I–II"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Year Count"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "105D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Last Hebrew Year"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "115D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Last Gregorian Start Year"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "105D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Next Hebrew Year"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "115D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Next Gregorian Start Year"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "220D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Holiday Weekday Year Pattern.Holiday Pattern Example Years"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "863cad9600a15943c6c2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Rosh Hashanah I–II"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "61f915f2584d02c9486b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Yom Kippur"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "399738945e00b76ca9dc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Sukkot I–II"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f6aa0f7d1c02d291429d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Shemini Atzeret–Simchat Torah"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fa14009223e620473a14",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Pesach I–II"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "66c38134720a0c8245a8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Pesach VII–VIII"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7aabd71c90a72bce00b0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Shavuot I–II"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "faf931158313ce50731a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Year Count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9ad0df3e7cf14458a1b0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Last Hebrew Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "41f638fe4f7f42edbc4e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Last Gregorian Start Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "03c885abdd0d4f24bdc5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Next Hebrew Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ea8a1b669f0c45f385bd",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Next Gregorian Start Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f976c4ff8b9837405226",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Holiday Weekday Year Pattern"
+              }
+            },
+            "Property": "Holiday Pattern Example Years"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

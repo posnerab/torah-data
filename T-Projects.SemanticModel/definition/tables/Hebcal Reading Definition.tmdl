@@ -4,6 +4,132 @@ table 'Hebcal Reading Definition'
 	excludeFromModelRefresh
 	lineageTag: e4d7b6d6-90fd-4854-bafa-cfe0d0fb5714
 
+	/// Most recent date before today when the canonical Torah reading occurred in the Diaspora schedule.
+	measure 'Last Torah Reading Date' =
+			VAR _definitionKeys =
+			    VALUES('Hebcal Reading Definition'[Reading Definition Key])
+			VAR _occurrences =
+			    CALCULATETABLE(
+			        'Hebcal Reading Occurrence',
+			        REMOVEFILTERS('Hebcal Reading Occurrence'),
+			        REMOVEFILTERS('Hebrew Date'),
+			        TREATAS(_definitionKeys, 'Hebcal Reading Occurrence'[Reading Definition Key]),
+			        'Hebcal Reading Occurrence'[Schedule Key] = 0
+			    )
+			RETURN
+			    MAXX(
+			        FILTER(
+			            _occurrences,
+			            RELATED('Hebrew Date'[Date]) < TODAY()
+			        ),
+			        RELATED('Hebrew Date'[Date])
+			    )
+		formatString: Long Date
+		displayFolder: Torah Reading Schedule
+		lineageTag: 94a1b200-3178-4fd5-a865-bef02df6ed15
+
+	/// Next date on or after today when the canonical Torah reading occurs in the Diaspora schedule.
+	measure 'Next Torah Reading Date' =
+			VAR _definitionKeys =
+			    VALUES('Hebcal Reading Definition'[Reading Definition Key])
+			VAR _occurrences =
+			    CALCULATETABLE(
+			        'Hebcal Reading Occurrence',
+			        REMOVEFILTERS('Hebcal Reading Occurrence'),
+			        REMOVEFILTERS('Hebrew Date'),
+			        TREATAS(_definitionKeys, 'Hebcal Reading Occurrence'[Reading Definition Key]),
+			        'Hebcal Reading Occurrence'[Schedule Key] = 0
+			    )
+			RETURN
+			    MINX(
+			        FILTER(
+			            _occurrences,
+			            RELATED('Hebrew Date'[Date]) >= TODAY()
+			        ),
+			        RELATED('Hebrew Date'[Date])
+			    )
+		formatString: Long Date
+		displayFolder: Torah Reading Schedule
+		lineageTag: 4256f93b-89f2-42a8-bcf7-8ce226ff79ce
+
+	/// Hebrew date for the most recent Diaspora occurrence of the canonical Torah reading.
+	measure 'Last Torah Reading Hebrew Date' =
+			VAR _date = [Last Torah Reading Date]
+			RETURN
+			    IF(
+			        NOT ISBLANK(_date),
+			        CALCULATE(
+			            SELECTEDVALUE('Hebrew Date'[Hebrew Date English]),
+			            REMOVEFILTERS('Hebrew Date'),
+			            'Hebrew Date'[Date] = _date
+			        )
+			    )
+		displayFolder: Torah Reading Schedule
+		lineageTag: 8c89c717-ba48-42a9-aa83-2acdc3cf4e9f
+
+	/// Hebrew date for the next Diaspora occurrence of the canonical Torah reading.
+	measure 'Next Torah Reading Hebrew Date' =
+			VAR _date = [Next Torah Reading Date]
+			RETURN
+			    IF(
+			        NOT ISBLANK(_date),
+			        CALCULATE(
+			            SELECTEDVALUE('Hebrew Date'[Hebrew Date English]),
+			            REMOVEFILTERS('Hebrew Date'),
+			            'Hebrew Date'[Date] = _date
+			        )
+			    )
+		displayFolder: Torah Reading Schedule
+		lineageTag: 06da2f8e-4c95-492f-a346-5b7f3edfaec7
+
+	/// Number of days between the prior and next Diaspora occurrences of the canonical Torah reading.
+	measure 'Torah Reading Spread Days' =
+			VAR _lastDate = [Last Torah Reading Date]
+			VAR _nextDate = [Next Torah Reading Date]
+			RETURN
+			    IF(
+			        NOT ISBLANK(_lastDate) && NOT ISBLANK(_nextDate),
+			        DATEDIFF(_lastDate, _nextDate, DAY)
+			    )
+		formatString: #,##0
+		displayFolder: Torah Reading Schedule
+		lineageTag: 5b883d96-4fee-4cbb-9d41-aa7ea8f2994b
+
+	/// Distinct Hebcal reading names represented by the selected Torah and Haftarah passage combination.
+	measure 'Combined Reading Names' =
+			CONCATENATEX(
+			    VALUES('Hebcal Reading Definition'[Name English]),
+			    'Hebcal Reading Definition'[Name English],
+			    ", ",
+			    'Hebcal Reading Definition'[Name English],
+			    ASC
+			)
+		displayFolder: Combined Reading Schedule
+		lineageTag: 78231ed2-72ff-41ed-a242-d90bdeb8cac9
+
+	/// Returns 1 when the selected Torah-Haftarah pair has nonblank passages and both prior and next Diaspora occurrences; used to filter combined-reading visuals.
+	measure 'Combined Reading Pair Complete' =
+			VAR _torahReading =
+			    SELECTEDVALUE('Hebcal Reading Definition'[Summary English])
+			VAR _haftarahReading =
+			    SELECTEDVALUE('Hebcal Reading Definition'[Haftarah Reading English])
+			VAR _lastDate = [Last Torah Reading Date]
+			VAR _nextDate = [Next Torah Reading Date]
+			RETURN
+			    IF(
+			        NOT ISBLANK(_torahReading)
+			            && _torahReading <> ""
+			            && NOT ISBLANK(_haftarahReading)
+			            && _haftarahReading <> ""
+			            && NOT ISBLANK(_lastDate)
+			            && NOT ISBLANK(_nextDate),
+			        1
+			    )
+		formatString: 0
+		isHidden
+		displayFolder: Combined Reading Schedule
+		lineageTag: d61a1053-8ecf-4086-a5ff-2a9bdf534498
+
 	/// Dense one-based key within powerbi-readings-v1.
 	column 'Reading Definition Key'
 		dataType: int64
@@ -57,6 +183,32 @@ table 'Hebcal Reading Definition'
 		dataType: string
 		lineageTag: e17fc9a9-89c0-4c98-bb36-205e801c2530
 		sourceColumn: Summary Ashkenazi
+
+	/// English Haftarah passage ranges associated with this canonical reading definition, ordered as supplied by Hebcal.
+	column 'Haftarah Reading English' =
+			VAR _passages =
+			    FILTER(
+			        RELATEDTABLE('Hebcal Reading Passage'),
+			        'Hebcal Reading Passage'[Passage Kind] = "haft"
+			    )
+			RETURN
+			    CONCATENATEX(
+			        _passages,
+			        VAR _book = 'Hebcal Reading Passage'[Book English]
+			        VAR _begin = 'Hebcal Reading Passage'[Begin Reference English]
+			        VAR _end = 'Hebcal Reading Passage'[End Reference English]
+			        RETURN
+			            _book & " " & _begin &
+			            IF(
+			                NOT ISBLANK(_end) && _end <> _begin,
+			                "-" & _end
+			            ),
+			        "; ",
+			        'Hebcal Reading Passage'[Passage Index],
+			        ASC
+			    )
+		lineageTag: 5bbdd4bc-f4e6-41e4-959a-d1d5b76a1a11
+		summarizeBy: none
 
 	partition 'Hebcal Reading Definition' = m
 		mode: import
