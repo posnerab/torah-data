@@ -1,62 +1,3 @@
-/// Gets the location-authoritative current Milwaukee date from Hebcal and returns only variables in the static definition contract.
-expression 'Zmanim Today Unpivoted' =
-		let
-		    Source = Json.Document(
-		        Web.Contents(
-		            "https://www.hebcal.com",
-		            [
-		                RelativePath = "zmanim",
-		                Query = [cfg = "json", zip = "53216", sec = "1"]
-		            ]
-		        )
-		    ),
-		    ApiDate = Date.FromText(Source[date]),
-		    Times = Record.ToTable(Source[times]),
-		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value"}}),
-		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
-		    WithDate = Table.AddColumn(Filtered, "ApiDate", each ApiDate, type date),
-		    Typed = Table.TransformColumnTypes(WithDate, {{"Attribute", type text}, {"Value", type datetimezone}})
-		in
-		    Typed
-	lineageTag: 7307c1dc-a09e-429d-9c40-c761fb7a32fe
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-/// Gets elevation-adjusted Milwaukee zmanim for the exact date returned by the authoritative current response.
-expression 'Zmanim Today Unpivoted Elevation' =
-		let
-		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
-		    Source = Json.Document(
-		        Web.Contents(
-		            "https://www.hebcal.com",
-		            [
-		                RelativePath = "zmanim",
-		                Query = [
-		                    cfg = "json",
-		                    zip = "53216",
-		                    sec = "1",
-		                    ue = "on",
-		                    date = Date.ToText(ApiDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
-		                ]
-		            ]
-		        )
-		    ),
-		    Times = Record.ToTable(Source[times]),
-		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_Elevation"}}),
-		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
-		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_Elevation", type datetimezone}})
-		in
-		    Typed
-	lineageTag: 881ce347-03bc-47bc-a10a-6e92063660ae
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 /// Static 25-row semantic definition table. Edit this inline contract directly; it has no external refresh source.
 expression 'Zmanim Definitions' =
 		let
@@ -99,70 +40,6 @@ expression 'Zmanim Definitions' =
 
 	annotation PBI_ResultType = Table
 
-/// Gets Milwaukee zmanim for exactly seven days before the date returned by the authoritative current response.
-expression 'Zmanim Last Week Unpivoted' =
-		let
-		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
-		    TargetDate = Date.AddDays(ApiDate, -7),
-		    Source = Json.Document(
-		        Web.Contents(
-		            "https://www.hebcal.com",
-		            [
-		                RelativePath = "zmanim",
-		                Query = [
-		                    cfg = "json",
-		                    zip = "53216",
-		                    sec = "1",
-		                    date = Date.ToText(TargetDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
-		                ]
-		            ]
-		        )
-		    ),
-		    Times = Record.ToTable(Source[times]),
-		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_OneWeekAgo"}}),
-		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
-		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_OneWeekAgo", type datetimezone}})
-		in
-		    Typed
-	lineageTag: 95a36789-0487-4dd2-9abe-cf5a3a74c7a9
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
-/// Gets Milwaukee zmanim for exactly one day before the date returned by the authoritative current response.
-expression 'Zmanim Yesterday Unpivoted' =
-		let
-		    ApiDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
-		    TargetDate = Date.AddDays(ApiDate, -1),
-		    Source = Json.Document(
-		        Web.Contents(
-		            "https://www.hebcal.com",
-		            [
-		                RelativePath = "zmanim",
-		                Query = [
-		                    cfg = "json",
-		                    zip = "53216",
-		                    sec = "1",
-		                    date = Date.ToText(TargetDate, [Format = "yyyy-MM-dd", Culture = "en-US"])
-		                ]
-		            ]
-		        )
-		    ),
-		    Times = Record.ToTable(Source[times]),
-		    Renamed = Table.RenameColumns(Times, {{"Name", "Attribute"}, {"Value", "Value_Yesterday"}}),
-		    Filtered = Table.SelectRows(Renamed, each List.Contains(#"Zmanim Definitions"[Variable], [Attribute])),
-		    Typed = Table.TransformColumnTypes(Filtered, {{"Attribute", type text}, {"Value_Yesterday", type datetimezone}})
-		in
-		    Typed
-	lineageTag: d51ef750-dbe4-45cd-b01e-9ad9a5c3bf63
-	queryGroup: Zmanim
-
-	annotation PBI_NavigationStepName = Navigation
-
-	annotation PBI_ResultType = Table
-
 /// Local path to the finalized immutable Hebcal corpus v1 Parquet partitions. Change only when relocating the corpus; core data is not regenerated.
 expression 'Hebcal Corpus Path' = "G:\Projects\torah-data\data\hebcal\corpus-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 68d66809-1897-47fa-938c-cba1952fad3c
@@ -196,4 +73,9 @@ expression 'Power BI Static Path' = "G:\Projects\torah-data\data\powerbi-static-
 	lineageTag: c8e86a9a-4e6a-46bb-8f41-fa9872ba05d7
 
 	annotation PBI_ResultType = Text
+
+/// Local path to the immutable Milwaukee Zmanim v1 Parquet. Relocate only; the table is loaded once and excluded from ordinary refresh.
+expression 'Zmanim Data Path' = "G:\Projects\torah-data\data\hebcal\zmanim-milwaukee-v1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 83b71cbf-dfb2-4a13-9461-9a4330399780
+	queryGroup: Zmanim
 

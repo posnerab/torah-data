@@ -193,6 +193,22 @@ side-by-side, compare every column, then change only the existing `Hebcal`
 partition and exclude it from routine refresh. See
 [schemas/powerbi-compatibility-v1.md](schemas/powerbi-compatibility-v1.md).
 
+## One-time Milwaukee Zmanim materialization
+
+Materialize the location-specific Zmanim surface once from the pinned local
+`@hebcal/core` calculation library:
+
+```powershell
+G:\Projects\.venv\Scripts\python.exe `
+  scripts\hebcal\materialize_powerbi_zmanim.py
+```
+
+The immutable default output is `data\hebcal\zmanim-milwaukee-v1`. It covers
+1900-03-01 through 2240-09-16 (29 Elul 6000), retains the existing 25-variable
+model grain, and validates its 2025-2027 overlap against the compatibility
+partition. The semantic model imports it once, excludes it from Refresh All,
+and uses report-time relative-date filters for today.
+
 ## One-time curated semantic-table materialization
 
 The remaining small curated tables are independent of the all-years Hebcal

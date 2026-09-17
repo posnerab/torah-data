@@ -134,6 +134,12 @@ the materializer verifies the source hashes and compares every output row in
 both directions. These Parquet files replace repeated Excel and Power Query
 processing without introducing a database service.
 
+`zmanim-milwaukee-v1` is a location-specific immutable derivative generated
+with the repository's pinned `@hebcal/core` version. Its long Parquet table
+preserves the existing semantic-model `Zmanim` grain and includes yesterday
+and one-week-prior values for every date. It covers the Power BI-compatible
+date range through 29 Elul 6000 and is never regenerated in place.
+
 ## Migration sequence
 
 1. Lock `corpus-v1` and the exact Hebcal package versions.

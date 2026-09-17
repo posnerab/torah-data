@@ -34,3 +34,10 @@ normalized projections. It also retains the already-loaded 2025–2027 Milwaukee
 zmanim overlay. The compatibility artifact is imported once, validated
 side-by-side, and then excluded from ordinary refresh; it is not an all-years
 duplicate and is never regenerated.
+
+`zmanim-milwaukee-v1` is the immutable location-specific companion artifact.
+It contains 25 Zmanim definition rows for every Gregorian date from 1900-03-01
+through 2240-09-16 (29 Elul 6000), including elevation, yesterday, and
+one-week-prior values. The existing 2025-2027 compatibility overlay validates
+25,185 calculated values within the recorded three-second API serialization
+tolerance. It is imported once and never scheduled for refresh.

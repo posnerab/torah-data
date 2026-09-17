@@ -84,24 +84,11 @@ itself exercise a write-time path. During initial setup, a temporary hidden
 measure was created, queried, saved, deleted, and saved again through the live
 Desktop XMLA endpoint to verify unattended writes and persistence.
 
-Refresh only the live `Zmanim` partition, then run an XMLA calculation pass so
-its dependent calculated objects and the small `TODAY()` projections are
-current:
-
-```powershell
-npm --prefix .\scripts\powerbi run refresh:model
-```
-
-The routine command uses a targeted
-`partition_operations/RefreshWithXMLA` request followed by
-`model_operations/RefreshWithXMLA` with refresh type `Calculate`. It never
-submits the 20 immutable tables for data refresh. Zmanim definitions are inline
-in the semantic model; the query no longer opens either tracked Zmanim
-workbook. It calls Hebcal for the API-reported current Milwaukee date, that
-same date with elevation enabled, one day earlier, and seven days earlier. It
-requires only the Hebcal web-source credentials and privacy level to have been
-saved once in the Desktop profile. This machine now has Anonymous/Public
-settings saved for `www.hebcal.com`.
+Routine or scheduled refresh is not required. The `Zmanim` partition is a
+one-time import from `data/hebcal/zmanim-milwaukee-v1/zmanim.parquet`, is
+excluded from Refresh All, and contains every model-supported date through 29
+Elul 6000. Page-level relative-date filters select today at query time. The
+model no longer needs Hebcal web-source credentials.
 
 Only migration and recovery validation should deliberately full-refresh every
 partition:
@@ -111,7 +98,7 @@ npm --prefix .\scripts\powerbi run refresh:model:full-migration
 ```
 
 That command bypasses `excludeFromModelRefresh` by explicitly enumerating every
-partition. Do not use it for routine or scheduled Zmanim updates.
+partition. Do not use it for routine or scheduled updates.
 
 Use the registered MCP for semantic-model changes so changes apply to the live
 Desktop model. The report-authoring bridge does not replace Modeling MCP for

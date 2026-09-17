@@ -1,4 +1,6 @@
+/// Immutable Milwaukee Zmanim from 1900-03-01 through 29 Elul 6000. Relative-date report filters select today; no scheduled refresh is required.
 table Zmanim
+	excludeFromModelRefresh
 	lineageTag: 29de61c5-7ee7-4685-a677-e7b0ffec528f
 
 	measure Day_Length = ```
@@ -692,24 +694,54 @@ table Zmanim
 
 		annotation UnderlyingDateTimeDataType = Time
 
+	/// Immutable Milwaukee daily Zmanim through Hebrew year 6000. Loaded once from committed Parquet; report-time relative-date filters select today.
 	partition Zmanim = m
 		mode: import
 		queryGroup: Zmanim
 		source =
 				let
-				    CurrentDate = List.First(#"Zmanim Today Unpivoted"[ApiDate]),
-				    Source = Table.NestedJoin(#"Zmanim Definitions", {"Variable"}, #"Zmanim Today Unpivoted", {"Attribute"}, "Today_Unpivot", JoinKind.LeftOuter),
-				    #"Merged Queries" = Table.NestedJoin(Source, {"Variable"}, #"Zmanim Today Unpivoted Elevation", {"Attribute"}, "Today_Unpivot_Elevation", JoinKind.LeftOuter),
-				    #"Merged Queries1" = Table.NestedJoin(#"Merged Queries", {"Variable"}, #"Zmanim Yesterday Unpivoted", {"Attribute"}, "Zmanim Yesterday Unpivoted", JoinKind.LeftOuter),
-				    #"Merged Queries2" = Table.NestedJoin(#"Merged Queries1", {"Variable"}, #"Zmanim Last Week Unpivoted", {"Attribute"}, "Zmanim Last Week Unpivoted", JoinKind.LeftOuter),
-				    #"Expanded Today_Unpivot" = Table.ExpandTableColumn(#"Merged Queries2", "Today_Unpivot", {"Value"}, {"Value"}),
-				    #"Expanded Today_Unpivot_Elevation" = Table.ExpandTableColumn(#"Expanded Today_Unpivot", "Today_Unpivot_Elevation", {"Value_Elevation"}, {"Value_Elevation"}),
-				    #"Expanded Zmanim Yesterday Unpivoted" = Table.ExpandTableColumn(#"Expanded Today_Unpivot_Elevation", "Zmanim Yesterday Unpivoted", {"Value_Yesterday"}, {"Value_Yesterday"}),
-				    #"Expanded Zmanim Last Week Unpivoted" = Table.ExpandTableColumn(#"Expanded Zmanim Yesterday Unpivoted", "Zmanim Last Week Unpivoted", {"Value_OneWeekAgo"}, {"Value_OneWeekAgo"}),
-				    #"Added Custom" = Table.AddColumn(#"Expanded Zmanim Last Week Unpivoted", "Date", each CurrentDate, type date),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom", {{"Value", type datetimezone}, {"Value_Elevation", type datetimezone}, {"Value_Yesterday", type datetimezone}, {"Value_OneWeekAgo", type datetimezone}})
+				    Source = Parquet.Document(File.Contents(#"Zmanim Data Path" & "\zmanim.parquet")),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"Date", type date},
+				            {"Variable", type text},
+				            {"Value", type datetime},
+				            {"Value_Elevation", type datetime},
+				            {"Value_Yesterday", type datetime},
+				            {"Value_OneWeekAgo", type datetime}
+				        }
+				    ),
+				    WithDefinitions = Table.NestedJoin(
+				        Typed,
+				        {"Variable"},
+				        #"Zmanim Definitions",
+				        {"Variable"},
+				        "Definition Row",
+				        JoinKind.LeftOuter
+				    ),
+				    ExpandedDefinitions = Table.ExpandTableColumn(
+				        WithDefinitions,
+				        "Definition Row",
+				        {"Definition", "Name", "Description"},
+				        {"Definition", "Name", "Description"}
+				    ),
+				    Reordered = Table.ReorderColumns(
+				        ExpandedDefinitions,
+				        {
+				            "Variable",
+				            "Definition",
+				            "Name",
+				            "Description",
+				            "Value",
+				            "Value_Elevation",
+				            "Date",
+				            "Value_Yesterday",
+				            "Value_OneWeekAgo"
+				        }
+				    )
 				in
-				    #"Changed Type"
+				    Reordered
 
 	annotation PBI_ResultType = Table
 

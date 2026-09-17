@@ -109,24 +109,26 @@ Power BI may add `MCP-PBIModeling` to the model's `PBI_ProTooling` annotation
 after MCP authoring. Treat that as expected tooling metadata, but still inspect
 every other saved TMDL diff.
 
-## Partition refresh
+## Partition loading and refresh
 
-Refresh all live partitions with:
+Routine and scheduled refresh are not required. Static imports, including
+`Zmanim`, use committed Parquet and are excluded from Refresh All. A new or
+relocated model may explicitly load every partition once with:
 
 ```powershell
-npm --prefix .\scripts\powerbi run refresh:model
+npm --prefix .\scripts\powerbi run refresh:model:full-migration
 ```
 
-The command lists the exact partitions and submits a transactional
-`RefreshWithXMLA` full refresh with a 20-minute client timeout. Afterward, list
-partitions again and require every state to be `Ready`. Also run focused DAX
-row counts for important imported tables; a successful command alone is not
-enough.
+The command explicitly enumerates the partitions and submits a transactional
+`RefreshWithXMLA` full refresh. Use it only for initial load, relocation, or
+migration validation. Afterward, list partitions again and require every state
+to be `Ready`. Also run focused DAX row counts for important imported tables;
+a successful command alone is not enough.
 
 The verified imported-table row counts from the 2026-07-26 setup were:
 
 ```text
-Zmanim=25
+Zmanim=3109575
 Holidays=98
 Pasukim=5863
 Parashiyos=61
@@ -136,10 +138,8 @@ Haftaros=78
 Parasha-Mitzvos=781
 ```
 
-Treat these as a verification snapshot, not permanent assertions. Source data
-may legitimately change. The direct MCP all-partition refresh was verified
-with all 15 partitions `Ready`; the packaged `refresh:model` wrapper was added
-after that live run and should be exercised the next time Desktop is open.
+Treat these as a verification snapshot, not permanent assertions. The Zmanim
+count is the immutable 124,383-date by 25-variable grid through 29 Elul 6000.
 
 ## PBIR edit, reload, and screenshot workflow
 
@@ -205,8 +205,9 @@ BI store. The presence of `Credentials/Credentials.bin` does not identify a
 GitHub credential or authentication kind. Never decrypt, rewrite, inject a
 PAT into, copy, log, or commit this archive.
 
-Keep `www.hebcal.com` Anonymous with a Public privacy level. If GitHub web
-sources are introduced again, keep public URLs Anonymous/Public as well.
+The model no longer calls `www.hebcal.com`; no Hebcal web credential is
+required. If GitHub web sources are introduced again, keep public URLs
+Anonymous/Public.
 
 If the repository becomes private, do not reuse the broad `gh` CLI OAuth token.
 Use a dedicated expiring fine-grained PAT with repository Contents read-only,

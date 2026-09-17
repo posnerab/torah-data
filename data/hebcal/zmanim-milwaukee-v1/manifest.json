@@ -1,0 +1,65 @@
+{
+  "date_range": {
+    "end": "2240-09-16",
+    "start": "1900-03-01"
+  },
+  "file": {
+    "bytes": 65630413,
+    "path": "zmanim.parquet",
+    "sha256": "73b971d25eb025008718b9abf862932fa084bbe67326712e0af76b355c3cbbcf"
+  },
+  "location": {
+    "city": "Milwaukee",
+    "elevation": 680,
+    "latitude": 43.088013,
+    "longitude": -87.977046,
+    "tzid": "America/Chicago",
+    "zip": "53216"
+  },
+  "materialization_version": "zmanim-milwaukee-v1",
+  "source": {
+    "algorithm": "@hebcal/core Zmanim NOAA calculations",
+    "generator": "scripts/hebcal/generate_zmanim_csv.mjs",
+    "generator_sha256": "45a8b8388940bdcff126b432c589841aa31ee35d67d79cb59e778f1c5195bd83",
+    "materializer_sha256": "612412eecd64da348e3b212cea686aa61de451dc9446065092973264cf03404a",
+    "package_lock_sha256": "d35c3014085de8dafc27385d35703682d2776a973291ebc9a39b4958f185a261"
+  },
+  "validation": {
+    "dates": 124383,
+    "legacy_max_difference_seconds": 3.0,
+    "legacy_overlap_rows": 25185,
+    "legacy_tolerance_seconds": 3,
+    "max_date": "2240-09-16",
+    "min_date": "1900-03-01",
+    "populated_values": 2860809,
+    "rows": 3109575,
+    "variables": 25
+  },
+  "variables": [
+    "alotHaShachar",
+    "beinHaShmashos",
+    "chatzot",
+    "chatzotNight",
+    "dawn",
+    "dayLength",
+    "dusk",
+    "minchaGedola",
+    "minchaKetana",
+    "misheyakir",
+    "misheyakirMachmir",
+    "plagHaMincha",
+    "shaahZmanis",
+    "sofZmanShma",
+    "sofZmanShmaMGA",
+    "sofZmanShmaMGA16Point1",
+    "sofZmanTfilla",
+    "sofZmanTfillaMGA",
+    "sunrise",
+    "sunset",
+    "tzeit42min",
+    "tzeit50min",
+    "tzeit7083deg",
+    "tzeit72min",
+    "tzeit85deg"
+  ]
+}

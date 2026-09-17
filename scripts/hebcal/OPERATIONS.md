@@ -22,7 +22,7 @@ does not require regenerating an existing data version.
 | `data/hebcal/powerbi-readings-v1` | Normalized Parasha and leyning tables | Never |
 | `data/hebcal/powerbi-compatibility-v1` | Exact legacy `Hebcal` report contract | Never |
 | `data/powerbi-static-v1` | Small curated semantic-model tables | Never |
-| `Zmanim` semantic-model surface | Current Milwaukee times and comparisons | On demand or scheduled |
+| `data/hebcal/zmanim-milwaukee-v1` | Milwaukee times and comparisons through 29 Elul 6000 | Never |
 
 Static Import tables use `excludeFromModelRefresh`. A new Desktop model or a
 relocated artifact still needs one explicit table or partition refresh to load
@@ -60,8 +60,7 @@ edit the semantic model or report directly.
 
 ## Refresh boundary
 
-Scheduled refresh is not required for the immutable data. If current Zmanim
-must update unattended, target that small surface; do not re-enable refresh on
-the static tables. `TODAY()`-dependent calculated columns are a separate model
-concern: migrate them to measures or another small recalculated surface rather
-than refreshing millions of immutable date rows.
+Scheduled refresh is not required. Zmanim pages use relative-date filters that
+evaluate today at query time against the immutable daily table. Do not replace
+those filters with `TODAY()`-dependent calculated columns, which would freeze
+until a model calculation.

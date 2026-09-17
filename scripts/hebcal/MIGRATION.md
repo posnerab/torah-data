@@ -40,8 +40,9 @@ calculated columns, measures, and lineage intact.
    2025–2027 Milwaukee zmanim overlay.
 6. Change only the existing `Hebcal` partition after the full comparison,
    complete-column hashes, DAX checks, partition refresh, and Desktop save.
-7. Migrate visuals and relationships gradually to normalized tables. Move
-   Zmanim and `TODAY()`-dependent status into separate small model surfaces.
+7. Migrate visuals and relationships gradually to normalized tables. Load the
+   immutable Milwaukee Zmanim surface once and use report-time relative-date
+   filters instead of a daily API refresh or `TODAY()` calculated column.
 8. Export the exact imported-column values for the six remaining curated
    tables and materialize them once as `powerbi-static-v1`.
 9. Load those Parquet files side-by-side, compare complete rows in both
@@ -68,7 +69,8 @@ contract creates `powerbi-readings-v2`.
 - US business/vacation logic in `Holidays` is preserved in that same snapshot.
 - Curated fast-day and haftarah metadata is preserved there after exact
   equivalence validation.
-- Zmanim descriptions and location/current-date Milwaukee calculations.
+- Location-specific Milwaukee Zmanim are versioned separately under
+  `zmanim-milwaukee-v1`; they are not part of the location-independent core.
 - Personal yahrzeit, birthday, or anniversary inputs.
 - Daily-learning schedules, which require their own bounded immutable corpus
   versions.
