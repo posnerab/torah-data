@@ -74,3 +74,4 @@ table 'Hebcal Event Definition'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Event Definition Key", Int64.Type}, {"Event Class", type text}, {"Event Description", type text}, {"Event Basename", type text}, {"Event Flags", Int64.Type}, {"Title English", type text}, {"Title Hebrew", type text}, {"Title Ashkenazi", type text}})
 				in
 				    Typed
+

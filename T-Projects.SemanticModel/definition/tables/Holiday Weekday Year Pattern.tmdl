@@ -218,3 +218,4 @@ table 'Holiday Weekday Year Pattern'
 				                + [__PesachWeekday] * 10
 				                + [__ShavuotWeekday]
 				    )
+

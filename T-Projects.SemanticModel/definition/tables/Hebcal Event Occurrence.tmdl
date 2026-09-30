@@ -40,3 +40,4 @@ table 'Hebcal Event Occurrence'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Event Definition Key", Int64.Type}})
 				in
 				    Typed
+

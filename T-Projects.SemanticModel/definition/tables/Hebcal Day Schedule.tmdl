@@ -71,3 +71,4 @@ table 'Hebcal Day Schedule'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Hallel Level", Int64.Type}, {"Tachanun Shacharit", type logical}, {"Tachanun Mincha", type logical}, {"Tachanun All Congregations", type logical}, {"Tachanun Supported", type logical}, {"Eruv Tavshilin", type logical}})
 				in
 				    Typed
+

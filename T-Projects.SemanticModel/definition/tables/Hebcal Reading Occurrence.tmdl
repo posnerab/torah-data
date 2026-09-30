@@ -49,3 +49,4 @@ table 'Hebcal Reading Occurrence'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Schedule Key", Int64.Type}, {"Reading Index", Int64.Type}, {"Reading Definition Key", Int64.Type}})
 				in
 				    Typed
+

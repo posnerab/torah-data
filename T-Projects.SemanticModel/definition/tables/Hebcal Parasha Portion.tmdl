@@ -37,3 +37,4 @@ table 'Hebcal Parasha Portion'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Parasha Definition Key", Int64.Type}, {"Portion Index", Int64.Type}, {"Portion Name", type text}})
 				in
 				    Typed
+

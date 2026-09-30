@@ -91,3 +91,4 @@ table 'Hebrew Year'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Hebrew Year", Int64.Type}, {"First Absolute Day", Int64.Type}, {"Last Absolute Day", Int64.Type}, {"Days in Year", Int64.Type}, {"Is Leap Year", type logical}, {"Months in Year", Int64.Type}, {"Rosh Hashanah Weekday", Int64.Type}, {"Long Cheshvan", type logical}, {"Short Kislev", type logical}})
 				in
 				    Typed
+

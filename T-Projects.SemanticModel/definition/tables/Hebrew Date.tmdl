@@ -157,3 +157,4 @@ table 'Hebrew Date'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Absolute Day", Int64.Type}, {"Hebrew Year", Int64.Type}, {"Hebrew Month Number", Int64.Type}, {"Hebrew Month Index", Int64.Type}, {"Hebrew Month", type text}, {"Hebrew Day", Int64.Type}, {"Weekday Number", Int64.Type}, {"Hebrew Date English", type text}, {"Hebrew Date Hebrew", type text}, {"Hebrew Date Ashkenazi", type text}, {"Hebrew Date Gematria", type text}, {"Gregorian Year Signed", Int64.Type}, {"Gregorian Era", type text}, {"Gregorian Year of Era", Int64.Type}, {"Gregorian Month", Int64.Type}, {"Gregorian Day", Int64.Type}, {"Gregorian Date Text", type text}, {"Date", type date}})
 				in
 				    Typed
+

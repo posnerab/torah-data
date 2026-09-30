@@ -44,3 +44,4 @@ table 'Hebcal Reading Parasha'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Parasha Index", Int64.Type}, {"Parasha Name", type text}, {"Parasha Number", Int64.Type}})
 				in
 				    Typed
+

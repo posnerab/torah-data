@@ -219,3 +219,4 @@ table 'Hebcal Reading Definition'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Source Payload SHA-256", type text}, {"Reading Type", type text}, {"Name English", type text}, {"Name Hebrew", type text}, {"Summary English", type text}, {"Summary Hebrew", type text}, {"Summary Ashkenazi", type text}})
 				in
 				    Typed
+

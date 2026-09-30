@@ -53,3 +53,4 @@ table 'Hebcal Parasha Definition'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Parasha Definition Key", Int64.Type}, {"Is Combined", type logical}, {"Title English", type text}, {"Title Hebrew", type text}, {"Title Ashkenazi", type text}, {"Parasha Basename", type text}})
 				in
 				    Typed
+

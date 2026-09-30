@@ -230,3 +230,4 @@ table 'Hebcal Reading Passage'
 				    Typed = Table.TransformColumnTypes(RenamedColumns, {{"Reading Definition Key", Int64.Type}, {"Passage Kind", type text}, {"Passage Label", type text}, {"Passage Index", Int64.Type}, {"Book English", type text}, {"Book Hebrew", type text}, {"Book Ashkenazi", type text}, {"Begin Reference English", type text}, {"Begin Reference Hebrew", type text}, {"Begin Reference Ashkenazi", type text}, {"End Reference English", type text}, {"End Reference Hebrew", type text}, {"End Reference Ashkenazi", type text}, {"Verse Count", Int64.Type}, {"Parasha Number", Int64.Type}, {"Reason English", type text}, {"Reason Hebrew", type text}, {"Reason Ashkenazi", type text}, {"Note English", type text}, {"Note Hebrew", type text}, {"Note Ashkenazi", type text}})
 				in
 				    Typed
+
